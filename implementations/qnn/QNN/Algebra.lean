@@ -6,6 +6,10 @@ noncomputable section
 namespace QNN
 abbrev H := Quaternion ℝ
 
+/-- Real scalar multiplication commutes with quaternion conjugation. -/
+instance : StarModule ℝ H where
+  star_smul r q := by simp
+
 def basisI : H := ⟨0, 1, 0, 0⟩
 def basisJ : H := ⟨0, 0, 1, 0⟩
 def basisK : H := ⟨0, 0, 0, 1⟩

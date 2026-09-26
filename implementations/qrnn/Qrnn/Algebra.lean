@@ -197,7 +197,7 @@ theorem matrix_weight_pair {m n : ℕ} (dW : QMatrix m n) (x : QVector n) (g : Q
 /-- Real expansion preserves all independent quaternion parameters. -/
 theorem expand_injective {m n : ℕ} : Function.Injective (expand (m := m) (n := n)) := by
   intro W V h
-  ext i j
+  funext i j
   apply components_injective
   ext a
   have hc := congrFun (congrFun h (i, a)) (j, 0)

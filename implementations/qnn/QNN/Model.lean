@@ -19,7 +19,7 @@ def weightAction (w : H) : Pure →ₗ[ℝ] Pure := ‖w‖⁻¹ • conjugatePu
   apply pure_ext
   simp [weightAction]
 
- theorem weightAction_formula (w : H) (x : Pure) :
+theorem weightAction_formula (w : H) (x : Pure) :
     (weightAction w x : H) = ‖w‖⁻¹ • (w * (x : H) * star w) := rfl
 
 /-- The denominator preserves weight magnitude: this is a scaled rotation. -/

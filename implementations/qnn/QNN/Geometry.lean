@@ -127,7 +127,8 @@ theorem rodrigues (α : ℝ) (u v : Pure) (hu : ‖u‖ = 1) :
   have hs : 1 - Real.cos (2 * α) = 2 * Real.sin α ^ 2 := by
     rw [hc]; nlinarith [Real.cos_sq_add_sin_sq α]
   rw [hs, hc, Real.sin_two_mul]
-  congr 2 <;> ring
+  have hcomm : 2 * Real.cos α * Real.sin α = 2 * Real.sin α * Real.cos α := by ring
+  rw [hcomm]
 
 /-- Eq. (9) requires perpendicularity, but not a unit input vector. -/
 theorem rodrigues_orthogonal (α : ℝ) (u v : Pure) (hu : ‖u‖ = 1)

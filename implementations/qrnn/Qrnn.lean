@@ -1,3 +1,5 @@
-import Qrnn.Smoke
+import Qrnn.Algebra
+import Qrnn.Activation
+import Qrnn.Forward
 
-/-! Scaffold entry point. No network definitions or mathematical claims yet. -/
+/-! Quaternion recurrent network formalization. See `goal-1` for scope and status. -/
