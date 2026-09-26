@@ -41,8 +41,16 @@ empirical claims are clearly identified. Stage 3 and 5 must be complete.
 
 ## Stage Results
 
-In progress: consolidated AllAxioms/public-root build passed (2906 jobs), with
+Complete. Consolidated AllAxioms/public-root build passed (2906 jobs), with
 115 distinct actual reports restricted to propext, Classical.choice and Quot.sound.
-All nine private package HEADs match the lock. Final source/doc checks and explicit
-completion coverage record are being validated. RevisedLimitations checks both even-tie
+All nine private package HEADs match the lock. All 47 Lean sources pass hole/custom-axiom/unchecked-shortcut and import-boundary
+scans. Final source/doc checks and the requirement-by-requirement coverage record pass. RevisedLimitations checks both even-tie
 BF16 failure and wrong prediction at minimum residual width.
+
+Completion record: docs/COMPLETION.md. Original and revised proposal hashes unchanged.
+All local document links, prompt paths, stage status and whitespace/scoped diff checks
+pass. No warning or error in final-build.log. Local pinned/cached reproducibility is
+verified; fresh online bootstrap and source experiments are explicitly untested.
+
+Final explicit build of all 47 project modules, including optional diagnostics, passed
+with exit 0 (2914 jobs). No warnings/errors in goal-1/final-module-build.log.

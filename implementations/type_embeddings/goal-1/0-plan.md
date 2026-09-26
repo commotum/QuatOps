@@ -98,7 +98,7 @@ counterexamples and separately scoped extensions are not prerequisites. Example 
 coefficients for dT=64,dV=448,K=1; optional text is accounted separately.
 See `5-unified.md`.
 
-### 6. Numerical scope and final audit — in progress
+### 6. Numerical scope and final audit — complete
 
 **Outcome:** Exact representability and checked limitations, updated source map and
 complete axiom audit of the revised verified core, with clear remaining exclusions.
@@ -112,9 +112,14 @@ claim while stage 3 or stage 5 remains unfinished. See `6-final-audit.md`.
 
 ## Current verification state
 
-Stages 0–5 are complete. The public library includes revised even-tie decoding,
-residual-width TYPE/RGB heads, normalized typed joint law, positive-temperature
-reconstruction equivalence and structured count/work results. The consolidated audit
-passed for 115 distinct main declarations under the pinned setup. Stage 6 is completing
-final source/pin/import scans, faithful document coverage and scope review.
-No new theorem is needed unless that requirement-by-requirement review finds a gap.
+Stages 0–6 are complete for the requested revised mathematical core. The public library
+includes revised even-tie decoding, residual-width TYPE/RGB heads, normalized typed joint
+law, positive-temperature reconstruction equivalence and structured count/work results.
+The consolidated build/audit passed for 115 distinct main declarations; pin, source,
+import-boundary and document checks pass. See docs/COMPLETION.md and final-build.log.
+
+The separately classified Gaussian statistics, heap top-k, serialization, richer heads,
+FP32 execution, source experiments and empirical transformer/hardware claims are not
+formalized or asserted. Any later extension should establish its own assumptions and
+acceptance criteria. The continuation loop must inspect this completed state rather
+than restart implementation or invent an additional core stage.

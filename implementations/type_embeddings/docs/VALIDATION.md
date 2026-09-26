@@ -98,3 +98,15 @@ reopened stage-3 and pending stage-5 status, documentation whitespace and scoped
 proposed stage-5 leaf targets are distinguished from existing compiled modules.
 No Lean source, dependency pin or build configuration was changed in this refresh.
 No new Lean build was needed or run; earlier build evidence above remains historical.
+
+## Final source/document checks
+
+All 47 Lean sources pass scans for proof holes, custom axiom declarations and unchecked
+shortcuts. Internal/public imports do not depend on diagnostics or the umbrella module.
+Both proposal SHA256 fingerprints match, all local Markdown links and prompt paths
+resolve, stage status agrees with actual coverage, and documentation whitespace/scoped
+`git diff --check` pass. The final build log contains no warning/error.
+See COMPLETION.md for the full requirement-to-evidence audit.
+
+Final explicit build of all 47 project modules, including optional diagnostics, passed
+with exit 0 (2914 jobs). No warnings/errors in goal-1/final-module-build.log.

@@ -20,7 +20,8 @@ No trained transformer or FP32 execution engine is supplied.
 - [Plan](goal-1/0-plan.md), [loop](goal-1/0-loop.md), [continuation prompt](goal-1/0-prompt.md).
 - [Source map](docs/PROPOSAL_MAP.md), [theorem coverage](docs/THEOREM_OUTLINE.md).
 - [Corrections/axioms](docs/AUDIT.md), [dependencies](docs/DEPENDENCIES.md),
-  [validation](docs/VALIDATION.md), [incremental builds](docs/BUILD.md).
+  [validation](docs/VALIDATION.md), [completion audit](docs/COMPLETION.md),
+  [incremental builds](docs/BUILD.md).
 
 Lean 4.32.0 and mathlib `81a5d257c8e410db227a6665ed08f64fea08e997` are pinned;
 `lake-manifest.json` locks transitive revisions. From this directory, run `lake build`
