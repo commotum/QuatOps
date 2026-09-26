@@ -21,6 +21,7 @@ theorem groupedInverse_apply (w : ∀ j, Fin (n j) → Quaternion ℝ)
     (h : OutputSpace n) (j : J) :
     groupedInverse w h j = (groupEnergy w j)⁻¹ • groupedAdjoint w h j := rfl
 
+omit [Fintype J] in
 theorem groupedInverse_roundTrip (w : ∀ j, Fin (n j) → Quaternion ℝ)
     (hS : ∀ j, 0 < groupEnergy w j) (q : MRSpace J) :
     groupedInverse w (groupedEncoder w q) = q := by
@@ -30,6 +31,7 @@ theorem groupedInverse_roundTrip (w : ∀ j, Fin (n j) → Quaternion ℝ)
   rw [groupedInverse_apply, groupedGram_apply, smul_smul,
     inv_mul_cancel₀ (ne_of_gt (hS j)), one_smul]
 
+omit [Fintype J] in
 theorem groupedEncoder_injective (w : ∀ j, Fin (n j) → Quaternion ℝ)
     (hS : ∀ j, 0 < groupEnergy w j) : Function.Injective (groupedEncoder w) :=
   (show Function.LeftInverse (groupedInverse w) (groupedEncoder w) from
@@ -49,6 +51,7 @@ theorem group_nonempty (w : ∀ j, Fin (n j) → Quaternion ℝ)
   obtain ⟨i, _⟩ := (bankEnergy_pos_iff (w j)).mp (hS j)
   exact lt_of_le_of_lt (Nat.zero_le i.val) i.isLt
 
+omit [Fintype J] in
 theorem groupedInverse_eq_adjoint (w : ∀ j, Fin (n j) → Quaternion ℝ)
     (hS : ∀ j, groupEnergy w j = 1) : groupedInverse w = groupedAdjoint w := by
   apply LinearMap.ext
@@ -58,6 +61,7 @@ theorem groupedInverse_eq_adjoint (w : ∀ j, Fin (n j) → Quaternion ℝ)
   change groupedInverse w h j = groupedAdjoint w h j
   rw [groupedInverse_apply, hS j, inv_one, one_smul]
 
+omit [Fintype J] in
 theorem groupedUnit_gram (w : ∀ j, Fin (n j) → Quaternion ℝ)
     (hS : ∀ j, groupEnergy w j = 1) :
     (groupedAdjoint w).comp (groupedEncoder w) = LinearMap.id := by
@@ -68,6 +72,7 @@ theorem groupedUnit_gram (w : ∀ j, Fin (n j) → Quaternion ℝ)
   change groupedAdjoint w (groupedEncoder w q) j = q j
   rw [groupedGram_apply, hS j, one_smul]
 
+omit [Fintype J] in
 theorem groupedUnit_roundTrip (w : ∀ j, Fin (n j) → Quaternion ℝ)
     (hS : ∀ j, groupEnergy w j = 1) (q : MRSpace J) :
     groupedAdjoint w (groupedEncoder w q) = q :=
@@ -83,12 +88,14 @@ theorem groupedUnit_norm (w : ∀ j, Fin (n j) → Quaternion ℝ)
     (hS : ∀ j, groupEnergy w j = 1) (q : MRSpace J) : ‖groupedEncoder w q‖ = ‖q‖ := by
   rw [norm_eq_sqrt_real_inner, norm_eq_sqrt_real_inner, groupedUnit_inner w hS]
 
+omit [Fintype J] in
 /-- First Moore–Penrose identity for the unit-energy adjoint reader. -/
 theorem groupedUnit_penrose_encoder (w : ∀ j, Fin (n j) → Quaternion ℝ)
     (hS : ∀ j, groupEnergy w j = 1) :
     (groupedEncoder w).comp ((groupedAdjoint w).comp (groupedEncoder w)) = groupedEncoder w := by
   rw [groupedUnit_gram w hS, LinearMap.comp_id]
 
+omit [Fintype J] in
 /-- Second Moore–Penrose identity. -/
 theorem groupedUnit_penrose_reader (w : ∀ j, Fin (n j) → Quaternion ℝ)
     (hS : ∀ j, groupEnergy w j = 1) :
@@ -113,6 +120,7 @@ theorem groupedUnit_inverse_symmetric (w : ∀ j, Fin (n j) → Quaternion ℝ)
 def groupedResidual (w : ∀ j, Fin (n j) → Quaternion ℝ) (h : OutputSpace n) : OutputSpace n :=
   h - groupedEncoder w (groupedInverse w h)
 
+omit [Fintype J] in
 theorem groupedResidual_adjoint_zero (w : ∀ j, Fin (n j) → Quaternion ℝ)
     (hS : ∀ j, 0 < groupEnergy w j) (h : OutputSpace n) :
     groupedAdjoint w (groupedResidual w h) = 0 := by
