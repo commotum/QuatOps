@@ -11,8 +11,8 @@ Start with [goal-1/0-plan.md](goal-1/0-plan.md). Supporting documents:
 - [Theorem outline](goal-1/theorem-outline.md): intended statements and hypotheses.
 - [Validation](goal-1/validation.md): actual scaffold checks and build evidence.
 
-From this directory, use `lake update` to resolve the pinned dependency, then
-`MATHLIB_CACHE_DIR="$PWD/.cache/mathlib" lake exe cache get Mathlib/Algebra/Quaternion/Basic.lean`
+From this directory, use `MATHLIB_NO_CACHE_ON_UPDATE=1 lake update` to resolve the pinned dependency, then
+`MATHLIB_CACHE_DIR="$PWD/.cache/mathlib" lake exe cache get Mathlib.Algebra.Quaternion`
 and `lake build`. Keep generated caches in this directory. Commit the lockfile;
 never silently change the toolchain or dependency pins to make a proof build.
 

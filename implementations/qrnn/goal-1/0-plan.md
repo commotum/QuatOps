@@ -33,7 +33,7 @@ rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 
 ## Ordered stages
 
-### 0. Scaffold and stop — validation pending
+### 0. Scaffold and stop — complete; stopped
 - **Outcome:** paper map, audit targets, design/dependency notes, proposed statements,
   resumable goal files, and a minimal pinned Lean import smoke test.
 - **Focus:** scope and evidence for future work; no substantive implementation.
@@ -92,6 +92,7 @@ rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 
 ## Session handoff
 
-Current authorization ends at stage 0. Next action: validate scaffold, record its
-actual result, report, and wait. After explicit authorization, begin stage 1 by
+Current authorization ends at stage 0. Scaffold review and `lake build` passed
+on 2026-09-25; details are in `validation.md`. No substantive declarations exist.
+Next action: report the scaffold and wait for explicit instructions. After explicit authorization, begin stage 1 by
 inspecting quaternion/vector/matrix APIs and choosing component/block conventions.

@@ -1,6 +1,6 @@
 # Working rhythm
 
-This loop applies only after explicit authorization to continue beyond scaffolding.
+Continuation beyond scaffolding has been explicitly authorized; this loop is active.
 
 1. Sync `0-plan.md` with actual files, results, and completed work.
 2. Select the first unfinished stage.

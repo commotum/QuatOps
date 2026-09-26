@@ -6,7 +6,7 @@ Lean is pinned to `leanprover/lean4:v4.32.0`; mathlib to Git tag `v4.32.0` in
 `lakefile.toml`. Official matching toolchain reference:
 https://raw.githubusercontent.com/leanprover-community/mathlib4/v4.32.0/lean-toolchain
 The generated `lake-manifest.json` records the resolved immutable mathlib commit
-and transitive revisions once fetched. Keep `.lake` and mathlib cache here;
+and transitive revisions (resolved mathlib: `81a5d257c8e410db227a6665ed08f64fea08e997`). Keep `.lake` and mathlib cache here;
 do not reuse another paper's mutable project tree. See `validation.md` for actual
 fetch/build state. No Python or machine-learning runtime is a library dependency.
 
@@ -26,8 +26,12 @@ fetch/build state. No Python or machine-learning runtime is a library dependency
    architecture. Finite cardinalities + explicit arithmetic cost model → exact
    count identities and conditional asymptotics.
 
-The smoke test checks only `Mathlib.Algebra.Quaternion.Basic`; all other module
-paths and available lemma names must be checked in the pinned source at stage 1.
+The smoke test checks only `Mathlib.Algebra.Quaternion`; the pinned source also contains
+`Mathlib.Analysis.Quaternion`, including the real inner-product instance and
+`Quaternion.linearIsometryEquivTuple` to `EuclideanSpace ℝ (Fin 4)`.
+This is a promising existing algebra/calculus bridge; it has been inspected but
+not imported by this minimal smoke test. Other module paths and available lemmas
+must be checked at stage 1.
 Do not assume mathlib already has the required real block/adjoint bridge or a
 ready-made chi-four distribution theorem.
 

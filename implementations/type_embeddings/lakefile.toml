@@ -1,0 +1,14 @@
+name = "type_embeddings"
+version = "0.1.0"
+defaultTargets = ["TypeEmbeddings"]
+
+[leanOptions]
+autoImplicit = false
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "81a5d257c8e410db227a6665ed08f64fea08e997"
+
+[[lean_lib]]
+name = "TypeEmbeddings"

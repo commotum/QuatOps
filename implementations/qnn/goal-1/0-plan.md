@@ -13,9 +13,8 @@ and experimental evidence distinct.
 ## Constraints and context
 
 - Work exclusively within `implementations/qnn`, including goal records.
-- Current task is scaffold only. Scaffold exists; import/build validation is
-  recorded in `docs/VALIDATION.md`. All substantive stages below are unstarted.
-  Stop after scaffold validation and wait for explicit continuation instructions.
+- Continuation beyond scaffolding is now explicitly authorized. The original
+  scaffold/import validation is recorded in `docs/VALIDATION.md`.
 - Use the supplied Markdown transcription; original typeset pages and figure
   assets are not supplied in this folder. Do not silently resolve source ambiguities.
 - Independently audit formulas; correct errors and record additional assumptions.
@@ -31,7 +30,7 @@ and experimental evidence distinct.
 
 ## Stages
 
-### 1. Establish audited quaternion geometry — unstarted
+### 1. Establish audited quaternion geometry — in progress
 
 **Outcome:** Exact quaternion and 3D geometry foundations with documented source corrections.
 **Focus:** Mathlib quaternion representation; pure-vector equivalence and Euclidean
@@ -69,6 +68,6 @@ mapped to a declaration or explicit empirical/unsupported/unresolved status.
 
 ## Resumption state
 
-Scaffold only. Next authorized implementation action would be to inspect the
-pinned quaternion API and resolve the pure-vector representation in stage 1.
-Read `docs/AUDIT.md` first. No substantive stage is completed by the import build.
+Implementation is authorized and stage 1 is in progress. Algebra and pure-space
+modules are under validation; later stages remain unstarted. Read the audit log
+before making model or calculus decisions.
