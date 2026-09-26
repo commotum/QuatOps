@@ -39,6 +39,16 @@ theorem crossEntropy_eq_neg_log_probability (score : V → ℝ) (target : V) :
   unfold crossEntropy
   ring
 
+theorem token_log_probability_ratio (score : V → ℝ) (u v : V) :
+    Real.log (tokenProbability score u / tokenProbability score v) = score u - score v := by
+  rw [Real.log_div (ne_of_gt (tokenProbability_pos score u))
+    (ne_of_gt (tokenProbability_pos score v))]
+  unfold tokenProbability
+  rw [Real.log_div (ne_of_gt (Real.exp_pos _)) (ne_of_gt (tokenNormalizer_pos score)),
+    Real.log_div (ne_of_gt (Real.exp_pos _)) (ne_of_gt (tokenNormalizer_pos score)),
+    Real.log_exp, Real.log_exp]
+  ring
+
 def tokenPMF (score : V → ℝ) : PMF V :=
   PMF.ofFintype (fun v => ENNReal.ofReal (tokenProbability score v)) (by
     rw [← ENNReal.ofReal_sum_of_nonneg (fun v _ => (tokenProbability_pos score v).le)]
@@ -47,5 +57,17 @@ def tokenPMF (score : V → ℝ) : PMF V :=
 
 theorem tokenPMF_apply (score : V → ℝ) (v : V) :
     tokenPMF score v = ENNReal.ofReal (tokenProbability score v) := rfl
+
+/-- Omitting even one finite-logit token omits positive mass; a renormalized shortlist
+therefore gives a truncated distribution, not the full-vocabulary categorical law. -/
+theorem shortlist_mass_lt_one (score : V → ℝ) (candidates : Finset V)
+    (missing : V) (hmissing : missing ∉ candidates) :
+    ∑ v ∈ candidates, tokenProbability score v < 1 := by
+  have hsum : ∑ v ∈ candidates, tokenProbability score v < ∑ v, tokenProbability score v := by
+    apply Finset.sum_lt_sum_of_subset (Finset.subset_univ candidates) (Finset.mem_univ missing)
+      hmissing (tokenProbability_pos score missing)
+    intro v _ _
+    exact (tokenProbability_pos score v).le
+  rwa [tokenProbability_sum] at hsum
 
 end TypeEmbeddings.Text

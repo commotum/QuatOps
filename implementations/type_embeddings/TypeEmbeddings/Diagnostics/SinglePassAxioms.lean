@@ -1,0 +1,71 @@
+import TypeEmbeddings.Text.Spectral
+import TypeEmbeddings.Text.Distribution
+import TypeEmbeddings.Text.Resolve
+import TypeEmbeddings.Diagnostics.SinglePassLimitations
+
+/-! Full public theorem audit for the additional single-pass text modules. -/
+
+#print axioms TypeEmbeddings.Text.tokenNormalizer_pos
+#print axioms TypeEmbeddings.Text.tokenProbability_pos
+#print axioms TypeEmbeddings.Text.tokenProbability_sum
+#print axioms TypeEmbeddings.Text.tokenProbability_order
+#print axioms TypeEmbeddings.Text.crossEntropy_eq_neg_log_probability
+#print axioms TypeEmbeddings.Text.token_log_probability_ratio
+#print axioms TypeEmbeddings.Text.tokenPMF_apply
+#print axioms TypeEmbeddings.Text.shortlist_mass_lt_one
+#print axioms TypeEmbeddings.Text.mrSpace_finrank
+#print axioms TypeEmbeddings.Text.outputSpace_finrank
+#print axioms TypeEmbeddings.Text.groupBank_count
+#print axioms TypeEmbeddings.Text.textParameter_count
+#print axioms TypeEmbeddings.Text.mrWidth_le_outputWidth
+#print axioms TypeEmbeddings.Text.prototype_parameter_count
+#print axioms TypeEmbeddings.Text.groupProductCount_eq
+#print axioms TypeEmbeddings.Text.exhaustive_score_count
+#print axioms TypeEmbeddings.Text.candidate_score_count
+#print axioms TypeEmbeddings.Text.grouped_linear_cost
+#print axioms TypeEmbeddings.Text.groupedInverse_apply
+#print axioms TypeEmbeddings.Text.groupedInverse_roundTrip
+#print axioms TypeEmbeddings.Text.groupedEncoder_injective
+#print axioms TypeEmbeddings.Text.normalizedGroups_unit
+#print axioms TypeEmbeddings.Text.group_nonempty
+#print axioms TypeEmbeddings.Text.groupedInverse_eq_adjoint
+#print axioms TypeEmbeddings.Text.groupedUnit_gram
+#print axioms TypeEmbeddings.Text.groupedUnit_roundTrip
+#print axioms TypeEmbeddings.Text.groupedUnit_inner
+#print axioms TypeEmbeddings.Text.groupedUnit_norm
+#print axioms TypeEmbeddings.Text.groupedUnit_penrose_encoder
+#print axioms TypeEmbeddings.Text.groupedUnit_penrose_reader
+#print axioms TypeEmbeddings.Text.groupedProjection_symmetric
+#print axioms TypeEmbeddings.Text.groupedUnit_inverse_symmetric
+#print axioms TypeEmbeddings.Text.groupedResidual_adjoint_zero
+#print axioms TypeEmbeddings.Text.groupedResidual_orthogonal
+#print axioms TypeEmbeddings.Text.grouped_reconstruction_score
+#print axioms TypeEmbeddings.Text.groupedInverse_unique_leastSquares
+#print axioms TypeEmbeddings.Text.groupedInverse_leastSquares
+#print axioms TypeEmbeddings.Text.textProbability_eq_expanded
+#print axioms TypeEmbeddings.Text.text_log_odds
+#print axioms TypeEmbeddings.Text.groupedEncoder_apply
+#print axioms TypeEmbeddings.Text.groupedAdjoint_apply
+#print axioms TypeEmbeddings.Text.groupedGram_apply
+#print axioms TypeEmbeddings.Text.groupedAdjoint_pairing
+#print axioms TypeEmbeddings.Text.groupedEncoder_inner
+#print axioms TypeEmbeddings.Text.compactGreedy_eq_expanded
+#print axioms TypeEmbeddings.Text.textCandidate_correct
+#print axioms TypeEmbeddings.Text.greedy_mem
+#print axioms TypeEmbeddings.Text.greedy_maximizes
+#print axioms TypeEmbeddings.Text.greedy_tie
+#print axioms TypeEmbeddings.Text.greedy_candidate_correct
+#print axioms TypeEmbeddings.Text.greedy_candidate_correct_iff
+#print axioms TypeEmbeddings.Text.greedy_candidate_score_loss_nonneg
+#print axioms TypeEmbeddings.Text.greedy_exact_of_score_error
+#print axioms TypeEmbeddings.Text.compactScore_eq_expanded
+#print axioms TypeEmbeddings.Text.dictionary_collision_score
+#print axioms TypeEmbeddings.Text.groupedAdjoint_eq
+#print axioms TypeEmbeddings.Text.groupedUnit_rank
+#print axioms TypeEmbeddings.Text.groupedUnit_singularValue
+#print axioms TypeEmbeddings.Text.grouped_singularValue_tail
+#print axioms TypeEmbeddings.Text.groupedUnit_opNorm
+#print axioms TypeEmbeddings.Text.dictionaryScore_rank_le
+#print axioms TypeEmbeddings.Text.unequalEnergy_adjoint_scores
+#print axioms TypeEmbeddings.Text.unequalEnergy_inverse_scores
+#print axioms TypeEmbeddings.Text.inverse_can_reverse_ranking

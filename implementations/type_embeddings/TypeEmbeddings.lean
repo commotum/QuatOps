@@ -18,6 +18,10 @@ import TypeEmbeddings.Typed.Interface
 import TypeEmbeddings.Typed.Probability
 import TypeEmbeddings.Counts.Structured
 import TypeEmbeddings.Counts.StructuredCost
+import TypeEmbeddings.Text.Decoder
+import TypeEmbeddings.Text.Spectral
+import TypeEmbeddings.Text.Distribution
+import TypeEmbeddings.Text.Resolve
 
 /-! Public mathematical API. Internal leaves import specific prerequisites.
 Diagnostics are checked separately and are not public dependencies. -/
