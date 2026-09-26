@@ -31,6 +31,15 @@ settings are unchanged. See [BUILD_TIME.md](BUILD_TIME.md) for current full-buil
 axiom, incremental-rebuild and timing results. There are now 14 mathematical
 modules after extracting the shared conjugation foundation.
 
+The full attached objective was rechecked against the current supplied source,
+mathematical definitions, derivative/update hypotheses and the coverage table.
+Fresh `lake build` passed (2575 jobs); fresh direct axiom output matches
+`AXIOMS.txt` byte for byte. All 14 mathematical modules are exported by the root,
+all nine clean dependency revisions match the lock, and the warning-as-error
+configuration is unchanged. Source-integrity and documentation-link checks passed.
+The fresh logs are `.lake/build-time/goal-completion-build.log` and
+`.lake/build-time/goal-completion-axioms.txt`.
+
 ## Requirement-to-evidence completion check
 
 | Requirement | Authoritative evidence |

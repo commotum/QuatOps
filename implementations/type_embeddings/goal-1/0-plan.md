@@ -14,7 +14,7 @@ and a main-result axiom audit without proof holes or unexplained custom axioms.
 
 - Work exclusively in `implementations/type_embeddings`, including goal records.
 - The scaffold is complete; build-layout maintenance follows
-  `implementations/BUILD-PLAN.md`. Mathematical stages remain unimplemented;
+  `implementations/BUILD-PLAN.md`. Mathematical implementation is now authorized;
   sync stage status with the actual files and results before continuing.
 - The local proposal is the source; its reported verification script and results are
   unavailable in this folder. Numerical results are not independent verification.
@@ -37,7 +37,7 @@ statements, dependency lock, and import-only validated Lean library.
 minimal build result and limits are recorded. Build-layout maintenance is tracked in
 `0-build-layout.md`.
 
-### 1. Quaternion linear algebra — not started
+### 1. Quaternion linear algebra — focused proofs complete; adjacent build pending
 
 **Outcome:** A reusable right-multiplication real linear map, its correctly oriented
 4×4 coordinate matrix, and its scaled Gram identity, including zero weights.
@@ -45,7 +45,7 @@ minimal build result and limits are recorded. Build-layout maintenance is tracke
 Euclidean tuple equivalence, and the pure-imaginary isometric insertion P.
 **Completion signal:** Coordinate action and R(W)ᵀR(W) = ‖W‖² I₄ compile without holes.
 
-### 2. Bank encoder and analytic decoder — not started
+### 2. Bank encoder and analytic decoder — in progress
 
 **Outcome:** The stacked encoder B has Gram S I₃; under S > 0 its analytic reader
 is its Moore–Penrose inverse, with injectivity, singular values, condition one,
@@ -90,8 +90,8 @@ An unsupported extension may be resolved by a documented disproof or exclusion.
 ## Session handoff
 
 Scaffold completed on 2026-09-25. `lake build` passed (2868 jobs); all nine
-locked dependency revisions and prompt paths were checked. No mathematical declarations
-exist. Build-layout maintenance separates optional smoke checks from the public root;
+locked dependency revisions and prompt paths were checked. Quaternion stage declarations
+now compile with actual axiom checks; the bank stage is in progress. Build-layout maintenance separates optional smoke checks from the public root;
 see `0-build-layout.md`. The next mathematical stage is right multiplication and its
 Euclidean coordinate convention. Use narrow leaves and focused builds as described in
 `docs/BUILD.md`, preserving the full theorem requirements.

@@ -73,8 +73,8 @@ weight replacement derivatives at every layer, recursive reverse gradients,
 simultaneous component updates, joint parameterized forward/loss differentiability,
 and bounded axis-angle existence for every unit quaternion.
 
-All stages are complete for the requested mathematical core. The final default
-warning-as-error build checks the 13 mathematical modules, root, illustrative
+All stages are complete for the requested mathematical core. The current default
+warning-as-error build checks the 14 mathematical modules, root, illustrative
 16-4-16 hidden-weight example, and axiom commands. Fifty-four actual audit outputs
 contain only standard Lean foundations. `docs/VALIDATION.md` maps the full original
 requirements to source declarations and observed checks; `docs/PAPER_MAP.md`
@@ -92,8 +92,8 @@ proof obligation remains within the original mathematical-core objective.
 
 Apply the relevant portions of `implementations/BUILD-PLAN.md` within this folder.
 Preserve the completed mathematical API, hypotheses and proof integrity; reduce
-unnecessary imports and rebuild propagation. The current graph has a broad
-`Mathlib.Tactic` import in Algebra and Model depends on all of Geometry.
+unnecessary imports and rebuild propagation. The baseline graph had a broad
+`Mathlib.Tactic` import in Algebra and Model depended on all of Geometry.
 The import-only refactor preserves all original declaration bodies and hypotheses;
 14 mathematical modules now include the extracted Conjugation foundation.
 Geometry's downstream project consumers fell from 13 to 2, excluding the neural
@@ -106,3 +106,17 @@ jobs fell from 3252 to 2575. All 54 fresh axiom reports match the baseline exact
 Declaration-body comparison, shortcut scans and scoped diff checks passed.
 See `5-build-time.md` and `docs/BUILD_TIME.md` for exact commands, measurement
 limits and incremental-build evidence. No maintenance obligation remains.
+
+## Completion revalidation
+
+The preceding build-maintenance turn was progress: imports and module ownership
+changed, with clean-build timing and proof-preservation evidence recorded.
+The attached full objective was reread against the supplied paper, current
+mathematical definitions/theorem hypotheses, paper map and correction records.
+No unfinished stage or missing required mathematical-core obligation was found.
+Fresh `lake build` passed (2575 jobs), and `lake env lean QNN/AxiomAudit.lean`
+matched all 54 recorded reports exactly. All 14 mathematical modules are exported;
+all nine clean dependency revisions match the lock, and default correctness
+settings remain intact. Source-integrity scans and documentation-link checks
+passed. Only documented empirical/underspecified claims and optional extensions
+remain outside the proved scope; no required work remains.
