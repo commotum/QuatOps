@@ -1,6 +1,12 @@
 import TypeEmbeddings.Bank.Normalization
 import TypeEmbeddings.Reader.Gain
 import TypeEmbeddings.TypeCode.PMF
+import TypeEmbeddings.Reader.Summary
+import TypeEmbeddings.Probability.Reconstruction
+import TypeEmbeddings.Typed.Interface
+import TypeEmbeddings.Typed.Probability
+import TypeEmbeddings.Counts.Structured
+import TypeEmbeddings.Counts.StructuredCost
 
 #print axioms TypeEmbeddings.normalizedBank_energy
 #print axioms TypeEmbeddings.normalizedBank_pos
@@ -20,3 +26,22 @@ import TypeEmbeddings.TypeCode.PMF
 #print axioms TypeEmbeddings.type_logits_equal_norm
 #print axioms TypeEmbeddings.typePMF
 #print axioms TypeEmbeddings.typePMF_mode
+#print axioms TypeEmbeddings.rgbReaderProbability_sum
+#print axioms TypeEmbeddings.rgbReaderProbability_mode
+#print axioms TypeEmbeddings.rgbReaderPMF
+#print axioms TypeEmbeddings.typeReaderProbability_sum
+#print axioms TypeEmbeddings.typeReaderProbability_mode
+#print axioms TypeEmbeddings.typeReaderPMF
+#print axioms TypeEmbeddings.rgbReaderSummary
+#print axioms TypeEmbeddings.typeReaderSummary
+#print axioms TypeEmbeddings.rgb_reconstruction_likelihood
+#print axioms TypeEmbeddings.rgbReader_reconstruction_likelihood
+#print axioms TypeEmbeddings.typedEmbedding_type_roundTrip
+#print axioms TypeEmbeddings.typedEmbedding_value_roundTrip
+#print axioms TypeEmbeddings.typedJoint_sum
+#print axioms TypeEmbeddings.typedJoint_type_marginal
+#print axioms TypeEmbeddings.typedJointPMF
+#print axioms TypeEmbeddings.structuredCoefficient_count
+#print axioms TypeEmbeddings.structured_512_count
+#print axioms TypeEmbeddings.structured_output_work_bound
+#print axioms TypeEmbeddings.structured_output_cost

@@ -1,0 +1,12 @@
+import TypeEmbeddings.Diagnostics.RevisedLimitations
+
+#print axioms TypeEmbeddings.channelValue_bf16
+#print axioms TypeEmbeddings.channelValue_dyadic
+#print axioms TypeEmbeddings.wrongCode_zeroResidual
+#print axioms TypeEmbeddings.sharedTwoInput_not_injective
+#print axioms TypeEmbeddings.storageCounter_weights_bf16
+#print axioms TypeEmbeddings.storageCounter_rounding
+#print axioms TypeEmbeddings.storageCounter_decode_location
+#print axioms TypeEmbeddings.storageCounter_wrong_decode
+#print axioms TypeEmbeddings.wrongCode_floorWidth
+#print axioms TypeEmbeddings.storageCounter_wrong_even_decode

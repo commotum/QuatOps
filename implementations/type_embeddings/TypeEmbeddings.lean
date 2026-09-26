@@ -12,6 +12,12 @@ import TypeEmbeddings.Probability.EvenMode
 import TypeEmbeddings.Counts.Cost
 import TypeEmbeddings.Reader.Gain
 import TypeEmbeddings.TypeCode.PMF
+import TypeEmbeddings.Reader.Summary
+import TypeEmbeddings.Probability.Reconstruction
+import TypeEmbeddings.Typed.Interface
+import TypeEmbeddings.Typed.Probability
+import TypeEmbeddings.Counts.Structured
+import TypeEmbeddings.Counts.StructuredCost
 
 /-! Public mathematical API. Internal leaves import specific prerequisites.
 Diagnostics are checked separately and are not public dependencies. -/
