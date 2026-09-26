@@ -81,3 +81,23 @@ map, input differentiability and nonzero weights at the point. The corresponding
 objective theorem covers the squared-output-error loss. This interface permits
 many real parameter layouts without identifying a raw function-space norm with
 the Euclidean gradient metric.
+
+## Build dependency boundaries
+
+`QNN.Conjugation` contains the shared sandwich map and its basic identities.
+`QNN.Geometry` imports it for rotation/isometry, orientation and axis-angle proofs;
+`QNN.Model` imports it directly. Geometry is therefore a proof leaf independent
+of all neural-model and training consumers. Existing names remain in namespace
+`QNN`, and importing `QNN.Geometry` still provides the moved declarations.
+
+`QNN.Training` depends on Model and mathlib's real calculus/gradient/adjoint
+infrastructure. Fixed-input forward calculus separately imports Activation;
+connection-parameter calculus separately imports Calculus, Activation and Training.
+LayerParameters joins these branches. The example imports Backpropagation directly.
+The public `QNN` root remains imports only; the axiom audit remains diagnostic.
+
+Use specific tactic imports; avoid `Mathlib.Tactic` in project modules. Build a
+changed module and its actual consumers first. A full default build is required
+for shared imports/API changes and retains the example and axiom checks. Keep
+heavy rotation proofs out of the forward-model dependency chain. Measurements
+and exact validation commands are in [BUILD_TIME.md](BUILD_TIME.md).

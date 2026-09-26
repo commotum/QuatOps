@@ -1,4 +1,4 @@
-import Qrnn.Activation
+import Qrnn.ActivationCore
 
 /-!
 # QRNN and QLSTM forward architectures

@@ -1,7 +1,5 @@
 # Working rhythm
 
-Continuation beyond scaffolding has been explicitly authorized; this loop is active.
-
 1. Sync `0-plan.md` with actual files, results, and completed work.
 2. Select the first unfinished stage.
 3. Take the actions that most directly advance it, guided by current evidence and

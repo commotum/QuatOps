@@ -1,5 +1,7 @@
-import QNN.Geometry
+import QNN.Conjugation
 import Mathlib.Analysis.SpecialFunctions.Sigmoid
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Tactic.Positivity
 
 /-!
 # Forward model and error

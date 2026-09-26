@@ -2,7 +2,7 @@
 
 ## Objective and scope
 
-Eventually turn the supplied QRNN paper into a correct, reusable Lean 4 library:
+Turn the supplied QRNN paper into a correct, reusable Lean 4 library:
 quaternion vectors/matrices and Hamilton products, real block representations,
 split activations, QRNN recurrence and real derivatives, reconstructed QBPTT and
 all recurrent/input/output/bias gradients, initialization and variance, specified
@@ -33,12 +33,13 @@ rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 
 ## Ordered stages
 
-### 0. Scaffold and stop — complete; stopped
+### 0. Scaffold and dependency baseline — complete
 - **Outcome:** paper map, audit targets, design/dependency notes, proposed statements,
   resumable goal files, and a minimal pinned Lean import smoke test.
-- **Focus:** scope and evidence for future work; no substantive implementation.
-- **Completion signal:** scaffold review and recorded build result; report to the
-  user and stop. Even if complete, do not enter stage 1 without explicit instructions.
+- **Focus:** establish scope, source evidence, dependencies, and a reproducible
+  baseline for mathematical implementation.
+- **Completion signal:** scaffold documents exist, prompt paths resolve, and the
+  baseline build result and its limits are recorded.
 
 ### 1. Quaternion operations and real representation — complete
 - **Outcome:** reusable finite quaternion vectors/matrices, multiplication and
@@ -92,7 +93,7 @@ rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 
 ## Current verified state and session handoff
 
-Continuation was authorized on 2026-09-25. Stage 1 compiled in `Qrnn/Algebra.lean`:
+Stage 1 compiled in `Qrnn/Algebra.lean`:
 Hamilton components, distinct left/right block actions and composition order,
 real matrix expansion/action/composition/injectivity, conjugate transpose,
 Euclidean pullback identities, normalization with the nonzero hypothesis, and
@@ -105,9 +106,18 @@ matrix-vector product rule, half-squared-loss derivative and output gradient.
 There is also an explicit interpreted QLSTM step, without a correctness theorem
 for its gradient or any empirical/optimization claim.
 
-Stage 3 is in progress: generic finite-horizon shared-parameter sensitivity and
-reverse-functional BPTT are being checked in `Qrnn/BPTT.lean`. Next bridge the
-QRNN parameter space to that generic theorem and establish all accumulated
-parameter gradients with a variable output head and terminal/summed losses.
+Stage 3 is in progress: `Qrnn/BPTT.lean` proves generic finite-horizon
+shared-parameter sensitivity and reverse-functional BPTT. `Qrnn/QRNNBPTT.lean`
+proves actual QRNN joint differentiability, run sensitivity, reverse correctness,
+and terminal hidden-state loss derivatives. Explicit accumulated parameter
+gradients with a variable output head and terminal/summed losses remain next.
+
+The user requested build-time optimization under `implementations/BUILD-PLAN.md`.
+The checked refactor and measurements are in `3-bptt.md`: generic BPTT no longer
+imports quaternion modules, Forward imports calculus-free ActivationCore, and
+AxiomAudit is a diagnostic leaf outside the public entry point. Use focused
+module builds during stage work, adjacent consumer builds for changed imports,
+and full builds for public API/configuration changes. Existing proof bodies and
+statements are preserved. Full API build and all 35 audited results passed.
 Initialization probability and exact architecture counts remain unfinished.
 The full goal is active; current build coverage is not completion of the library.

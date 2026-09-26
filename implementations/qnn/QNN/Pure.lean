@@ -1,6 +1,7 @@
 import QNN.Algebra
 import Mathlib.LinearAlgebra.CrossProduct
-import Mathlib.Analysis.InnerProductSpace.PiL2
+import Mathlib.Tactic.FinCases
+import Mathlib.Tactic.Ring
 
 /-! Pure quaternions as a real subspace, with explicit Euclidean coordinates. -/
 noncomputable section

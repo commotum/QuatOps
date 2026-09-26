@@ -13,10 +13,9 @@ and a main-result axiom audit without proof holes or unexplained custom axioms.
 ## Constraints and known context
 
 - Work exclusively in `implementations/type_embeddings`, including goal records.
-- The scaffold is complete; subsequent build-layout maintenance is authorized and
-  follows `implementations/BUILD-PLAN.md`. Mathematical stages remain unimplemented.
-  On an explicit request to continue implementation, proceed without a redundant
-  authorization question or the old continuation prompt's self-blocking clause.
+- The scaffold is complete; build-layout maintenance follows
+  `implementations/BUILD-PLAN.md`. Mathematical stages remain unimplemented;
+  sync stage status with the actual files and results before continuing.
 - The local proposal is the source; its reported verification script and results are
   unavailable in this folder. Numerical results are not independent verification.
 - Right multiplication, pure-imaginary RGB input, and S > 0 are essential. Allow zero

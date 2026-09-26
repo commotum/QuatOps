@@ -1,4 +1,5 @@
 import Qrnn.BPTT
+import Qrnn.Loss
 
 /-!
 # QRNN shared parameter space and the BPTT bridge

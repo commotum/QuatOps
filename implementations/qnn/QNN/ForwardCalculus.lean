@@ -1,4 +1,5 @@
 import QNN.Training
+import QNN.Activation
 
 /-! Real Jacobians for complete finite forward networks, with fixed parameters. -/
 noncomputable section

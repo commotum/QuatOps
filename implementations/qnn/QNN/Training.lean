@@ -1,5 +1,5 @@
-import QNN.Calculus
-import QNN.Activation
+import QNN.Model
+import Mathlib.Analysis.InnerProductSpace.Calculus
 import Mathlib.Analysis.Calculus.Gradient.Basic
 import Mathlib.Analysis.InnerProductSpace.Adjoint
 

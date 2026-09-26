@@ -16,7 +16,8 @@ independently; the paper does not print them.
 - [Current paper map](docs/PAPER_MAP.md), [corrections and questions](docs/AUDIT.md),
   [dependency/design notes](docs/DEPENDENCIES.md), [historical theorem outline](docs/THEOREM_OUTLINE.md),
   and [verified learning-rule derivation](docs/DERIVATION.md).
-- [Validation record](docs/VALIDATION.md), [actual axiom output](docs/AXIOMS.txt).
+- [Validation record](docs/VALIDATION.md), [actual axiom output](docs/AXIOMS.txt),
+  [build-time results and workflow](docs/BUILD_TIME.md).
 
 Pinned Lean: `leanprover/lean4:v4.32.0`. Mathlib:
 `81a5d257c8e410db227a6665ed08f64fea08e997`. Transitive dependencies are locked.

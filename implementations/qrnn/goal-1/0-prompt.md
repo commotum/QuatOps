@@ -1,5 +1,13 @@
-# Continuation prompt — use only after explicit authorization
+# Goal prompt
 
 ```text
-Continue the authorized Lean 4 formalization of Quaternion Recurrent Neural Networks, working exclusively in implementations/qrnn, including goals and build artifacts. Read implementations/qrnn/goal-1/0-plan.md and implementations/qrnn/goal-1/0-loop.md, sync them with the actual state, and advance through the broad stages using best judgment for implementation. Independently verify the paper as a source, reconstruct real derivatives where quaternion formulas are ambiguous, record corrections and hypotheses, and keep algebra, architecture, gradients, initialization, counts, optimization, and empirical results distinct. No sorry, fabricated proofs, or unjustified project axioms; keep pinned Lean/mathlib and audit main-result axioms. Fold material results and changed decisions back into the plan and supporting documents so the goal remains resumable. Completion means the original verified-core objective is achieved with a reproducible build and faithful claim map; report blockers and uncertainty plainly. If authorization remains scaffold-only, do not implement: report the scaffold state and wait.
+Build a correct, reusable Lean 4 library for Quaternion Recurrent Neural Networks, covering quaternion algebra and real representations, QRNN recurrence, QBPTT and all parameter gradients, initialization moments, QLSTM forward equations, and exact architecture counts. Work exclusively in implementations/qrnn, including goal records and build artifacts.
+
+Read implementations/qrnn/goal-1/0-plan.md for the full objective, constraints, stages, and current status, and implementations/qrnn/goal-1/0-loop.md for the working rhythm. Sync the plan with the actual files, results, and completed work. Select the first unfinished stage and continue through the stages toward the full objective, using current evidence and best judgment for implementation.
+
+Independently audit the source, record corrections, and use pinned Lean/mathlib. Completed modules must have no proof holes or unexplained project axioms. Make shape, multiplication-order, differentiability, and probability assumptions explicit. Keep verified mathematics distinct from optimization assertions and empirical results.
+
+Confirm important outcomes with suitable builds and mathematical checks. Fold material results, decisions, corrections, and stage status back into the plan. If a session ends mid-goal, leave a brief note with the next action so the goal remains resumable.
+
+Completion means the original objective and active stages are achieved with reusable definitions and theorems, a reproducible build, a faithful source-to-declaration map, correction records, and an actual main-result axiom audit. Match completion claims to observed results and report real blockers or uncertainty plainly.
 ```

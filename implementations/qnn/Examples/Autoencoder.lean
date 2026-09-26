@@ -1,4 +1,4 @@
-import QNN
+import QNN.Backpropagation
 
 /-!
 An exact finite-network example showing how to address a hidden weight and apply

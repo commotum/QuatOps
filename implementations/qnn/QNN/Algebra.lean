@@ -1,5 +1,5 @@
 import Mathlib.Analysis.Quaternion
-import Mathlib.Tactic
+import Mathlib.Tactic.NormNum
 
 /-! Basic audited quaternion identities, using mathlib's multiplication and norm. -/
 noncomputable section

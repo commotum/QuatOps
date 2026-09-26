@@ -1,4 +1,5 @@
 import QNN.ParameterCalculus
+import QNN.ForwardCalculus
 
 /-! Replacing one actual layer weight and differentiating the resulting forward map. -/
 noncomputable section

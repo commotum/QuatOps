@@ -1,4 +1,7 @@
-import QNN.ForwardCalculus
+import QNN.Calculus
+import QNN.Activation
+import QNN.Training
+import Mathlib.Tactic.Abel
 
 /-!
 # A connection's weight gradient

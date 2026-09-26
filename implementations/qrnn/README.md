@@ -19,3 +19,15 @@ never silently change the toolchain or dependency pins to make a proof build.
 
 Substantive continuation was authorized on 2026-09-25. See the plan for current
 verified results and remaining work.
+
+For incremental development, import specific modules rather than `Qrnn`:
+`Qrnn.ActivationCore` supplies split activation definitions, `Qrnn.Forward`
+supplies forward architectures, `Qrnn.Activation` supplies activation calculus,
+and `Qrnn.BPTT` supplies generic real BPTT without quaternion dependencies.
+
+Build the touched leaf first, for example `lake build Qrnn.QRNNBPTT`. Build
+adjacent consumers after dependency changes; use `lake build` for public API or
+configuration changes and integration checks. Diagnostics are separate:
+`lake env lean Qrnn/AxiomAudit.lean > goal-1/axioms.txt`. The public library does
+not import audit printing. See [stage 3 build notes](goal-1/3-bptt.md) for measured
+results and the next mathematical targets.

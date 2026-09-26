@@ -1,0 +1,2 @@
+narrow BPTT direct-check: 4.01 s; peak RSS: 2554528 KiB
+unchanged public build: 2.22 s; peak RSS: 861436 KiB

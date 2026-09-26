@@ -60,4 +60,29 @@ mathematical definitions, theorem statements, proofs or axiom dependencies.
 
 ## Stage Results
 
-In progress.
+Complete.
+
+- Added `QNN.Conjugation` by moving the original sandwich block verbatim;
+  Geometry retains all rotation/isometry/orientation/axis-angle proofs.
+- Narrowed tactic and internal module imports; the public root still reexports
+  every previous declaration. No new mathematical declaration was introduced.
+- `lake build QNN.Conjugation QNN.Geometry QNN.Model`: exit 0 (2536 jobs).
+- `lake build QNN.Training QNN.ForwardCalculus QNN.ParameterCalculus`: exit 0
+  (2565 jobs).
+- `lake build QNN.ParametricForward Examples.Autoencoder`: exit 0 (2570 jobs).
+- Comparable `lake clean qnn` then `/usr/bin/time -p lake build`: baseline
+  61.33 s / 3252 jobs; optimized 44.61 s / 2575 jobs, about 27% faster locally.
+  Cached dependency artifacts retained; these are single-run measurements.
+- Geometry's transitive project consumers fell from 13 to 2 (root and audit).
+  Temporary comment-edit build: 5.97 s, only Geometry rebuilt; downstream
+  artifacts retained and audit output replayed. Restored source and full build
+  passed again. Source import graph confirms neural consumers are independent.
+- `lake env lean QNN/AxiomAudit.lean`: exit 0; fresh output matches all 54
+  baseline reports byte for byte, with only standard Lean foundations.
+- Source snapshot comparison: all original declaration bodies identical, including
+  the moved block. Shortcut scan has only the audit documentation comment;
+  no proof holes, custom axioms, unsafe/native shortcuts or broad tactic import.
+- `git diff --check -- .`: passed. All changes restricted to this project.
+- Updated README, dependency/validation notes and `docs/BUILD_TIME.md`.
+  Raw evidence is in ignored `.lake/build-time/`. Stage folded into 0-plan;
+  no remaining implementation or validation obligation for this maintenance task.

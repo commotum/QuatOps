@@ -13,8 +13,7 @@ and experimental evidence distinct.
 ## Constraints and context
 
 - Work exclusively within `implementations/qnn`, including goal records.
-- Continuation beyond scaffolding is now explicitly authorized. The original
-  scaffold/import validation is recorded in `docs/VALIDATION.md`.
+- The original scaffold/import validation is recorded in `docs/VALIDATION.md`.
 - Use the supplied Markdown transcription; original typeset pages and figure
   assets are not supplied in this folder. Do not silently resolve source ambiguities.
 - Independently audit formulas; correct errors and record additional assumptions.
@@ -89,10 +88,21 @@ convergence theory, alternative normalization or threshold-learning policies wou
 require a separately specified task and evidence. No required implementation or
 proof obligation remains within the original mathematical-core objective.
 
-## Maintenance stage 5 — build time (in progress)
+## Maintenance stage 5 — build time (complete)
 
 Apply the relevant portions of `implementations/BUILD-PLAN.md` within this folder.
 Preserve the completed mathematical API, hypotheses and proof integrity; reduce
 unnecessary imports and rebuild propagation. The current graph has a broad
 `Mathlib.Tactic` import in Algebra and Model depends on all of Geometry.
-See `5-build-time.md` for the measured baseline and validation requirements.
+The import-only refactor preserves all original declaration bodies and hypotheses;
+14 mathematical modules now include the extracted Conjugation foundation.
+Geometry's downstream project consumers fell from 13 to 2, excluding the neural
+model/training/example modules. The public root remains intact.
+
+Focused core/calculus/adjacent builds and the default warning-as-error build all
+passed. Comparable project-only clean builds with cached pinned dependencies
+measured 61.33 s before and 44.61 s after (about 27% faster locally); full build
+jobs fell from 3252 to 2575. All 54 fresh axiom reports match the baseline exactly.
+Declaration-body comparison, shortcut scans and scoped diff checks passed.
+See `5-build-time.md` and `docs/BUILD_TIME.md` for exact commands, measurement
+limits and incremental-build evidence. No maintenance obligation remains.

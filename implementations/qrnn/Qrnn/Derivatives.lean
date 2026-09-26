@@ -1,4 +1,5 @@
 import Qrnn.Forward
+import Qrnn.Activation
 import Mathlib.Analysis.Matrix.Normed
 import Mathlib.Analysis.Calculus.FDeriv.Mul
 import Mathlib.Analysis.Calculus.FDeriv.Add

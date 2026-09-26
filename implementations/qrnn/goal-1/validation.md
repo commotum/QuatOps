@@ -1,6 +1,7 @@
-# Scaffold validation
+# Validation record
 
-Validated 2026-09-25 from `implementations/qrnn`.
+Initial scaffold validated 2026-09-25 from `implementations/qrnn`.
+The sections below record that historical scaffold; current checks follow at the end.
 
 ## Observed result
 
@@ -50,3 +51,23 @@ The successful build validates the setup, not the paper's mathematical claims.
 The audit findings remain preliminary; implementation and proofs await explicit
 user instructions. No Lean goal-tracking tool goal was opened: the resumable
 scaffold lives entirely in `goal-1`.
+
+## Continuation and build-time refactor checks (2026-09-25)
+
+Substantive continuation was subsequently authorized. The earlier import-only
+record does not describe today's implementation. Stages 1–2 and the generic/
+QRNN state-loss portion of stage 3 now compile; the full goal remains incomplete.
+
+Focused builds passed for BPTT, ActivationCore/Activation/Forward, and
+Derivatives/Loss/QRNNBPTT after import-layer changes. `lake build` exited 0:
+`Build completed successfully (2436 jobs).` See build.log. An independent
+`lake env lean Qrnn/AxiomAudit.lean` exited 0 and reported only propext,
+Classical.choice, Quot.sound for all 35 audited results (axioms.txt).
+No new project axioms or proof holes were introduced, and diff checks passed.
+The toolchain/dependency pins and source checksum remain unchanged.
+
+BPTT's warm-cache direct check took 4.30 s, peak RSS 2967744 KiB before narrowing
+imports; after the refactor it took 4.01 s, peak RSS 2554528 KiB. A no-change
+public build took 2.22 s. Individual local timings are observations, not portable
+performance guarantees; see build-times.txt and 3-bptt.md. The substantive
+optimization is the smaller rebuild dependency graph, not a timing promise.

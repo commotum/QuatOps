@@ -2,7 +2,7 @@ import QNN.Model
 import Mathlib.Analysis.InnerProductSpace.Calculus
 import Mathlib.Analysis.Calculus.FDeriv.Star
 import Mathlib.Analysis.Calculus.Deriv.Inv
-import Mathlib.Analysis.SpecialFunctions.Sqrt
+import Mathlib.Tactic.Convert
 
 /-!
 # Real differential of the normalized quaternion sandwich

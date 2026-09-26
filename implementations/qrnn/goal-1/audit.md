@@ -69,3 +69,21 @@ unsupported convergence/regularization assertions remain outside the verified co
 only on `propext`, `Classical.choice`, and `Quot.sound`. No project-specific axiom
 or `sorryAx` appears. Update the audit when new main results are added. Proposed
 claims in planning documents are not Lean declarations or imported assumptions.
+
+## State-loss BPTT verification and build boundaries (2026-09-25)
+
+`bptt_correct` proves reverse ordered Jacobian composition equals the forward
+sensitivity; `terminalLoss_hasFDerivAt` and `sequenceLoss_hasFDerivAt` connect it
+to actual real loss derivatives. `qrnnStep_joint_hasFDerivAt` proves joint QRNN
+differentiability under componentwise scalar hypotheses;
+`qrnnRun_hasFDerivAt` and `qrnnTerminalStateLoss_hasFDerivAt` instantiate the
+chain rule and reverse derivative for the actual QRNN recurrence. The fixed
+initial state's parameter derivative is zero, including horizon zero.
+This advances A05–A08, but explicit compact accumulated parameter gradients and
+a jointly variable output head remain open. These results do not endorse the
+paper's products of error vectors or its ambiguous appendix indexing.
+
+The import refactor preserves mathematical statements and proofs. The public
+entry point excludes diagnostic AxiomAudit; its explicit kernel check still
+covers all 35 reported results with standard foundations only. Details of
+focused builds and timing observations are in 3-bptt.md.

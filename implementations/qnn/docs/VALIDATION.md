@@ -1,6 +1,6 @@
 # Final validation and axiom audit
 
-## Observed build results — 2026-09-25
+## Mathematical completion build — 2026-09-25
 
 - `lake build`: exit 0, “Build completed successfully (3252 jobs).”
   The default targets check the `QNN` library, `Examples.Autoencoder`, and
@@ -22,13 +22,22 @@
 - Documentation links, the three goal files, continuation paths, and root-module
   imports were checked against actual files. All project artifacts are in this folder.
 
+## Build-time maintenance — 2026-09-25
+
+The later import-only refactor preserves every original declaration body and
+hypothesis, moving the sandwich block verbatim to `Conjugation.lean`. The public
+root remains intact; pinned dependencies, default validation targets and warning
+settings are unchanged. See [BUILD_TIME.md](BUILD_TIME.md) for current full-build,
+axiom, incremental-rebuild and timing results. There are now 14 mathematical
+modules after extracting the shared conjugation foundation.
+
 ## Requirement-to-evidence completion check
 
 | Requirement | Authoritative evidence |
 | --- | --- |
 | Quaternion algebra, conjugation and corrected norm | `Algebra.lean`: Hamilton rules, reversed conjugation product, four-term norm/square-root and scalar-product identities; actual build/axiom report |
 | Pure quaternions and Euclidean 3-vectors | `Pure.lean`: real subspace, coordinate equivalence, linear isometry, dot/cross multiplication |
-| Spatial rotations | `Geometry.lean`: unit conjugation as linear isometry, cross/oriented-volume preservation, composition, bounded axis-angle existence for every unit quaternion, full/orthogonal Rodrigues identities |
+| Spatial rotations | `Geometry.lean`: unit conjugation as linear isometry, cross/oriented-volume preservation, bounded axis-angle existence for every unit quaternion, full/orthogonal Rodrigues identities; `Conjugation.lean`: sandwich, norm scaling and composition |
 | Forward neurons and layered networks | `Model.lean`: norm-normalized sandwich, subtractive threshold, finite neuron, `Layer` and `Network.forward`; zero convention explicit |
 | Componentwise sigmoid | `Model.lean`/`Activation.lean`: three coordinates, range and diagonal real derivative using mathlib sigmoid |
 | Source loss and extensions | `loss_components`, `loss_hasGradientAt`; `signalLoss_eq_outputLoss` and its gradient for the explicitly labeled output sum |

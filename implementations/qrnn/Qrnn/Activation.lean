@@ -1,5 +1,4 @@
-import Qrnn.Algebra
-import Mathlib.Analysis.Normed.Module.FiniteDimension
+import Qrnn.ActivationCore
 import Mathlib.Analysis.Calculus.FDeriv.Pi
 import Mathlib.Analysis.Calculus.FDeriv.Equiv
 import Mathlib.Analysis.Calculus.Deriv.Basic
@@ -32,17 +31,6 @@ def coordinateEquiv : Q ≃L[ℝ] (Fin 4 → ℝ) :=
 @[simp] theorem coordinateEquiv_apply (q : Q) : coordinateEquiv q = components q := rfl
 @[simp] theorem coordinateEquiv_symm_apply (v : Fin 4 → ℝ) :
     coordinateEquiv.symm v = ofComponents v := rfl
-
-/-- Scalar activation applied to each real quaternion component. -/
-def splitActivation (f : ℝ → ℝ) (q : Q) : Q :=
-  ofComponents (fun a => f (components q a))
-
-@[simp] theorem components_splitActivation (f : ℝ → ℝ) (q : Q) :
-    components (splitActivation f q) = fun a => f (components q a) :=
-  components_ofComponents _
-
-/-- The corresponding real map in coordinates. -/
-def splitReal (f : ℝ → ℝ) (v : Fin 4 → ℝ) : Fin 4 → ℝ := fun a => f (v a)
 
 /-- The four diagonal derivative coefficients. -/
 def diagonalCLM (d : Fin 4 → ℝ) : (Fin 4 → ℝ) →L[ℝ] (Fin 4 → ℝ) :=
@@ -93,9 +81,6 @@ theorem splitDerivative_eq_hadamard (d : Fin 4 → ℝ) (h : Q) :
   apply components_injective
   simp
 
-/-- Split activation of every quaternion neuron. -/
-def vectorActivation {n : ℕ} (f : ℝ → ℝ) (v : QVector n) : QVector n :=
-  fun i => splitActivation f (v i)
 
 end
 end Qrnn

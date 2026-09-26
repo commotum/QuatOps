@@ -28,14 +28,15 @@ coverage and actual declaration names follow below; all are in namespace `Qrnn`.
 |---|---|---|
 | §3.1 algebra and normalization | `Qrnn/Algebra.lean`: `hamilton_components`, `leftBlock_apply`, `rightBlock_apply`, `leftBlock_mul`, `rightBlock_mul`, `leftBlock_star`, `rightBlock_star`, `normalize_norm` | Proved. Norm-one needs nonzero input; right representation reverses composition order. |
 | §3.2 matrix representation | `Algebra.lean`: `expand_apply`, `expand_mul`, `expand_conjTranspose`, `expand_injective`, `real_coordinate_count`, `matrix_mul_pair`, `matrix_weight_pair` | Proved for finite shapes, including zero dimensions; typed real expansion and Euclidean pairing. |
-| §3.3.1 split functions | `Qrnn/Activation.lean`: `splitActivation`, `splitActivation_hasFDerivAt`, `splitDerivative_pair`, `splitDerivative_eq_hadamard` | Definition + real derivative proof; scalar differentiability at all preactivation coordinates. |
+| §3.3.1 split functions | `Qrnn/ActivationCore.lean`: `splitActivation`; `Qrnn/Activation.lean`: `splitActivation_hasFDerivAt`, `splitDerivative_pair`, `splitDerivative_eq_hadamard` | Definition + real derivative proof; scalar differentiability at all preactivation coordinates. |
 | §3.3.1 recurrence | `Qrnn/Forward.lean`: `QRNNParams`, `qrnnStep`, `qrnnReadout`, `qrnnRun`, `qrnnFiniteRun`, `qrnnRun_prefix`, `qrnnStep_expand`, `qrnnRun_expand` | Architecture definitions + real-representation equivalence; supplied initial state, input k drives state k+1. |
 | Local derivatives underlying §3.3.2 / §6.3 | `Qrnn/Derivatives.lean`: `matVec_hasFDerivAt`, `qrnnStep_state_hasFDerivAt`, `recurrentWeight_hasFDerivAt`, `inputWeight_hasFDerivAt`, `bias_hasFDerivAt`, `layerWeight_hasFDerivAt`, `readoutDerivative_pair`, `qrnnStateDerivative_pair` | Proved local real derivatives/pullbacks. Held-fixed states are explicit in partial-weight lemmas. Unrolled shared-parameter gradients pending. |
 | Output MSE gradient (§3.3.2 and §6.3 output weights) | `Qrnn/Loss.lean`: `halfSquaredLoss_hasFDerivAt`, `outputLoss_hasFDerivAt`, `output_gradient` | Proved with explicit 1/2 loss scaling and differentiable split β; output-gradient pairing is the Euclidean identification of the proved differential. |
 | §4.3 QLSTM | `Forward.lean`: `GateParams`, `QLSTMParams`, `gatePreact`, `vectorHadamard`, `qlstmStep` | Definitions only; documented Hamilton candidate interpretation. No QLSTM gradient or performance theorem. |
-| All completed main results | `Qrnn/AxiomAudit.lean`; `goal-1/axioms.txt` | Observed axioms: standard Lean foundations only; generic BPTT additions require audit refresh. |
+| Reconstructed §3.3.2 / §6.3 BPTT | `Qrnn/BPTT.lean`: `unroll_hasFDerivAt`, `bptt_correct`, `terminalLoss_hasFDerivAt`, `sequenceLoss_hasFDerivAt`; `Qrnn/QRNNBPTT.lean`: `qrnnStep_joint_hasFDerivAt`, `qrnnRun_hasFDerivAt`, `qrnnBptt_correct`, `qrnnTerminalStateLoss_hasFDerivAt` | Proved generic real chain rule and concrete QRNN state-loss bridge, with fixed initial state and scalar differentiability hypotheses. Explicit accumulated parameter gradients and a variable output-head loss remain open. |
+| All completed main results | `Qrnn/AxiomAudit.lean`; `goal-1/axioms.txt` | Observed axioms: standard Lean foundations only; 35 main results audited; diagnostic leaf excluded from public imports. |
 
-Unrolled QBPTT, all accumulated gradients, initialization moments/distribution,
+Explicit accumulated QRNN gradients, initialization moments/distribution,
 QLSTM real-expansion theorem, parameter counts and cost model remain unfinished.
 
 Missing `layer.png` and referenced tables mean the local source alone does not
