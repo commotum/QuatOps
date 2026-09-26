@@ -46,3 +46,12 @@ source scans, documentation links, and whitespace checks pass with observed evid
 ## Stage Results
 
 In progress.
+
+
+## Revised-source update — 2026-09-26
+
+This historical numerical work record now supports stage 6. Active stage 5 is
+`5-unified.md`. Numerics/BFloat16 and Diagnostics/Limitations focused builds passed;
+consolidated numerical/limitation axiom audit is still pending. Revised §9 precision
+claims require the same exact-versus-floating-point distinction. The independent formal
+counterexample is (0,0,16)→(0,0,17), not the unavailable source FP32 trace.

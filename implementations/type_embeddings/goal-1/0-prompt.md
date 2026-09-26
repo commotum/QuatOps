@@ -1,13 +1,25 @@
 # Goal prompt
 
 ```text
-Build a correct, reusable Lean 4 library for Type & Value Embeddings, covering quaternion encoder/decoder mathematics, least-squares decoding, the exact RGB grid, normalized finite probabilities, and justified counts and complexity. Work exclusively in implementations/type_embeddings, including goal records and build artifacts.
+Build the verified Lean library for the revised unified Type & Value Embeddings proposal.
+Use implementations/type_embeddings/type_value_embeddings_revised_proposal.md as the
+mathematical/engineering source; the original proposal is historical provenance.
+Work exclusively in implementations/type_embeddings, including records and artifacts.
 
-Read implementations/type_embeddings/goal-1/0-plan.md for the full objective, constraints, stages, and current status, and implementations/type_embeddings/goal-1/0-loop.md for the working rhythm. Sync the plan with the actual files, results, and completed work. Select the first unfinished stage and continue through the stages toward the full objective, using current evidence and best judgment for implementation.
+Read implementations/type_embeddings/goal-1/0-plan.md and
+implementations/type_embeddings/goal-1/0-loop.md. Sync with current files and results,
+then continue the first unfinished stage without another scaffold authorization question.
+Preserve the reusable quaternion/Gram/reader results while covering revised ties-to-even
+RGB decoding, fixed unit TYPE codes, concatenated TYPE/VALUE conventions, positive
+residual-derived common width, normalized TYPE/RGB/joint likelihoods, reconstruction-
+temperature equivalence, and structured counts including one gain per bank.
 
-Independently audit the source, record corrections, and use pinned Lean/mathlib. Completed modules must have no proof holes or unexplained project axioms. Make assumptions explicit and keep exact algebra, floating-point facts, modeling, and empirical claims distinct. Follow the applicable portions of implementations/BUILD-PLAN.md for narrow modules, focused builds, and stage records.
-
-Confirm important outcomes with suitable builds and mathematical checks. Fold material results, decisions, corrections, and stage status back into the plan. If a session ends mid-goal, leave a brief note with the next action so the goal remains resumable.
-
-Completion means the original objective and active stages are achieved with reusable definitions and theorems, a reproducible build, a faithful source-to-declaration map, correction records, and an actual main-result axiom audit. Match completion claims to observed results and report real blockers or uncertainty plainly.
+Independently verify claims and assumptions, record corrections, use pinned Lean/mathlib,
+and follow implementations/BUILD-PLAN.md for narrow modules, focused builds and stage
+records. No proof holes or unexplained project axioms. Keep exact algebra, representation,
+experiments, architecture choices, probabilistic assumptions and empirical claims distinct.
+Residual width is not calibrated confidence. Grid representability is not exact prediction.
+Fold material results and stage status into the plan and leave a clear resumable handoff.
+Completion requires the full revised verified core, builds, a faithful declaration map,
+correction records and actual main-result axiom audits; report remaining uncertainty plainly.
 ```

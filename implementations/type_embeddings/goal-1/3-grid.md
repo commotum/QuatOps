@@ -52,3 +52,11 @@ margin. Broad nlinarith contexts were replaced with `nlinarith only` in rounding
 no resource limits were raised.
 
 Next: finish finite probabilities and coefficient/work counts.
+
+
+## Revised-source update — 2026-09-26
+
+Original half-down stage passed, but revised §7 explicitly requires ties-to-even.
+Stage reopened: add a separate even-tie leaf and prove its nearest/minimizer, clipping,
+mode and margin bridges. Preserve half-down results under explicit names. Existing
+build/axiom results are evidence for those statements, not revised tie compatibility.

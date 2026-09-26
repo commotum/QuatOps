@@ -38,7 +38,7 @@ theorem channelValue_bf16 (c : Channel) : IsNormalBF16 (channelValue c) := by
 
 /-- The grid values are dyadic rationals independently of any floating-point format. -/
 theorem channelValue_dyadic (c : Channel) :
-    channelValue c = (channelNumerator c : ℝ) / (2 : ℝ) ^ (8 : ℕ) := by
+    channelValue c = (2 * (c.val : ℝ) - 255) / (2 : ℝ) ^ (8 : ℕ) := by
   norm_num [channelValue, channelNumerator]
 
 /-- Ideal normal BF16 storage rounding: use the input binade, round to the nearest

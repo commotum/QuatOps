@@ -1,33 +1,30 @@
-# Proposal-to-library map
+# Revised proposal-to-library map
 
-Source: `../type_value_embeddings_proposal.md`, sections below. The table below preserves the planned scope; completed
-declarations are listed after it. Unlisted proposed results remain unimplemented. See `THEOREM_OUTLINE.md` for statements.
+Active source: `../type_value_embeddings_revised_proposal.md`; original proposal is
+historical provenance. This map distinguishes actual declarations from planned work.
+`THEOREM_OUTLINE.md` specifies new obligations and `REVISION.md` records the transition.
 
-| Source | Claim category | Planned coverage |
+| Revised section | Claim category | Evidence / remaining coverage |
 |---|---|---|
-| §2 enumeration and memory | Exact count / storage convention | `rgbGrid_card`, baseline cardinalities; 512×256³=8,589,934,592 coefficients and 2 bytes each gives 16 GiB (GiB=2³⁰ bytes), excluding all other storage |
-| §3 typed interface | Architecture / conditional probability | Record interface only; optional `typedJoint_sum`; no theorem about transformer states, greedy type choice, parser quality, or text preservation |
-| §4 MR | Exact grid | `channelValue_*`, `rgbGrid_card`, pure RGB insertion |
-| §4 BF16 | Representation, separate from arithmetic | Dyadic representation first; BF16 theorem only with a specified format model |
-| §5 quaternion bank | Exact real algebra | `rightMul_*`, `stacked_gram`, `encoder_gram`, rank/injectivity, singular values and conditioning |
-| §6 fused readout | Exact least squares | `decoder_fused`, Moore–Penrose identities, round-trip and noise bound |
-| §6 grid decoder | Exact finite optimization | Fixed ties/clipping, margin recovery, score decomposition, global RGB optimum |
-| §6 top-k suggestion | Algorithm proposal | Deferred; fixed neighborhood has no general guarantee; no top-k theorem planned in initial core |
-| §7 finite-grid probabilities | Chosen modeling family + exact normalization | Positive scales, channel normalizers, product PMF, modes; independence is a modeling assumption |
-| §7 Gaussian claims | Conditional statistical model | Later only with isotropic Gaussian assumptions; d−3>0 and expectations/covariance defined |
-| §7 agreement | Counterexample / limitation | `wrongCode_zeroResidual`; no residual-to-calibration implication |
-| §8 training/normalization | Architecture / numerics | Document nonzero raw bank for energy normalization, actual-weight denominator, and output-state assumptions; no training/FP32 exactness theorem |
-| §9 coefficient counts | Definitional combinatorics | `coreCoefficient_count`, `baseline_counts`; include scale predictor 3d+3 separately |
-| §9 O(d) | Explicit arithmetic/iteration model | Proposed encoder/decoder cost theorems; no latency or speedup theorem |
-| §10 int64 and multiple inputs | Serialization / later extension | 2⁶⁴ count may be definitional; byte order, signed conversion, and full-rank larger encoder need independent specifications |
-| §11 reported checks | Numerical/symbolic experiments | Source reports only; script/results unavailable locally; no theorem follows from these reports |
-| §11–12 model benefits | Empirical outcomes / proposal | Outside verified mathematical core |
-
-The BF16 example RGB (237,169,1)→(237,169,0) is a reported storage-rounding
-counterexample, not reproduced evidence here. A formal reconstruction of that exact
-example needs its weights and execution semantics. The general distinction between
-representable input grids and inexact projected arithmetic must remain explicit.
-
+| §§1–3 concatenated TYPE/VALUE | Architecture with exact interface underneath | Shared per-bank algebra exists; concatenation/projection/joint-law APIs pending. No slice preservation through transformer assumed |
+| §4 RGB MR | Exact algebra / representation | Compiled `channelValue_*`, `rgb_card`, `rgbValue_injective`; `channelValue_bf16` models ideal normal representation |
+| §4 TYPE MR | Exact codebook hypotheses / storage convention | Fixed distinct unit-code interface and finite-separation facts pending; FP32 storage is not exact equal-norm proof |
+| §5 shared encoder/reader | Exact real linear algebra | Compiled maps, matrix Gram, fused pseudoinverse, spectral/conditioning/reconstruction results apply separately to either bank |
+| §6 residual width | Modeling choice with exact positivity underneath | Residual and orthogonality compiled; positive floor/gain, d−3 denominator, width/floor/monotonicity and softplus properties pending |
+| §6 Gaussian motivation | Conditional statistical claim | Deferred to an explicit isotropic noise model; no transformer/posterior/calibration implication |
+| §7 TYPE likelihood | Exact finite normalization / chosen family | TYPE normalizer, PMF, equal-norm logit equivalence and separation decoding pending |
+| §7 RGB likelihood | Exact normalization / chosen common-scale family | Generic channel/product PMF compiles; common residual-width reader specialization and reconstruction-temperature equivalence pending |
+| §7 mode | Exact finite optimization | Half-down implementation compiles; required ties-to-even alternative and its mode/global/recovery bridges pending |
+| §7 sampling and global joint | Finite probability law | Dependent TYPE/conditional joint normalization pending; greedy-type limitation is not a joint maximization theorem |
+| §§7,10 top-k | Algorithm proposal / approximate complexity | Separate future sorted-cost heap specification; not proved by top-1 or reported exhaustive reference check |
+| §8 training | Architecture / numerics | Ground-truth bank selection, differentiability, loss implementation and gradient reports are outside current exact core |
+| §9 bank normalization | Exact scaling + numerical guard | Fixed-target energy theorem pending; nonzero raw bank and actual stored-weight denominator required |
+| §9 precision | Representation and implementation | Compiled ideal-normal BF16 grid and independent rounding counterexample; FP32 execution, overflow guards and source trace remain separate |
+| §10 counts | Exact slot cardinalities | Existing core/baseline counts; revised dT+K dV+(K+1), 514 example and text/codebook storage distinctions pending |
+| §10 complexity | Explicit arithmetic model / empirical latency | Single-bank multiplication-slot O(d) compiled; TYPE+RGB total work pending. No hardware speedup theorem |
+| §11 limits/extensions | Structural restriction / later types | Compiled three-dimensional rank and shared-two-input noninjectivity diagnostic. Int64, mixtures, arbitrary bank sums require new assumptions |
+| §12 reference checks | Reported experiments | Revised script/results unavailable; no independent rerun or gradient/top-k theorem claimed |
+| §§12–13 quality/rollout | Empirical claims / decisions | Outside verified core; no trained model, calibration or hardware benefit is asserted |
 
 ## Completed declaration map (stages 1–2)
 
@@ -63,3 +60,20 @@ The main results' actual axiom checks are in Diagnostics/QuaternionAxioms and Ba
 
 The exact half-down convention uses `roundHalfDown t = -round (-t)`; clipping uses
 `min 255 n.toNat`, so no unchecked machine-integer conversion is involved.
+
+
+## Additional compiled foundations (stages 4 and numerical work)
+
+| Claim | Actual declarations | Module |
+|---|---|---|
+| General channel/product normalization and modes | `channelNormalizer_pos`, `channelProbability_sum`, `rgbProbability_sum`, `rgbProbability_mode`, `rgbPMF`, `rgbPMF_mode` | Probability/Grid, PMF |
+| Core/baseline slots | `coreCoefficient_count`, `tiedReal_count`, `untiedRGB_count`, `untiedQuaternion_count`, `untiedPadded_count`, `scalePredictor_count` | Counts/Basic |
+| Atomic RGB comparison | `atomicRGB_512_count`, `atomicRGB_512_bf16_bytes`, `channelScore_count` | Counts/Basic |
+| Explicit multiplication-slot bounds | `encoderProductCount_eq`, `decoderProductCount_eq`, `encoder_cost`, `decoder_cost` | Counts/Cost |
+| Ideal-normal BF16 representation | `channelValue_bf16`, `channelValue_dyadic` | Numerics/BFloat16 |
+| Wrong-code consistency / multi-input obstruction | `wrongCode_zeroResidual`, `sharedTwoInput_not_injective` | Diagnostics/Limitations |
+| Independent storage-rounding witness | `storageCounter_weights_bf16`, `storageCounter_rounding`, `storageCounter_wrong_decode` | Diagnostics/Limitations |
+
+The compiled witness is (0,0,16)→(0,0,17), using ideal BF16 storage rounding and an
+exact real decoder. It is not a reproduction of the source's (237,169,1)→(237,169,0)
+FP32 trace. Numerical/limitation main-result axiom consolidation remains pending.

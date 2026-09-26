@@ -12,4 +12,8 @@ import Qrnn.InitializationMoments
 import Qrnn.InitializationGaussian
 import Qrnn.InitializationUniform
 
+import Qrnn.QLSTMReal
+import Qrnn.ParameterCounts
+import Qrnn.OperationCounts
+
 /-! Quaternion recurrent network formalization. See `goal-1` for scope and status. -/

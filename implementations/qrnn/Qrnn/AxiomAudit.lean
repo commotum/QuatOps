@@ -3,11 +3,12 @@ import Qrnn.BPTTAudit
 import Qrnn.InitializationGaussian
 import Qrnn.InitializationUniform
 import Qrnn.InitializationAudit
+import Qrnn.QLSTMReal
+import Qrnn.OperationCounts
 
-/-! Kernel-reported dependencies of the main completed results.
-No project axioms are introduced here. Add unrolled BPTT/initialization/count
-results when they are implemented; this audit covers algebra, local calculus, generic BPTT, and QRNN state-loss results.
--/
+/-! Kernel-reported dependencies of the main algebra, architecture, calculus,
+BPTT, initialization, count and diagnostic results. This leaf is excluded from
+the public API; no project axioms are introduced. -/
 
 #print axioms Qrnn.hamilton_components
 #print axioms Qrnn.leftBlock_apply
@@ -88,3 +89,31 @@ results when they are implemented; this audit covers algebra, local calculus, ge
 #print axioms Qrnn.correctedUniformPolar_secondMoment
 #print axioms Qrnn.zero_direction_polar_counterexample
 #print axioms Qrnn.sampledDirection_imI_nonnegative
+
+#print axioms Qrnn.qlstmStep_expand
+#print axioms Qrnn.qlstmRun_expand
+#print axioms Qrnn.qrnnCoordinateEquiv
+#print axioms Qrnn.qlstmCoordinateEquiv
+#print axioms Qrnn.qrnn_parameter_count
+#print axioms Qrnn.qlstm_parameter_count
+#print axioms Qrnn.qrnn_weight_fourfold
+#print axioms Qrnn.qlstm_weight_fourfold
+#print axioms Qrnn.qrnn_parameter_bias_correction
+#print axioms Qrnn.qlstm_parameter_bias_correction
+#print axioms Qrnn.hamilton_naive_cost
+#print axioms Qrnn.qrnn_multiplication_count
+#print axioms Qrnn.qrnn_addition_count
+#print axioms Qrnn.qlstm_multiplication_count
+#print axioms Qrnn.qlstm_addition_count
+#print axioms Qrnn.qrnn_step_cost
+#print axioms Qrnn.qlstm_step_cost
+#print axioms Qrnn.qrnn_cost_equal_width
+#print axioms Qrnn.qlstm_cost_equal_width
+#print axioms Qrnn.qrnn_cost_quadratic_bounds
+#print axioms Qrnn.qlstm_cost_quadratic_bounds
+#print axioms Qrnn.qrnn_sequence_cost
+#print axioms Qrnn.qlstm_sequence_cost
+
+#print axioms Qrnn.matrixCoordinateEquiv
+#print axioms Qrnn.weight_parameter_count
+#print axioms Qrnn.weight_parameter_fourfold

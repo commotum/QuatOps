@@ -39,4 +39,15 @@ compile. Actual axiom checks, focused builds and declaration-map updates are rec
 
 ## Stage Results
 
-In progress.
+Generic foundation complete. Probability/Grid, PMF, Counts/Basic, Cost, public root,
+and ProbabilityCountAxioms compile; combined build passed (2886 jobs). Thirteen actual
+axiom checks report only propext, Classical.choice, Quot.sound. No revised shared-TYPE,
+residual-width, joint-likelihood or total structured count is claimed proved.
+
+## Revised-source update — 2026-09-26
+
+The general independent-scale family is retained as reusable infrastructure. Revised
+§§6–7 default to one residual-derived common scale; the separate dense scale predictor
+is an ablation/extension. Revised total count includes one scalar gain per bank. Those
+new obligations are tracked in stage 5, not silently folded into this completed stage.
+
