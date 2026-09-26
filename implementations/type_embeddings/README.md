@@ -20,5 +20,7 @@ Lean and mathlib are pinned in `lean-toolchain`, `lakefile.toml`, and
 machine, `lake update` and `lake exe cache get` can bootstrap dependencies; retain
 and check the committed revision lock. See validation for local bootstrap provenance.
 
-`TypeEmbeddings.lean` only imports candidate dependencies. Mathematical declarations
-and proofs require explicit user instructions to continue after this scaffold.
+`TypeEmbeddings.lean` is a thin public root. Candidate imports are checked separately
+with `lake build TypeEmbeddings.Diagnostics.Dependencies`; they do not enter the default
+build or future consumers through the root. See [build guidance](docs/BUILD.md).
+The build-layout change adds no mathematical declarations or proofs.

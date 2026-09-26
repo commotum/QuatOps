@@ -1,8 +1,8 @@
-import Qrnn.Loss
+import Qrnn.QRNNBPTT
 
 /-! Kernel-reported dependencies of the main completed results.
 No project axioms are introduced here. Add unrolled BPTT/initialization/count
-results when they are implemented; this audit currently covers local results.
+results when they are implemented; this audit covers algebra, local calculus, generic BPTT, and QRNN state-loss results.
 -/
 
 #print axioms Qrnn.hamilton_components
@@ -30,3 +30,14 @@ results when they are implemented; this audit currently covers local results.
 #print axioms Qrnn.halfSquaredLoss_hasFDerivAt
 #print axioms Qrnn.outputLoss_hasFDerivAt
 #print axioms Qrnn.output_gradient
+
+#print axioms Qrnn.matVec_hasFDerivAt
+#print axioms Qrnn.unroll_hasFDerivAt
+#print axioms Qrnn.bptt_correct
+#print axioms Qrnn.terminalLoss_hasFDerivAt
+#print axioms Qrnn.sequenceLoss_hasFDerivAt
+#print axioms Qrnn.split_joint_partials
+#print axioms Qrnn.qrnnStep_joint_hasFDerivAt
+#print axioms Qrnn.qrnnRun_hasFDerivAt
+#print axioms Qrnn.qrnnBptt_correct
+#print axioms Qrnn.qrnnTerminalStateLoss_hasFDerivAt

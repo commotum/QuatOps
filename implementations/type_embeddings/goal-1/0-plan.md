@@ -13,8 +13,10 @@ and a main-result axiom audit without proof holes or unexplained custom axioms.
 ## Constraints and known context
 
 - Work exclusively in `implementations/type_embeddings`, including goal records.
-- Current authorization is scaffold only. Stop after scaffold validation and wait for
-  explicit instructions; none of the implementation stages below are authorized yet.
+- The scaffold is complete; subsequent build-layout maintenance is authorized and
+  follows `implementations/BUILD-PLAN.md`. Mathematical stages remain unimplemented.
+  On an explicit request to continue implementation, proceed without a redundant
+  authorization question or the old continuation prompt's self-blocking clause.
 - The local proposal is the source; its reported verification script and results are
   unavailable in this folder. Numerical results are not independent verification.
 - Right multiplication, pure-imaginary RGB input, and S > 0 are essential. Allow zero
@@ -33,7 +35,8 @@ and a main-result axiom audit without proof holes or unexplained custom axioms.
 statements, dependency lock, and import-only validated Lean library.
 **Focus:** Preserve the source and set boundaries for future mathematical work.
 **Completion signal:** All scaffold documents exist, prompt paths resolve, and the
-minimal build result and limits are recorded. Stop for explicit continuation.
+minimal build result and limits are recorded. Build-layout maintenance is tracked in
+`0-build-layout.md`.
 
 ### 1. Quaternion linear algebra — not started
 
@@ -89,5 +92,7 @@ An unsupported extension may be resolved by a documented disproof or exclusion.
 
 Scaffold completed on 2026-09-25. `lake build` passed (2868 jobs); all nine
 locked dependency revisions and prompt paths were checked. No mathematical declarations
-exist. Stop here and wait for explicit continuation. After authorization, sync the plan
-and begin stage 1 with right multiplication and its Euclidean coordinate convention.
+exist. Build-layout maintenance separates optional smoke checks from the public root;
+see `0-build-layout.md`. The next mathematical stage is right multiplication and its
+Euclidean coordinate convention. Use narrow leaves and focused builds as described in
+`docs/BUILD.md`, preserving the full theorem requirements.

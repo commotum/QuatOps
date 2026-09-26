@@ -1,8 +1,9 @@
 # Working rhythm
 
 1. Sync `0-plan.md` with the actual files, compiled results, decisions, and scope.
-2. Select the first unfinished authorized stage. Current authorization ends at stage 0;
-   wait for explicit instructions before definitions or substantive proofs.
+2. Select the first unfinished stage within the current request. A request to continue
+   implementation is sufficient; do not repeat the old scaffold-only authorization loop.
+   Follow `implementations/BUILD-PLAN.md` for stage records, narrow modules, and focused builds.
 3. Take the actions that directly advance that stage using current evidence and judgment.
 4. Validate important outcomes with suitable Lean builds, theorem review, and actual
    axiom checks. Treat experiments and mathematical verification as different evidence.

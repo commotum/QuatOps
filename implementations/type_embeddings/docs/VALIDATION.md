@@ -2,7 +2,7 @@
 
 Status: PASS, 2026-09-25. No mathematical claim has been formalized.
 
-The target is import-only; successful compilation validates toolchain, package
+The original scaffold target was import-only; successful compilation validated toolchain, package
 configuration, and candidate import paths. It does not validate proposal mathematics.
 Dependency bootstrap uses a private copy of locally available package sources and
 compiled artifacts from the neighboring qnn scaffold, with the same exact mathlib
@@ -17,7 +17,7 @@ Observed checks, run from `implementations/type_embeddings`:
 - Every one of the nine package Git HEADs matches its locked manifest revision,
   including mathlib `81a5d257c8e410db227a6665ed08f64fea08e997`.
 - Three goal files and all supporting documents exist; continuation prompt paths match.
-- The only project Lean source is import-only, with no project declarations or proofs.
+- At initial validation, the only project Lean source was import-only, with no project declarations or proofs.
 - Original proposal SHA256:
   `08d0e5c4b5646bddd04f26ead1ccdbcd9365ef476eee2cc6206faf50339915ef`.
 
@@ -26,3 +26,22 @@ The manifest contains upstream Git dependencies, not local sibling paths. The ca
 build establishes a local pinned setup; it does not demonstrate a fresh online bootstrap.
 A main-result axiom audit is deferred because no such results exist. No experiment,
 BF16 counterexample, or mathematical identity was independently verified by this build.
+
+
+## Build-layout maintenance validation
+
+The public root now has no imports or declarations; the original eight imports reside
+in `TypeEmbeddings.Diagnostics.Dependencies`, an optional explicit diagnostic target.
+Both compile under the unchanged pins. No theorem/proof was removed or weakened.
+
+Observed commands after the change:
+
+- `lake build TypeEmbeddings.Diagnostics.Dependencies`: exit 0, 2867 jobs, 4.141s.
+- `lake build`: exit 0, 3 jobs, 0.970s including root elaboration.
+- Repeated `lake build`: exit 0, 3 jobs, 0.829s.
+
+Baseline cached default build was 2868 jobs in 2.179s. Timings are local observations;
+job-graph reduction is the structural result. Diagnostic coverage stays available
+explicitly. Import boundaries, no project declarations/proof holes, direct whitespace
+checks, and repository-root `git diff --check` pass. There remain no mathematical
+results to audit. See `../goal-1/0-build-layout.md` and `BUILD.md` for future build rules.

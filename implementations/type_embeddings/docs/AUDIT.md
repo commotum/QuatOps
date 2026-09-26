@@ -53,7 +53,8 @@ No material correction to the source is claimed proved at this stage.
 
 ## Axiom status and future audit procedure
 
-`TypeEmbeddings.lean` is import-only. There are no project-specific definitions,
+`TypeEmbeddings.lean` is a thin declaration-free root; candidate imports now live in
+`TypeEmbeddings.Diagnostics.Dependencies`. There are no project-specific definitions,
 theorems, proof holes, or axioms and no main results to audit yet. Imports bring
 mathlib's usual foundational dependencies; this is not a claim that all imported
 results are axiom-free. The source is not imported as assumptions.

@@ -88,3 +88,11 @@ Completed the mathematical library; further numerical experiments, iterative
 convergence theory, alternative normalization or threshold-learning policies would
 require a separately specified task and evidence. No required implementation or
 proof obligation remains within the original mathematical-core objective.
+
+## Maintenance stage 5 — build time (in progress)
+
+Apply the relevant portions of `implementations/BUILD-PLAN.md` within this folder.
+Preserve the completed mathematical API, hypotheses and proof integrity; reduce
+unnecessary imports and rebuild propagation. The current graph has a broad
+`Mathlib.Tactic` import in Algebra and Model depends on all of Geometry.
+See `5-build-time.md` for the measured baseline and validation requirements.

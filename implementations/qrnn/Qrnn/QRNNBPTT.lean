@@ -118,7 +118,7 @@ theorem unroll_eq_qrnnRun {d h o : ℕ} (f : ℝ → ℝ) (x : ℕ → QVector d
 
 /-- Forward state sensitivity over the shared recurrent/input/bias parameters. -/
 def qrnnRunDerivative {d h o : ℕ} (p : QRNNParameterSpace d h o) (f : ℝ → ℝ)
-    (x : ℕ → QVector d) (initial : QVector h) (df : ℕ → Fin h → Fin 4 → ℝ) (T : ℕ) :
+    (x : ℕ → QVector d) (initial : QVector h) (T : ℕ) :
     QRNNParameterSpace d h o →L[ℝ] QVector h :=
   unrollDerivative
     (fun k => parameterPartial (qrnnJointDerivative p f (x k) (qrnnRun (paramsOf p) f x initial k)))
@@ -131,7 +131,7 @@ theorem qrnnRun_hasFDerivAt {d h o : ℕ} (p : QRNNParameterSpace d h o) (f : �
     (hf : ∀ k < T, ∀ i a, HasDerivAt f (df k i a)
       (components (hiddenPreact (paramsOf p) (x k) (qrnnRun (paramsOf p) f x initial k) i) a)) :
     HasRealDerivative (fun θ => qrnnRun (paramsOf θ) f x initial T)
-      (qrnnRunDerivative p f x initial df T) p := by
+      (qrnnRunDerivative p f x initial T) p := by
   unfold HasRealDerivative
   let step := fun (k : ℕ) (θ : QRNNParameterSpace d h o) (s : QVector h) =>
     qrnnStep (paramsOf θ) f (x k) s
@@ -146,6 +146,36 @@ theorem qrnnRun_hasFDerivAt {d h o : ℕ} (p : QRNNParameterSpace d h o) (f : �
       qrnnRun (paramsOf θ) f x initial T) := funext (unroll_eq_qrnnRun f x initial T)
   rw [he] at ht
   exact ht
+
+/-- Reverse pullback for a terminal functional on the hidden state. The actual
+Jacobian partials are used; their compact quaternion gradient evaluation remains
+an additional theorem, not an assumption of this algorithm. -/
+def qrnnBpttPullback {d h o : ℕ} (p : QRNNParameterSpace d h o) (f : ℝ → ℝ)
+    (x : ℕ → QVector d) (initial : QVector h) (T : ℕ) (g : QVector h →L[ℝ] ℝ) :
+    QRNNParameterSpace d h o →L[ℝ] ℝ :=
+  bpttPullback
+    (fun k => parameterPartial (qrnnJointDerivative p f (x k) (qrnnRun (paramsOf p) f x initial k)))
+    (fun k => statePartial (qrnnJointDerivative p f (x k) (qrnnRun (paramsOf p) f x initial k))) T g
+
+theorem qrnnBptt_correct {d h o : ℕ} (p : QRNNParameterSpace d h o) (f : ℝ → ℝ)
+    (x : ℕ → QVector d) (initial : QVector h) (T : ℕ) (g : QVector h →L[ℝ] ℝ) :
+    qrnnBpttPullback p f x initial T g = g.comp (qrnnRunDerivative p f x initial T) :=
+  bptt_correct _ _ T g
+
+/-- Correctness of QBPTT as the real derivative of a specified terminal hidden-state
+loss. A variable output head additionally contributes a direct parameter term;
+this theorem deliberately keeps that contribution outside the state-loss model. -/
+theorem qrnnTerminalStateLoss_hasFDerivAt {d h o : ℕ} (p : QRNNParameterSpace d h o) (f : ℝ → ℝ)
+    (x : ℕ → QVector d) (initial : QVector h) (df : ℕ → Fin h → Fin 4 → ℝ) (T : ℕ)
+    (loss : QVector h → ℝ) (g : QVector h →L[ℝ] ℝ)
+    (hf : ∀ k < T, ∀ i a, HasDerivAt f (df k i a)
+      (components (hiddenPreact (paramsOf p) (x k) (qrnnRun (paramsOf p) f x initial k) i) a))
+    (hl : HasRealDerivative loss g (qrnnRun (paramsOf p) f x initial T)) :
+    HasRealDerivative (fun θ => loss (qrnnRun (paramsOf θ) f x initial T))
+      (qrnnBpttPullback p f x initial T g) p := by
+  unfold HasRealDerivative at hl ⊢
+  rw [qrnnBptt_correct]
+  exact hl.comp p (qrnnRun_hasFDerivAt p f x initial df T hf)
 
 end
 end Qrnn

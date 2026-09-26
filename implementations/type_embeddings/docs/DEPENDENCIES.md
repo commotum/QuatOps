@@ -23,7 +23,8 @@ in `VALIDATION.md`. No dependency of this package points at another paper's libr
   prove real finite-sum normalization first if that gives cleaner statements.
 - `Mathlib.Analysis.SpecialFunctions.Exp`: strictly positive real finite-grid kernels.
 
-The import-only target checks these module paths, not a finished proof design.
+The optional `TypeEmbeddings.Diagnostics.Dependencies` target checks these module paths,
+not a finished proof design. The public root does not import it.
 No dedicated BF16 semantics or Moore–Penrose API has been selected; neither should
 block exact algebra (prove the four Moore–Penrose identities directly if needed).
 
