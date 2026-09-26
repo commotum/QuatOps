@@ -48,12 +48,12 @@ theorem weight_hasFDerivAt {ι ο : Type*} [Fintype ι] [Fintype ο]
   intro k
   by_cases hk : k = j
   · subst k
-    simpa only [withWeight, forward, Function.update_same, if_pos rfl,
+    simpa only [withWeight, forward, Function.update_self, if_true,
       neuron_update_eq_connection] using
       connection_hasFDerivAt (L.weights j i) (x i)
         (connectionBackground (L.weights j) (L.thresholds j) x i) hw
   · simpa only [withWeight, forward, Function.update_of_ne hk, if_neg hk] using
-      (hasFDerivAt_const (L.weights j i) (neuron (L.weights k) (L.thresholds k) x))
+      (hasFDerivAt_const (neuron (L.weights k) (L.thresholds k) x) (L.weights j i))
 
 /-- Euclidean version of the actual finite-layer forward map. -/
 def euclideanForward {m n : ℕ} (L : Layer (Fin m) (Fin n)) : Signal m → Signal n :=

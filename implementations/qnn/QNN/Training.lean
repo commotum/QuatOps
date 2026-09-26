@@ -67,6 +67,15 @@ theorem componentPartial_eq_gradient {E : H → ℝ} {w g : H}
     EuclideanSpace.inner_single_right]
   simp [component]
 
+/-- The directional formula is an actual one-variable coordinate partial. -/
+theorem componentPartial_hasDerivAt {E : H → ℝ} {w g : H}
+    (hg : HasGradientAt E g w) (i : Fin 4) :
+    HasDerivAt (fun t : ℝ => E (w + t • parameterBasis i)) (componentPartial E w i) 0 := by
+  have hp : HasDerivAt (fun t : ℝ => w + t • parameterBasis i) (parameterBasis i) 0 := by
+    simpa using ((hasDerivAt_id (0 : ℝ)).smul_const (parameterBasis i)).const_add w
+  have hd := hg.hasFDerivAt.comp_hasDerivAt_of_eq (0 : ℝ) hp (by simp)
+  simpa only [componentPartial, hg.hasFDerivAt.fderiv] using hd
+
 /-- Exact agreement with the displayed four-component update. -/
 theorem quaternion_gradientStep_component (η : ℝ) (w g : H) (i : Fin 4) :
     component (gradientStep η w g) i = component w i - η * component g i := by

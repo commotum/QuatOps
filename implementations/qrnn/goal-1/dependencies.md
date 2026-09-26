@@ -35,7 +35,7 @@ must be checked at stage 1.
 Do not assume mathlib already has the required real block/adjoint bridge or a
 ready-made chi-four distribution theorem.
 
-## Proposed conventions (not implemented)
+## Implemented conventions and remaining decisions
 
 - Algebra: `Quaternion ℝ`; vector `Fin n → Quaternion ℝ`; matrix
   `Matrix (Fin m) (Fin n) (Quaternion ℝ)`. Action is sum_j W_ij * x_j,
@@ -49,7 +49,8 @@ ready-made chi-four distribution theorem.
 - Use a separate named componentwise product. A quaternion matrix adjoint is a
   conjugate transpose, not entrywise conjugation alone. Keep left/right operators
   separate throughout.
-- Initial h₀ supplied; inputs/outputs at steps 1..T; finite T including T=0.
+- Initial h₀ supplied; input `x k` drives step/state `k+1`; finite interface has
+  `T` inputs indexed `0..T−1` and `T+1` states, including `T=0`.
   Parameters shared across time; initial state fixed with respect to parameters.
 - Start gradients with half squared Euclidean loss and differentiable scalar
   activations, then generic differentiable real loss/readout. Softmax is a coupled
@@ -66,3 +67,16 @@ finite-time recursion. Choose a concrete corrected sampler only after comparing
 moment targets with Algorithm 1; preserve the paper sampler as a separate law.
 No optimization convergence theorem is planned without an independently specified
 objective, algorithm, regularity and stochastic assumptions.
+
+## API findings from implementation
+
+`Mathlib.Analysis.Quaternion` provides the existing real inner-product structure
+and linear isometry to Euclidean four-space. `coordinateEquiv` composes that
+isometry with `PiLp.continuousLinearEquiv` to the finite product norm. Calculus
+modules explicitly select the additive/module instances used by that isometry;
+these are existing mathlib structures, not mathematical assumptions.
+Quaternion weight calculus uses `Matrix.Norms.Elementwise` (finite product sup
+norm). The Euclidean pairing defining gradients is explicitly `matrixPair` or
+`vectorPair`; it does not assert that the sup norm comes from that inner product.
+In finite dimension the topology suffices for real Fréchet calculus, while the
+chosen Euclidean pairing fixes the gradient convention.

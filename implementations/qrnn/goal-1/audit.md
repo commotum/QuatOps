@@ -1,8 +1,8 @@
 # Preliminary audit and correction log
 
-Status: source inspection only. No substantive formal audit, Lean implementation,
-proof, or counterexample has been completed. Entries are targets for verification;
-proposed reconstructions must be justified by real component calculus later.
+Status: algebra and local real derivatives are implemented and compiled. The
+original table preserves the preliminary audit targets; the verified dispositions
+below distinguish established corrections from remaining work.
 Do not import the paper formulas as axioms.
 
 | ID | Source | Preliminary concern | Proposed handling / open hypothesis |
@@ -27,12 +27,45 @@ When a correction is established, append exact real statement, assumptions,
 proof or counterexample declaration, source anchor, and effect on dependent claims.
 Unsupported source claims remain visible instead of being silently dropped.
 
+## Verified dispositions (2026-09-25)
+
+- A01: `normalize_norm` requires `q ≠ 0`; `normalize_zero` establishes the total
+  fallback at zero. No unit-norm assertion is made for zero.
+- A02: `leftBlock_apply` and `rightBlock_apply` distinguish both ordered actions;
+  `rightBlock_star` explains the appendix weight-pullback matrix, and
+  `weight_mul_pair` establishes `g * star x` as its Euclidean cotangent action.
+- A03: `expand_apply`, `expand_mul`, `expand_injective`, and
+  `real_coordinate_count` establish shape and parameter preservation. Dimensions
+  are typed as `(Fin m × Fin 4)` by `(Fin n × Fin 4)`.
+- A04: `outputLoss_hasFDerivAt` and `output_gradient` prove the output-weight
+  gradient for explicit half-squared error and differentiable split β. The
+  preactivation cotangent is the split derivative acting on the residual, and
+  `weightOuter` multiplies each resulting output cotangent on the right by the
+  conjugated hidden input. A residual is not itself a matrix-weight derivative.
+- A05: `readoutDerivative_pair` and `qrnnStateDerivative_pair` establish the
+  correct local composition order with activation derivatives at preactivations.
+  Full recurrent/terminal composition is the ongoing stage 3 proof.
+- A07 (bias part): `bias_hasFDerivAt` has the split derivative as its Jacobian,
+  because the additive-bias map has identity derivative before activation. The
+  appendix's matrix-of-ones description is not adopted.
+- A08 (local part): `matrix_mul_pair` proves conjugate transpose for the matrix
+  pullback; `qrnnRun_prefix`, `qrnnFiniteRun` and `qrnnRun_expand` give explicit
+  initial state and finite-horizon dependence. Input k drives state k+1, avoiding
+  a negative state index. Parameter accumulation is not yet fully proved.
+- A13: `qlstmStep` defines the gate/cell architecture with explicitly separate
+  Hamilton affine maps and componentwise gate products. It interprets the
+  candidate's missing multiplication symbols consistently with the other gates.
+  This is a documented architecture interpretation, not a theorem that the paper
+  uniquely specifies it. Scalar gate/tanh functions remain explicit arguments.
+
+A06, the rest of A07/A08, initialization A09–A12, whole-model A14 counts, and
+stronger probability distribution claims remain open. A15 empirical and
+unsupported convergence/regularization assertions remain outside the verified core.
+
 ## Axiom audit status
 
-Project Lean source currently consists only of imports/comments: no project
-axioms, definitions or theorems, and no `sorry`. There are no main results to audit.
-An import smoke build does not constitute a mathematical axiom audit. When results
-exist, record `#print axioms Qrnn.<mainResult>` output per result. Ordinary Lean
-foundational dependencies (e.g. classical choice/propositional extensionality)
-are to be reported; project-specific assumptions belong in theorem hypotheses,
-not unexplained axioms. Any dependency on `sorryAx` fails completion.
+`Qrnn/AxiomAudit.lean` uses `#print axioms` for the completed main results;
+`goal-1/axioms.txt` records observed kernel output. So far those results depend
+only on `propext`, `Classical.choice`, and `Quot.sound`. No project-specific axiom
+or `sorryAx` appears. Update the audit when new main results are added. Proposed
+claims in planning documents are not Lean declarations or imported assumptions.

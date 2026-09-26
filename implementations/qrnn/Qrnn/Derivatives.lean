@@ -186,7 +186,7 @@ theorem matVec_hasFDerivAt {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E
   convert! hs using 1
   apply ContinuousLinearMap.ext
   intro v
-  simp [matVecDerivative, weightActionCLM, matrixActionCLM, Matrix.mulVec, dotProduct,
+  simp [matVecDerivative, weightActionCLM, matrixActionCLM,
     Finset.sum_add_distrib, add_comm]
   rfl
 

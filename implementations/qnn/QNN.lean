@@ -8,3 +8,5 @@ import QNN.Training
 import QNN.ForwardCalculus
 import QNN.ParameterCalculus
 import QNN.LayerParameters
+import QNN.NetworkParameters
+import QNN.Backpropagation

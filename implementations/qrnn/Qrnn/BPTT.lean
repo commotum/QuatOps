@@ -38,12 +38,10 @@ theorem unroll_hasFDerivAt (step : ℕ → P → H → H) (initial : H) (p : P)
       (jointStepDerivative (A k) (B k)) (p, unroll step initial k p)) :
     HasFDerivAt (unroll step initial T) (unrollDerivative A B T) p := by
   induction T with
-  | zero => exact hasFDerivAt_const p initial
+  | zero => exact hasFDerivAt_const (𝕜 := ℝ) initial p
   | succ T ih =>
     have hp := ih (fun k hk => hs k (Nat.lt_trans hk (Nat.lt_succ_self T)))
     convert! (hs T (Nat.lt_succ_self T)).comp p ((hasFDerivAt_id p).prodMk hp) using 1
-    ext v
-    simp [unrollDerivative, jointStepDerivative]
 
 /-- Reverse pullback of a terminal cotangent. The recursion visits steps T-1..0;
 local parameter contributions are accumulated exactly once per visited step. -/
