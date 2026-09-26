@@ -33,8 +33,8 @@ and actual main-result axiom audits without proof holes or unexplained project a
   norms of the actual mathematical codes; FP32 storage does not establish this assumption.
 - The revised default RGB distribution has one common residual-derived scale. Existing
   independent-channel-scale theorems remain reusable generalizations, not the default head.
-- Revised RGB decoding requires ties-to-even. Existing half-down decoding is mathematically
-  valid but does not implement that convention; stage 3 is reopened for compatibility.
+- Revised RGB decoding uses a separate compiled ties-to-even API. The original
+  half-down API remains available under its existing names.
 - Residual width needs a positive floor/gain and positive S(4N−3). No calibrated
   confidence or Bayesian-posterior claim follows. Zero residual can be a wrong prediction.
 - Source scripts/results and the cited upstream README are absent locally. Reported
@@ -66,15 +66,14 @@ injectivity, rank, singular values, condition one, exact recovery and Euclidean 
 **Focus:** Positive-energy hypotheses, explicit adjoint, least-squares orthogonality and gain.
 **Completion signal:** Bank leaves and public-root build pass with actual main-result audits.
 
-### 3. Exact grid and revised discrete decoding — in progress
+### 3. Exact grid and revised discrete decoding — complete
 
 **Outcome:** Exact RGB Cartesian grid and global least-squares decoder using the revised
 ties-to-even convention, with clipping and strict-margin recovery.
 **Focus:** Reuse compiled grid/global-optimum/margin proofs; add an even-tie decoder and
 prove its nearest-grid property. Retain half-down results under explicit names.
 **Completion signal:** Revised even-tie decoder, clipped formula, global optimality and
-margin recovery compile and have actual axiom checks. Existing half-down checks alone
-are insufficient. See `3-grid.md`.
+margin recovery compile and have actual axiom checks. EvenRounding/EvenDecoding/EvenMode and thirteen actual axiom checks pass. See `3-grid.md`.
 
 ### 4. Generic finite-grid probabilities and baseline counts — complete
 
@@ -85,7 +84,7 @@ and baseline core counts from total structured counts.
 **Completion signal:** Probability/Counts leaves and ProbabilityCountAxioms build pass.
 This stage does not discharge the revised residual/TYPE/joint/count obligations.
 
-### 5. Unified TYPE/VALUE mathematical model — not started
+### 5. Unified TYPE/VALUE mathematical model — in progress
 
 **Outcome:** Exact concatenated interface, fixed-code TYPE likelihood, residual-derived
 width, revised common-scale RGB likelihood, reconstruction-temperature equivalence,
@@ -116,5 +115,5 @@ claim while stage 3 or stage 5 remains unfinished. See `6-final-audit.md`.
 Source migration performed on 2026-09-26. Stages 1–2 and generic stage 4 compile with
 actual audits; original half-down stage 3 compiles but needs ties-to-even compatibility.
 BF16 representation and limitation examples compile; final consolidated audit is pending.
-Next: implement revised ties-to-even decoding in a narrow leaf, then stage 5's residual
-width and fixed-code TYPE likelihood. Preserve the full revised objective and build hygiene.
+Revised ties-to-even decoding now compiles and has actual audits. Next: stage 5's
+residual width, bank normalization and fixed-code TYPE likelihood. Preserve the full revised objective and build hygiene.

@@ -5,7 +5,7 @@
 Revised source is `type_value_embeddings_revised_proposal.md` (see docs/REVISION.md).
 Reusable quaternion/bank/grid/probability/count leaves compile. TYPE codebook,
 concatenated typed interface, residual-width head, TYPE likelihood and revised counts
-are not implemented. Revised ties-to-even compatibility is handled first in stage 3.
+are not implemented yet. Revised ties-to-even compatibility is complete in stage 3.
 
 ## Updated Assumptions
 
@@ -63,4 +63,7 @@ hardware performance remain separately classified rather than claimed from algeb
 
 ## Stage Results
 
-Not started; source migration only.
+In progress. First implementation leaves: Bank/Normalization, Reader/Width and
+Reader/Gain. Width depends on residual geometry but not spectral theory; Gain isolates
+exp/log imports. Prove positive degrees from nonzero energy before width division.
+Focused builds for these three leaves; separate UnifiedAxioms after completed results.

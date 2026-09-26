@@ -1,6 +1,6 @@
 # 3-grid
 
-**Current status:** reopened for revised ties-to-even decoding. The body through
+**Current status:** revised ties-to-even decoding complete. The body through
 Stage Results records the original half-down implementation; the revised requirements
 are at the end. Its historical completion does not complete revised stage 3.
 
@@ -75,3 +75,14 @@ EvenGridAxioms will audit the new results; no spectral imports in rounding.
 Focused commands: `lake build TypeEmbeddings.RGB.EvenRounding`, then
 `lake build TypeEmbeddings.RGB.EvenDecoding TypeEmbeddings.Diagnostics.EvenGridAxioms`.
 Public root is promoted only after these leaves pass.
+
+## Revised stage results
+
+EvenRounding proves closed Voronoi minimization, explicit even-tie integer formulas,
+bounded channel/RGB minimization and strict-margin recovery. EvenDecoding proves
+global reconstruction optimality, exact round-trip and Euclidean noise recovery.
+Probability/EvenMode proves mode selection, including exact ties. Public root and
+EvenGridAxioms build passed (2889 jobs); thirteen actual checks report only
+`propext`, `Classical.choice`, `Quot.sound`. No resource limit changes or proof holes.
+The decoder uses exact unbounded integers followed by clipping; machine conversion
+and FP32 execution remain separate implementation requirements.
