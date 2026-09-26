@@ -49,3 +49,17 @@ representable input grids and inexact projected arithmetic must remain explicit.
 
 All names are in namespace `TypeEmbeddings`; paths are under `TypeEmbeddings/`.
 The main results' actual axiom checks are in Diagnostics/QuaternionAxioms and BankAxioms.
+
+
+## Completed declaration map (stage 3)
+
+| Proposal claim | Lean declarations | Module |
+|---|---|---|
+| Grid map and cardinality | `channelValue_injective`, `channelValue_zero`, `channelValue_last`, `channelValue_bounds`, `rgb_card` | RGB/Core |
+| Spacing / Cartesian embedding | `channelValue_difference`, `channelValue_abs_gap`, `rgbValue_injective` | RGB/Core, Grid |
+| Exact rounding/ties/clipping | `nearestChannel_minimizes`, `nearestChannel_tie`, `nearestChannel_eq_round_clip` | RGB/Nearest, Rounding |
+| Discrete global optimum | `nearestRGB_minimizes`, `nearestRGB_global_minimizer` | RGB/Nearest, Decoding |
+| Recovery | `decodeRGB_roundTrip`, `decodeRGB_exact_of_margin`, `decodeRGB_exact_of_noise` | RGB/Decoding |
+
+The exact half-down convention uses `roundHalfDown t = -round (-t)`; clipping uses
+`min 255 n.toNat`, so no unchecked machine-integer conversion is involved.

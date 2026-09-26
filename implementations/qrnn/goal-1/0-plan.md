@@ -65,7 +65,7 @@ rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 - **Completion signal:** gradient correctness theorems compile, paper compact and
   appendix versions have explicit reconciliation or documented counterexamples.
 
-### 4. Initialization and moments — not started
+### 4. Initialization and moments — complete
 - **Outcome:** rigorous norm/moment statements for explicitly specified random
   quaternion models, separated from initialization optimization heuristics.
 - **Focus:** centered vector variance versus variance of its norm, Gaussian
@@ -123,6 +123,17 @@ imports quaternion modules, Forward imports calculus-free ActivationCore, and
 AxiomAudit is a diagnostic leaf outside the public entry point. Use focused
 module builds during stage work, adjacent consumer builds for changed imports,
 and full builds for public API/configuration changes. Existing proof bodies and
-statements are preserved. Full API build and all 47 audited results passed.
-Next: stage 4 initialization probability; exact architecture counts remain unfinished.
+statements are preserved. Full API build and all 76 audited results passed.
+Stage 4 compiled in InitializationCore/Moments/Gaussian/Uniform, with diagnostic
+normalization checks in InitializationAudit. Actual Gaussian component laws give
+norm second moment and covariance trace 4σ². The bounded signed uniform polar
+sampler gives norm second moment σ²/3, mean norm σ/2, norm variance σ²/12;
+covariance trace σ²/3 additionally requires amplitude-factor independence.
+Normalization, positive width/fan and measurability hypotheses are explicit;
+zero normalization is excluded almost surely under a continuous coordinate law.
+Correct uniform bounds are sqrt(3 target); the printed Gaussian scale used as a
+uniform bound misses its stated moment target by a factor of 12. The chi-density
+proof and closed-form Gaussian norm mean are outside the verified moment surface;
+no claim that the bounded sampler has a chi law is made.
+Next: stage 5 QLSTM/count/cost work, then full integration audit.
 The full goal is active; current build coverage is not completion of the library.

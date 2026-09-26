@@ -55,7 +55,7 @@ and explicit handling of the degenerate bank.
 **Completion signal:** Main reusable bank/decoder theorems compile and their actual
 axiom dependencies are recorded; no numerical recovery claim is inferred.
 
-### 3. Exact grid and optimal discrete decoding — in progress
+### 3. Exact grid and optimal discrete decoding — complete
 
 **Outcome:** The 256-point channel grid and Cartesian RGB grid are exact, a specified
 tie/clipping decoder globally minimizes reconstruction error, and strict half-spacing
@@ -65,7 +65,7 @@ score decomposition, coordinate maximum versus Euclidean error, and ties at boun
 **Completion signal:** Grid, round-trip, error-margin, and global optimality theorems
 compile; ties need not have a unique minimizer.
 
-### 4. Normalized probabilities and definitional counts — not started
+### 4. Normalized probabilities and definitional counts — in progress
 
 **Outcome:** Positive finite-grid kernels define a normalized factorized RGB PMF,
 with nearest-grid modes; supported parameter counts and explicit operation-count

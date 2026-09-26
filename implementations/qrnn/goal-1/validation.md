@@ -81,3 +81,12 @@ The subsequent `lake build` passed (2437 tasks), and explicit AxiomAudit checkin
 passed with 47 main results depending only on propext, Classical.choice,
 Quot.sound. The newest output is in build.log and axioms.txt. Stage 3 is complete;
 initialization, architecture counts, and final integration are still unfinished.
+
+## Initialization-stage checks (2026-09-26)
+
+All four Initialization mathematical modules and the separate diagnostic leaf
+passed focused builds. Actual Gaussian/uniform distribution laws were used to
+prove moments; scalar norm variance and covariance trace remain distinct.
+The public build passed (3114 tasks); explicit axiom checking passed for 76
+main results, with only the standard three foundational axioms. See the current
+build.log and axioms.txt. Stage 4 is complete; QLSTM/count/cost integration remains.

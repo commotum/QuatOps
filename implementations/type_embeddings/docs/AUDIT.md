@@ -1,6 +1,6 @@
 # Corrections, assumptions, unresolved points, and axiom audit
 
-Quaternion and bank stages now have compiled substantive proofs and actual axiom audits.
+Quaternion, bank, and exact RGB decoding stages now have compiled proofs and actual axiom audits.
 No numerical reproduction has been performed. The qualifications below remain scope
 requirements; the declaration map identifies which obligations are discharged.
 
@@ -56,7 +56,8 @@ No material correction to the source is claimed proved at this stage.
 
 The public root exports completed quaternion and bank leaves; diagnostics remain
 separate. Actual `#print axioms` runs for 8 quaternion results and 20 bank results
-report exactly `[propext, Classical.choice, Quot.sound]`. No `sorryAx` or custom
+report exactly `[propext, Classical.choice, Quot.sound]`. Twelve grid/decoding results
+were additionally checked with the same output in `Diagnostics/GridAxioms.lean`. No `sorryAx` or custom
 project axiom is reported. Audit sources are
 `TypeEmbeddings/Diagnostics/QuaternionAxioms.lean` and `BankAxioms.lean`.
 Build these targets explicitly to reproduce the checks.

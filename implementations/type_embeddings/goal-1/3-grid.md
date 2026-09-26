@@ -40,4 +40,15 @@ optimality compile, with actual axiom audit and declaration map updated.
 
 ## Stage Results
 
-In progress.
+Complete. RGB Core/Grid/Nearest/Rounding/Decoding, GridAxioms and the public root
+compile. Combined grid-audit/root build passed (2731 jobs). Twelve actual axiom checks
+report only `propext`, `Classical.choice`, `Quot.sound`.
+
+Proved cardinality 256³, endpoints/bounds/injectivity, difference and minimum spacing,
+Euclidean grid coordinates, smallest-index argmin, exact half-down integer rounding
+and clipping equivalence, Cartesian nearest-distance optimum, global reconstruction
+optimum, exact code round-trip, strict coordinate margin and sufficient Euclidean noise
+margin. Broad nlinarith contexts were replaced with `nlinarith only` in rounding proofs;
+no resource limits were raised.
+
+Next: finish finite probabilities and coefficient/work counts.

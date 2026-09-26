@@ -220,5 +220,16 @@ theorem uniformPolar_paperScale_secondMoment (fan : ℝ) (hfan : 0 < fan) :
   field_simp at hs ⊢
   nlinarith
 
+/-- The repaired bounded-amplitude sampler attains a prescribed positive norm second moment. -/
+theorem correctedUniformPolar_secondMoment {Ω : Type*} [MeasurableSpace Ω]
+    (μ : Measure Ω) (amplitude angle : Ω → ℝ) (direction : Ω → Q)
+    (target : ℝ) (ht : 0 < target)
+    (ha : HasLaw amplitude (uniformAmplitudeLaw (uniformAmplitudeBound target)) μ)
+    (hr : ∀ᵐ ω ∂μ, (direction ω).re = 0) (hn : ∀ᵐ ω ∂μ, ‖direction ω‖ = 1) :
+    quaternionSecondMoment μ (fun ω => polarWeight (amplitude ω) (angle ω) (direction ω)) = target := by
+  have hb : 0 < uniformAmplitudeBound target := Real.sqrt_pos.mpr (by positivity)
+  rw [uniformPolar_secondMoment μ amplitude angle direction (uniformAmplitudeBound target) hb ha hr hn]
+  exact uniformAmplitudeBound_secondMoment target ht.le
+
 end
 end Qrnn

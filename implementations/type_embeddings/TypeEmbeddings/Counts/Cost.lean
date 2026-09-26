@@ -32,6 +32,7 @@ theorem decoderProductCount_eq (N : ℕ) : decoderProductCount N = 16 * N + 3 :=
 /-- In units of d=4N, encoding has three multiplication slots per output coordinate. -/
 theorem encoderProductCount_dimension (N : ℕ) : encoderProductCount N = 3 * (4 * N) := by
   rw [encoderProductCount_eq]
+  omega
 
 /-- For nonempty banks the fixed readout overhead is bounded by a linear term. -/
 theorem decoderProductCount_dimension_bound (N : ℕ) (hN : 1 ≤ N) :
@@ -47,9 +48,10 @@ theorem encoder_cost :
   apply IsBigO.of_bound 3
   apply Filter.Eventually.of_forall
   intro N
-  rw [encoderProductCount_eq]
-  simp only [Nat.cast_mul, Nat.cast_ofNat, Real.norm_eq_abs,
-    abs_of_nonneg (Nat.cast_nonneg _), abs_mul, abs_ofNat]
+  rw [Real.norm_of_nonneg (Nat.cast_nonneg (encoderProductCount N)),
+    Real.norm_of_nonneg (mul_nonneg (by norm_num : (0 : ℝ) ≤ 4) (Nat.cast_nonneg N)),
+    encoderProductCount_eq]
+  norm_num [Nat.cast_mul, mul_assoc]
   exact le_of_eq (by ring)
 
 theorem decoder_cost :
@@ -58,7 +60,7 @@ theorem decoder_cost :
   filter_upwards [Filter.eventually_ge_atTop (1 : ℕ)] with N hN
   have h := decoderProductCount_dimension_bound N hN
   have hr : (decoderProductCount N : ℝ) ≤ 5 * (4 * (N : ℝ)) := by exact_mod_cast h
-  simpa only [Real.norm_eq_abs, abs_of_nonneg (Nat.cast_nonneg _), abs_mul,
-    abs_ofNat] using hr
+  simpa only [Real.norm_of_nonneg (Nat.cast_nonneg (decoderProductCount N)),
+    Real.norm_of_nonneg (mul_nonneg (by norm_num : (0 : ℝ) ≤ 4) (Nat.cast_nonneg N))] using hr
 
 end TypeEmbeddings

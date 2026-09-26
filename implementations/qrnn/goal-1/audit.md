@@ -122,3 +122,40 @@ kept in a diagnostic leaf, separate from the reusable corrected recurrence.
 The prior paragraphs about stage 3 being open describe earlier intermediate
 coverage. A06–A08 reconstruction is now complete; initialization A09–A12 and
 counts A14 remain next. No empirical/optimization claims have been promoted.
+
+## Initialization corrections verified (2026-09-26)
+
+A09–A12 have corrected moment results. `quaternionVariance` is the sum of four
+real component variances, and `quaternionVariance_eq` proves covariance trace =
+E||W||² − sum of squared component means. `quaternionNorm_mean_pos` proves that
+E||W|| > 0 whenever the norm is integrable and W is not almost surely zero.
+`quaternionNorm_variance_lt_secondMoment` then shows norm variance is strictly
+smaller than E||W||² under finite second moments. This corrects the paper's
+symmetry argument; symmetric W does not center its nonnegative norm.
+
+`gaussianQuaternion_sigma_secondMoment` derives 4σ² from actual centered real
+Gaussian component laws, including integrability. The same is covariance trace
+with centered components. No chi density or norm-variance identity is assumed.
+The appendix's density/law derivation and closed-form Gaussian norm mean remain
+outside the verified surface; the moment calculation has a rigorous component
+law proof instead.
+
+For the printed continuous uniform amplitude φ in [-σ,σ] and pure unit
+imaginary direction, polar norm equals |φ|. `uniformPolar_secondMoment`,
+`uniformPolar_norm_mean` and `uniformPolar_norm_variance` prove σ²/3, σ/2 and
+σ²/12 respectively. These norm facts require no angle/direction independence.
+`uniformPolar_quaternionVariance` proves centered covariance trace σ²/3 when
+φ is independent of each measurable angular/directional coordinate factor.
+Thus the printed σ = 1/sqrt(2 fan) gives 1/(6 fan), not its intended 2/fan.
+`uniformAmplitudeBound` and `correctedUniformPolar_secondMoment` use
+sqrt(3 target), or sqrt(6/fan) for that target. This is moment calibration,
+not an optimization or convergence theorem. Fan counts are still explicit
+architecture conventions, not silently assumed real-component counts.
+
+`imaginarySample_nonzero_ae` proves a single continuous uniform positive sample
+coordinate excludes zero direction almost surely; independence of x,y,z is not
+needed. For a deterministic zero sample, the total normalization fallback is
+zero and `zero_direction_polar_counterexample` refutes the unqualified unit-norm
+claim. `sampledDirection_imI_nonnegative` records the positive-octant support
+constraint; sampling a normalized positive cube vector is not a specified
+uniform full-sphere law. No isotropy or chi law is asserted for the actual sampler.

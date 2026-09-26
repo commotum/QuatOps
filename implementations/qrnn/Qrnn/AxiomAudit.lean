@@ -1,5 +1,8 @@
 import Qrnn.QRNNGradients
 import Qrnn.BPTTAudit
+import Qrnn.InitializationGaussian
+import Qrnn.InitializationUniform
+import Qrnn.InitializationAudit
 
 /-! Kernel-reported dependencies of the main completed results.
 No project axioms are introduced here. Add unrolled BPTT/initialization/count
@@ -55,3 +58,33 @@ results when they are implemented; this audit covers algebra, local calculus, ge
 #print axioms Qrnn.qrnnSequenceGradient_correct
 #print axioms Qrnn.qrnnTerminalGradient_output
 #print axioms Qrnn.propagated_error_product_counterexample
+
+#print axioms Qrnn.polar_norm_sq
+#print axioms Qrnn.polar_norm
+#print axioms Qrnn.sampled_polar_norm_sq
+#print axioms Qrnn.gaussianScale_secondMoment
+#print axioms Qrnn.uniformAmplitudeBound_secondMoment
+#print axioms Qrnn.quaternionSecondMoment_components
+#print axioms Qrnn.quaternionVariance_eq
+#print axioms Qrnn.quaternionVariance_of_centered
+#print axioms Qrnn.quaternionNorm_mean_pos
+#print axioms Qrnn.quaternionNorm_variance_lt_secondMoment
+#print axioms Qrnn.polar_secondMoment
+#print axioms Qrnn.gaussianQuaternion_secondMoment
+#print axioms Qrnn.gaussianQuaternion_variance
+#print axioms Qrnn.gaussianQuaternion_sigma_secondMoment
+#print axioms Qrnn.uniformAmplitudeLaw_isProbability
+#print axioms Qrnn.uniformAmplitude_mean
+#print axioms Qrnn.uniformAmplitude_secondMoment
+#print axioms Qrnn.uniformAmplitude_abs_mean
+#print axioms Qrnn.uniformAmplitude_memLp
+#print axioms Qrnn.imaginarySample_nonzero_ae
+#print axioms Qrnn.uniformPolar_secondMoment
+#print axioms Qrnn.uniformPolar_norm_mean
+#print axioms Qrnn.uniformPolar_norm_variance
+#print axioms Qrnn.uniformPolar_quaternionVariance
+#print axioms Qrnn.uniformPolar_moment_ne_gaussian
+#print axioms Qrnn.uniformPolar_paperScale_secondMoment
+#print axioms Qrnn.correctedUniformPolar_secondMoment
+#print axioms Qrnn.zero_direction_polar_counterexample
+#print axioms Qrnn.sampledDirection_imI_nonnegative
