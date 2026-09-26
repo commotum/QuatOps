@@ -15,8 +15,8 @@ theorem nearestRGB_global_minimizer {N : ℕ} (w : Fin N → Quaternion ℝ)
     (hS : 0 < bankEnergy w) (h : BankSpace N) (c : RGB) :
     ‖h - encoder w (rgbValue (decodeRGB w h))‖ ^ 2 ≤ ‖h - encoder w (rgbValue c)‖ ^ 2 := by
   rw [reconstruction_score w hS, reconstruction_score w hS]
-  exact add_le_add_left
-    (mul_le_mul_of_nonneg_left (nearestRGB_minimizes (analyticDecoder w h) c) hS.le) _
+  exact add_le_add (le_refl _) (mul_le_mul_of_nonneg_left
+    (nearestRGB_minimizes (analyticDecoder w h) c) hS.le)
 
 /-- The per-coordinate strict margin is the infinity-norm condition without a norm ambiguity. -/
 theorem decodeRGB_exact_of_margin {N : ℕ} (w : Fin N → Quaternion ℝ)
