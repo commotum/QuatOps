@@ -66,3 +66,18 @@ dot-product logit equivalence. Common width + reconstruction-score decomposition
 Gibbs-likelihood equivalence. Conditional PMFs → typed joint normalization. Slot cardinality
 + one gain per bank → revised structured counts. BF16 and optional Gaussian statistics
 remain separate semantics. See the revised source, REVISION.md and THEOREM_OUTLINE.md.
+
+## Full-quaternion TEXT extension
+
+`Text.MRSpace J` and `OutputSpace n` are `PiLp 2` spaces of full real quaternions;
+output coordinates use `Sigma j, Fin (n j)` to keep groups disjoint. Finite real adjoints
+and singular values identify the coordinate-free Gram and transpose claims.
+The chain is right multiplication → grouped adjoint pairing/Gram → positive-energy
+LS inverse and unit isometry → Moore–Penrose/rank/singular values.
+Adjoint pairing alone → compact score identity → categorical normalization/log-odds
+and canonical finite-set greedy equivalence → conditional shortlist reranking.
+Finite slot cardinalities → Vr+D counts and explicit arithmetic-work bounds.
+`Categorical` isolates exponential/logarithmic and PMF imports; `Spectral` isolates
+singular-value imports. The arbitrary host in `Model` has no invertibility or slice
+assumption. Approximate index behavior and floating-point execution require additional
+semantics, outside these exact-real dependencies.

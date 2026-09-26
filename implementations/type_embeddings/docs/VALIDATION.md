@@ -1,4 +1,22 @@
-# Current revised-core validation
+# Current validation: both architectures
+
+The additional single-pass TEXT architecture and retained RGB/unified architecture both
+compile. The combined public-root/axiom build passed (2918 jobs); an explicit build of
+all 59 project modules passed (2926 jobs). Neither log contains warnings/errors.
+There are 67 additional audited results and 115 retained results, all using only
+`propext`, `Classical.choice`, `Quot.sound`. All sources pass hole/custom-axiom/shortcut
+and import-boundary scans. Nine package HEADs match the manifest, all three proposal
+fingerprints are unchanged, and local document links and whitespace/diff checks pass.
+
+See [the full single-pass claim audit](SINGLE_PASS_AUDIT.md),
+[combined build output](single-pass-build.log) and
+[all-module build output](single-pass-all-modules.log). These checks concern exact real
+mathematics and the abstract tied interface. They do not validate production ANN search,
+FP32 execution, training quality, recall or hardware speedups.
+
+The earlier first-architecture evidence follows as historical provenance.
+
+# Historical revised-core validation
 
 The revised mathematical core compiles under pinned Lean 4.32.0 and mathlib
 `81a5d257c8e410db227a6665ed08f64fea08e997`. All nine private package HEADs match

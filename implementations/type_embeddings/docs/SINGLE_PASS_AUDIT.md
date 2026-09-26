@@ -127,5 +127,16 @@ Diagnostics/SinglePassAxioms audits all 67 new public theorems, including the ho
 results. Exact real/linear-map proofs do not model a production Faiss search, tensor
 Hamilton products, gradient implementation or transformer attention/MLP graph.
 
-Build and source validation results are recorded after the final combined check.
-Neither proposal source nor Lean/mathlib pins are changed by the audit.
+Validation completed under the unchanged pinned Lean/mathlib setup:
+
+- `lake build TypeEmbeddings.Diagnostics.SinglePassAxioms TypeEmbeddings.Diagnostics.AllAxioms TypeEmbeddings`: exit 0, 2918 jobs; [raw log](single-pass-build.log).
+- Explicit `lake build` targets for every one of the 59 project modules: exit 0, 2926 jobs; [raw log](single-pass-all-modules.log).
+- The combined audit prints 182 distinct results (67 additional and 115 retained), all using only `propext`, `Classical.choice`, `Quot.sound`. The all-module build repeats some individual audits, with the same 182 distinct results.
+- Both build logs contain no warnings/errors. All 59 sources pass proof-hole, custom-axiom, unchecked-shortcut and internal-import-boundary scans.
+- All nine private package HEADs match the locked manifest. All three proposal fingerprints are unchanged. Local document links and scoped whitespace/diff checks pass.
+
+These are local pinned cached builds, not clean network bootstrap or runtime benchmarks.
+The exact mathematical/interface extension is complete within the boundaries above;
+production tensor/ANN integration, numerical error budgets, trained-model evaluation and
+hardware claims remain outside the verified implementation. Neither proposal source nor
+Lean/mathlib pins are changed by the audit.

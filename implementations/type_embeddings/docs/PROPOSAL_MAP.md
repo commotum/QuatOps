@@ -94,3 +94,14 @@ The full obligation-to-declaration table is in `THEOREM_OUTLINE.md`. Modules:
 | Preserved revised limitations | Diagnostics/RevisedLimitations |
 
 `Diagnostics/AllAxioms` checks 115 distinct mapped main results and definitions.
+
+## Additional single-pass TEXT architecture
+
+The earlier revised source remains the source of the RGB/unified declarations above.
+The [single-pass source](../type_value_embeddings_single_pass_proposal.md) has its own
+[complete section-to-declaration map and correction audit](SINGLE_PASS_AUDIT.md).
+`Text/Grouped` and `Decoder` establish the full-quaternion group geometry; `Scoring`,
+`Categorical`, `Distribution`, `Retrieval` and `Resolve` establish tied probabilities and
+conditional canonical candidate correctness. `Counts` and `Spectral` cover dimensions,
+coefficient/work counts, rank and unit singular values. `Model` connects these results to
+one dictionary/bank and an arbitrary host interface. This adds to the existing API.

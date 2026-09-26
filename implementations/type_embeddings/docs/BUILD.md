@@ -37,3 +37,20 @@ Completed revised leaves have focused targets under RGB/EvenRounding, Reader, Ty
 Probability/Reconstruction, Typed, and Counts/Structured*. The consolidated reproducible
 audit command is `lake build TypeEmbeddings.Diagnostics.AllAxioms`; it remains outside
 the public graph. Final audit evidence is in goal-1/final-build.log.
+
+## Additional TEXT leaves
+
+Build `TypeEmbeddings.Text.Grouped`, `Decoder`, `Scoring`, `Categorical`, `Retrieval`,
+`Counts`, `Spectral`, `Distribution`, `Resolve` or `Model` by exact module name when
+touched. Scoring depends on the small grouped algebra, independently of LS inversion,
+spectral proofs and categorical probability. Audit/counterexample modules are separate.
+The public root exports both architectures; no original proof was weakened.
+The combined audit is:
+
+```sh
+lake build TypeEmbeddings.Diagnostics.SinglePassAxioms TypeEmbeddings.Diagnostics.AllAxioms TypeEmbeddings
+```
+
+The full claim map, ownership/boundaries and final build records for this extension are
+in [SINGLE_PASS_AUDIT.md](SINGLE_PASS_AUDIT.md). Historical goal-1 records describe the
+completed first architecture, rather than an instruction to overwrite it with TEXT.

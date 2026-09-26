@@ -116,3 +116,15 @@ The public-root/audit build passed (2906 jobs); raw output is `../goal-1/final-b
 revised default. No calibration, FP32 arithmetic, Gaussian statistics or heap implementation
 is inferred. A structural segment pair is used only for projections: its default product
 norm is not asserted to be the Euclidean concatenation norm.
+
+## Additional single-pass audit
+
+See [SINGLE_PASS_AUDIT.md](SINGLE_PASS_AUDIT.md) for every section of the new TEXT proposal,
+material differences, assumptions and external implementation checks. The exact scoring
+reader is the adjoint even with nonunit stored group energies; the LS inverse then differs.
+`SinglePassLimitations.inverse_can_reverse_ranking` provides a checked witness. Candidate
+correctness requires inclusion of the canonical full-vocabulary winner with consistent
+valid IDs and ties. No Faiss recall, model quality or speedup is proved.
+The separate `Diagnostics.SinglePassAxioms` target audits all 67 new public results;
+together with the retained audit there are 182 distinct checked results, all using only
+`propext`, `Classical.choice`, `Quot.sound`.

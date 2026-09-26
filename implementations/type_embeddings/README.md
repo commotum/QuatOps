@@ -1,7 +1,9 @@
 # Unified Type & Value Embeddings: Lean library
 
 Verified mathematical core of the
-[revised proposal](type_value_embeddings_revised_proposal.md). The
+[revised proposal](type_value_embeddings_revised_proposal.md). The additional
+[single-pass TEXT architecture](type_value_embeddings_single_pass_proposal.md) is verified
+alongside it; see the [full claim audit and differences](docs/SINGLE_PASS_AUDIT.md). The
 [original proposal](type_value_embeddings_proposal.md) remains provenance.
 
 The public library covers quaternion right multiplication, stacked Gram and fused
@@ -10,6 +12,11 @@ decoding, finite TYPE/RGB probabilities, residual-derived width, reconstruction-
 equivalence, typed segment round-trips, normalized dependent joint laws, and explicit
 coefficient/work counts. The revised 64/448 example has 514 learned coefficients.
 The original half-down and independent-channel-scale APIs remain reusable alternatives.
+
+The TEXT extension proves disjoint full-quaternion group Gram/inverse identities,
+tied compact logits, normalized categorical laws, canonical greedy/reranking correctness
+conditional on winner inclusion, unit singular values and coefficient/work counts. Its
+`TiedTextModel` wraps an arbitrary host without assuming transformer inversion.
 
 Ideal-normal BF16 representation and exact counterexamples compile in separate numerical
 and diagnostic leaves. Representation is not exact prediction; floor residual width is not
@@ -26,7 +33,9 @@ No trained transformer or FP32 execution engine is supplied.
 Lean 4.32.0 and mathlib `81a5d257c8e410db227a6665ed08f64fea08e997` are pinned;
 `lake-manifest.json` locks transitive revisions. From this directory, run `lake build`
 for the public library and `lake build TypeEmbeddings.Diagnostics.AllAxioms` for the
-consolidated main-result audit. Build touched leaves directly during changes. Diagnostics
+original main-result audit. Also run
+`lake build TypeEmbeddings.Diagnostics.SinglePassAxioms` for the TEXT extension.
+Build touched leaves directly during changes. Diagnostics
 remain outside the public dependency graph; the optional dependency smoke target is
 `TypeEmbeddings.Diagnostics.Dependencies`.
 

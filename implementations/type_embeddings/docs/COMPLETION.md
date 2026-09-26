@@ -46,3 +46,12 @@ has not been tested; the pinned local cached build is the observed reproducibili
 The final explicit `lake build` invocation named all 47 project modules and passed
 (2914 jobs), including optional diagnostics. Raw output: `../goal-1/final-module-build.log`.
 This verifies delivered modules beyond the public-root import closure.
+
+## Additional single-pass architecture
+
+The first architecture and its historical completion evidence above are retained.
+The subsequent user-authorized TEXT implementation adds ten public modules and two
+diagnostics. Its exact claim map and completion boundaries are recorded in
+[SINGLE_PASS_AUDIT.md](SINGLE_PASS_AUDIT.md); the new architecture is exported alongside
+the first. It verifies encoder/readout/probability/conditional candidate mathematics,
+not a trained transformer, Faiss implementation or finite-precision execution engine.
