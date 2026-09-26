@@ -25,26 +25,33 @@ in `VALIDATION.md`. No dependency of this package points at another paper's libr
 
 The optional `TypeEmbeddings.Diagnostics.Dependencies` target checks these module paths,
 not a finished proof design. The public root does not import it.
-No dedicated BF16 semantics or Moore–Penrose API has been selected; neither should
-block exact algebra (prove the four Moore–Penrose identities directly if needed).
+The four Moore–Penrose identities are proved directly. Numerics/BFloat16 defines
+ideal normal representability and a local-binade ties-to-even storage relation; it is
+not a general FP32/BF16 execution engine. PMF packaging is already implemented.
 
-## Tentative representations
+## Current representations and revised additions
 
 Channel = `Fin 256`; RGB = `Fin 3 → Fin 256`; channel map coerces to ℝ before
-subtraction/division. Exact locations use `EuclideanSpace ℝ (Fin 3)` or an explicit
-WithLp wrapper. Quaternions use mathlib's ℍ with scalar/i/j/k coordinate order.
-A bank is `Fin N → ℍ`. Stacked coordinates may use `Fin N × Fin 4`, of cardinality
+subtraction/division. Exact locations use `EuclideanSpace ℝ (Fin 3)`. Quaternions use mathlib's ℍ with scalar/i/j/k coordinate order.
+A bank is `Fin N → ℍ`. Stacked matrices use `Fin N × Fin 4`, of cardinality
 4N; flattened `Fin (4*N)` needs an explicit reindexing isometry, not a norm assumption.
 Keep algebraic coordinates/matrices separate from metric wrappers where convenient.
 
-Energy can be defined by sum of quaternion norm squares; prove equivalence with norms.
+Energy is defined by a sum of quaternion norm squares; its norm-square equivalence is proved.
 Encode as x ↦ (i ↦ (Px)*Wᵢ). Prefer a real linear-map theorem and derive its matrix
 statement through orthonormal coordinate equivalences. Right adjoint must be right
 multiplication by conjugate W, with the RGB projection taking imaginary coordinates.
 
-Tie convention proposed: smallest channel index among equal-cost minimizers. Later
-prove equivalence to clipped nearest-integer rounding with halfway ties downward.
-Finite argmin makes exact correctness independent of implementation rounding APIs.
+Current `nearestChannel` selects the smallest equal-cost index and its half-down
+clipped formula is proved. Revised §7 requires a new ties-to-even decoder. Mathlib's
+`round` is ties toward positive infinity; it cannot be used unmodified as ties-to-even.
+Keep the existing half-down API explicit and add the revised convention in a narrow leaf.
+
+Revised additions: generic finite TYPE indices with fixed codes in the same Euclidean
+three-space, a positive floor/gain residual-width record, common-scale RGB specialization,
+and a dependent sum of TYPE payloads for the joint PMF. Concatenated BankSpace segments
+can use an explicit product/isometric coordinate equivalence; do not assume slice isolation.
+TYPE equal-norm logits need exact equal norms; stored FP32 approximation is separate.
 
 ## Theorem dependency chain
 
@@ -52,5 +59,10 @@ Quaternion norm/adjoint → block Gram; pure insertion isometry + finite-bank su
 B*B = S id → left inverse and orthogonal projector → Moore–Penrose identities,
 least-squares uniqueness, fused reader, singular values, reconstruction bounds →
 score decomposition → channelwise global grid optimum and strict-margin recovery.
-Grid positivity/finite sums + exp positivity → kernel normalization → RGB product
-normalization and modes. BF16 and optional Gaussian statistics require separate semantics.
+Grid positivity/finite sums + exp positivity → generic RGB normalization/PMF/modes.
+S>0 → N≥1 → 4N−3>0; residual nonnegativity + positive floor/gain → positive width;
+finite TYPE support + exp positivity → TYPE normalizer/PMF; equal unit code norms →
+dot-product logit equivalence. Common width + reconstruction-score decomposition →
+Gibbs-likelihood equivalence. Conditional PMFs → typed joint normalization. Slot cardinality
++ one gain per bank → revised structured counts. BF16 and optional Gaussian statistics
+remain separate semantics. See the revised source, REVISION.md and THEOREM_OUTLINE.md.

@@ -1,4 +1,4 @@
-# Dependencies and provisional representation decisions
+# Dependencies and representation decisions
 
 ## Setup
 
@@ -26,14 +26,18 @@ fetch/build state. No Python or machine-learning runtime is a library dependency
    architecture. Finite cardinalities + explicit arithmetic cost model → exact
    count identities and conditional asymptotics.
 
-The smoke test checks only `Mathlib.Algebra.Quaternion`; the pinned source also contains
-`Mathlib.Analysis.Quaternion`, including the real inner-product instance and
-`Quaternion.linearIsometryEquivTuple` to `EuclideanSpace ℝ (Fin 4)`.
-This is a promising existing algebra/calculus bridge; it has been inspected but
-not imported by this minimal smoke test. Other module paths and available lemmas
-must be checked at stage 1.
-Do not assume mathlib already has the required real block/adjoint bridge or a
-ready-made chi-four distribution theorem.
+`Mathlib.Analysis.Quaternion` supplies the existing real inner-product instance
+and linear isometry to Euclidean four-space; Algebra and the calculus layer use
+it directly. The historical smoke leaf imports Mathlib.Algebra.Quaternion only.
+Gaussian moments use Probability.Distributions.Gaussian.Real and HasLaw;
+uniform moments use normalized restricted Lebesgue measure, interval integrals
+and the independence integration API. All paths/lemmas were checked against the
+pinned local source, and the actual mathematical modules compile.
+
+The direct-import cache script builds only the project's required dependency
+closure. Architecture/count leaves do not import probability/calculus, and
+probability leaves do not import BPTT. Generic BPTT imports FDeriv.Add/Prod only.
+Diagnostics are checked explicitly and excluded from the public entry point.
 
 ## Implemented conventions and remaining decisions
 
@@ -53,20 +57,33 @@ ready-made chi-four distribution theorem.
   `T` inputs indexed `0..T−1` and `T+1` states, including `T=0`.
   Parameters shared across time; initial state fixed with respect to parameters.
 - Start gradients with half squared Euclidean loss and differentiable scalar
-  activations, then generic differentiable real loss/readout. Softmax is a coupled
+  activations, plus generic differentiable real terminal/summed state losses. Softmax is a coupled
   real map; ReLU needs separate treatment at nondifferentiable coordinates.
 - Plain QRNN has hidden bias and no output bias in the printed equations.
   Optional output bias, layers and bidirectionality must be explicit variants.
 
-## Open choices
+## Resolved choices and explicit limits
 
-Decide how much algebra stays directly on mathlib quaternions versus a real
-coordinate equivalence, where inner-product structure is supplied, whether to
-state derivatives as continuous linear maps first, and how to encode reverse
-finite-time recursion. Choose a concrete corrected sampler only after comparing
-moment targets with Algorithm 1; preserve the paper sampler as a separate law.
-No optimization convergence theorem is planned without an independently specified
-objective, algorithm, regularity and stochastic assumptions.
+Derivatives are continuous real-linear maps, then identified with gradients by
+Euclidean component pairings. Generic cotangent recursion is instantiated with
+actual QRNN joint derivatives; QRNNGradients evaluates those derivatives and
+proves all four explicit parameter families. No project-specific calculus axiom
+is used. Norm topology uses finite product/sup norms; gradients retain the stated
+Euclidean pairing convention.
+
+InitializationCore defines deterministic polar weights and total normalization.
+InitializationMoments separates covariance trace, norm second moment and norm
+variance. Gaussian/Uniform law adapters justify the distinct moments. Corrected
+bounded sampling uses sqrt(3 target); the original printed sampler remains
+available as a separate law. Independence is required only in the explicitly
+stated centering theorem, not in polar norm moment identities.
+
+Coordinate equivalences justify counts of actual independent real parameters.
+Operation counts describe a dense zero-accumulation forward schedule with scalar
+activation costs supplied explicitly; they are not execution-time estimates.
+Extra layers/directions/heads, a chi density proof, QLSTM derivatives, coupled
+softmax/NLL adapters and optimization/convergence are explicit extensions rather
+than hidden assumptions or unfinished required proofs.
 
 ## API findings from implementation
 

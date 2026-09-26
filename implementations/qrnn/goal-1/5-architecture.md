@@ -5,7 +5,7 @@
 Stages 1–4 are verified. Forward defines QRNN and QLSTM gate/cell equations with
 Hamilton affine maps and componentwise gate products. QRNN real expansion is
 proved; QLSTM real expansion/unrolling and exact parameter/cost statements are
-not yet implemented. Source experiment diagrams/tables are missing locally.
+now implemented in QLSTMReal, ParameterCounts and OperationCounts. Source experiment diagrams/tables are missing locally.
 
 ## Updated Assumptions
 
@@ -52,4 +52,28 @@ explicit; build/scan/axiom checks and faithful paper map/correction fold-back.
 
 ## Stage Results
 
-In progress: implement QLSTM real coordinate equivalence first.
+Completed 2026-09-26:
+- qlstmStep_expand/qlstmRun_expand verify the full real-coordinate forward step
+  and finite-horizon recurrence, with explicit fixed initial cell/hidden state.
+- matrixCoordinateEquiv, qrnnCoordinateEquiv and qlstmCoordinateEquiv are checked
+  bijections to unrestricted real coordinate functions. Count identities therefore
+  count actual independent parameters, not redundant real expansion entries.
+- weight_parameter_count gives 4mn; arbitrary block-sized real weights have
+  16mn. QRNN has 4(h²+hd+oh+h); QLSTM has 16(hd+h²+h), without an output head.
+- Whole-model bias corrections at matched real widths are 12h (QRNN) and 48h
+  (QLSTM): real_count + correction = 4*quaternion_count. The weight-only factor
+  is exactly four; a whole-model unqualified fourfold assertion is rejected.
+- OperationCounts supplies finite scalar-operation index types and proves
+  Hamilton 16 multiplications/12 additions. The stated zero-accumulation schedule
+  gives QRNN cost 32(h²+hd+oh)+8h+4hα+4oβ and QLSTM cost
+  128(hd+h²)+48h+12hα+8hτ, including fixed scalar activation costs.
+- Equal-width polynomial formulas and explicit quadratic upper/lower bounds
+  state the scaling assumptions. Sequence schedule costs multiply by T. These
+  do not claim optimized arithmetic, actual Lean evaluator cost, BPTT runtime,
+  measured training speed, or a CUDA performance result.
+- Focused builds passed, including the parameter-count consumer OperationCounts.
+  Public build and explicit 102-result axiom audit are required at integration.
+  Source experiment totals remain outside scope: referenced tables/diagrams
+  are absent, and the counts specify a single layer/direction explicitly.
+
+Next: final integration, clean project build and requirement-by-requirement audit.

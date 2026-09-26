@@ -19,3 +19,6 @@
 ✔ [3118/3120] Built Qrnn (2.1s)
 ✔ [3120/3120] Built Qrnn.BPTTAudit (2.2s)
 Build completed successfully (3120 jobs).
+Validated 21 source modules and 102 main-result axiom reports.
+Lean (version 4.32.0, x86_64-unknown-linux-gnu, commit 8c9756b28d64dab099da31a4c09229a9e6a2ef35, Release)
+Pins, preserved paper, proof-hole scans and import boundaries passed.

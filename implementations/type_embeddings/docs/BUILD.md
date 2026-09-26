@@ -25,3 +25,10 @@ axioms, or raised resource limits merely to hide expensive proof search.
 Timing cached builds is an observation, not a portable benchmark. The current structural
 improvement removes optional imports from the default dependency graph. Future proof
 elaboration performance must be measured on actual implementations.
+
+
+For the revised proposal, isolate residual-width, TYPE likelihood and typed joint leaves
+from the quaternion/grid core; heavy TYPE/probability proof imports must not enter algebraic
+Core modules. Keep even-tie rounding separate from the existing half-down proof leaf.
+Reopened/new obligations belong in goal-1/3-grid.md and goal-1/5-unified.md. Document
+updates alone do not establish revised-head coverage or require broad proof rebuilding.

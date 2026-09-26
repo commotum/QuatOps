@@ -159,3 +159,29 @@ zero and `zero_direction_polar_counterexample` refutes the unqualified unit-norm
 claim. `sampledDirection_imI_nonnegative` records the positive-octant support
 constraint; sampling a normalized positive cube vector is not a specified
 uniform full-sphere law. No isotropy or chi law is asserted for the actual sampler.
+
+## Architecture/count corrections verified (2026-09-26)
+
+A13 now includes `qlstmStep_expand` and `qlstmRun_expand` for the fully typed
+real-coordinate gate/cell recurrence. Candidate affine Hamilton multiplication
+and split tanh are the documented interpretation; no QLSTM gradient theorem is
+required or claimed. Initial cell/hidden states are supplied explicitly.
+
+A14: `matrixCoordinateEquiv`, `qrnnCoordinateEquiv` and `qlstmCoordinateEquiv`
+prove bijections to free real coordinate functions, then finite-index counts
+prove 4mn matrix, 4(h²+hd+oh+h) QRNN and 16(hd+h²+h) QLSTM scalar parameters.
+Fourfold saving holds for weights at matched real widths 4d,4h,4o. Bias savings
+are absent at those widths: `qrnn_parameter_bias_correction` and
+`qlstm_parameter_bias_correction` give real_count +12h or +48h = 4*q_count.
+A QLSTM output head, another layer/direction or output bias must be counted
+separately; experiment-specific totals cannot be recovered from missing tables.
+
+`hamilton_naive_cost` proves 16 scalar multiplications and 12 additions or
+subtractions. It is not a comparison between equal-dimensional full layers:
+a Hamilton interaction returns four real coordinates and contains 16 scalar
+weight/input products. OperationCounts states a dense zero-accumulation schedule,
+includes affine/gate/cell additions and parameterized activation costs, and
+proves equal-width quadratic bounds plus sequence schedule counts. Thus the
+quadratic conclusion has a specified scaling convention and fixed per-scalar
+activation cost. No measured runtime, optimal algorithm, BPTT runtime, GPU speed,
+optimization or empirical performance assertion is made.

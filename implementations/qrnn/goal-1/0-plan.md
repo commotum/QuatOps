@@ -74,7 +74,7 @@ rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 - **Completion signal:** correct variance statements compile with moment/probability
   hypotheses; sampler mismatches and any chi-law scope are documented.
 
-### 5. QLSTM and architecture counts — forward definitions begun; counts pending
+### 5. QLSTM and architecture counts — complete
 - **Outcome:** sufficiently specified gate/cell recurrence; exact parameter and
   operation counts under a declared architecture and arithmetic cost model.
 - **Focus:** Hamilton affine maps versus componentwise gates; candidate-cell
@@ -82,7 +82,7 @@ rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 - **Completion signal:** forward definitions and conditional count theorems compile;
   comparison dimensions and asymptotic assumptions are explicit.
 
-### 6. Library integration and final audit — not started
+### 6. Library integration and final audit — in progress
 - **Outcome:** reusable documented modules, faithful paper-to-declaration map,
   correction record, pinned reproducible build, and main-result axiom audit.
 - **Focus:** coherent APIs, clean build, no placeholders or unsupported empirical
@@ -135,5 +135,11 @@ Correct uniform bounds are sqrt(3 target); the printed Gaussian scale used as a
 uniform bound misses its stated moment target by a factor of 12. The chi-density
 proof and closed-form Gaussian norm mean are outside the verified moment surface;
 no claim that the bounded sampler has a chi law is made.
-Next: stage 5 QLSTM/count/cost work, then full integration audit.
+Stage 5 compiled in QLSTMReal, ParameterCounts and OperationCounts. QLSTM step/
+run agree with real coordinate equations. Coordinate equivalences and finite
+index counts give independent matrix/QRNN/QLSTM scalar counts with exact bias
+corrections. Finite operation schedules, activation costs, equal-width cost
+polynomials and quadratic bounds are explicit. Costs describe the stated forward
+schedule, not measured Lean execution, BPTT runtime or experimental speed.
+Next: stage 6 documentation integration and a clean project build/axiom audit.
 The full goal is active; current build coverage is not completion of the library.

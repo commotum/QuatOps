@@ -33,7 +33,8 @@ theorem weight_parameter_count (m n : ℕ) :
 /-- The arbitrary real block-sized matrix has four times as many free coordinates. -/
 theorem weight_parameter_fourfold (m n : ℕ) :
     Fintype.card (Fin (4*m) × Fin (4*n)) = 4 * Fintype.card (QuaternionMatrixCoordinateIndex m n) := by
-  simp [weight_parameter_count]
+  rw [weight_parameter_count]
+  simp only [Fintype.card_prod, Fintype.card_fin]
   ring
 
 abbrev QRNNWeightIndex (d h o : ℕ) :=

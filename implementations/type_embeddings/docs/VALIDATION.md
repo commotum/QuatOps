@@ -1,4 +1,20 @@
-# Scaffold validation
+# Current revised-source status
+
+Active source: `type_value_embeddings_revised_proposal.md`, SHA256
+`da2d012ff531f71a199a23c010b9ce027605139298c9ca8e691d1b64615f9d1e`.
+The source migration changes documentation and scope tracking, not mathematical proofs.
+Quaternion/bank, original half-down grid, general finite-grid PMF/counts, ideal BF16 and
+limitation leaves have passed focused builds. Revised even-tie compatibility and unified
+TYPE/residual-width/joint/count obligations remain unfinished. A full revised-core
+completion/audit is not claimed.
+
+Generic probability/count root and audit build passed (2886 jobs), with thirteen actual
+axiom checks showing only propext, Classical.choice and Quot.sound. Ideal BF16 and
+Limitations focused builds passed. The numerical/limitation consolidated audit is pending.
+Historical scaffold timing/job counts below describe that earlier import-only state;
+they are not the current mathematical library's dependency graph.
+
+# Validation history and current revised-source coverage
 
 Status: PASS, 2026-09-25. No mathematical claim has been formalized.
 
@@ -56,3 +72,17 @@ only `propext`, `Classical.choice`, `Quot.sound`. This validates those mathemati
 statements under their explicit hypotheses, not floating-point execution or model quality.
 Subsequent stages remain incomplete; the original scaffold-only statements above are
 historical records, superseded by this mathematical implementation status.
+
+
+## Revised-source documentation migration checks — 2026-09-26
+
+Both original and revised proposal hashes match their recorded fingerprints; neither
+proposal was modified. Fourteen relative Markdown links, continuation prompt paths,
+reopened stage-3 status and new stage-5 status were checked. Direct whitespace scan
+and `git diff --check -- .` pass.
+
+`lake build TypeEmbeddings.Numerics.BFloat16 TypeEmbeddings.Diagnostics.Limitations
+TypeEmbeddings` passed (2887 jobs). This confirms current leaves/public root compile;
+it does not discharge the new revised-head obligations. The documentation migration
+changed no Lean theorem or proof. The dyadic statement's already-pending public-numerator
+cleanup was included in this focused validation.
