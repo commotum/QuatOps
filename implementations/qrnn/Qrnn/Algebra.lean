@@ -160,6 +160,53 @@ theorem weight_mul_pair (w x g : Q) : realPair (w * x) g = realPair w (g * star 
   simp [realPair, Fin.sum_univ_four, components, Quaternion.equivTuple_apply]
   ring
 
+/-- Pairing distributes over finite sums without any nonempty-index assumption. -/
+theorem realPair_sum_left {ι : Type*} (s : Finset ι) (f : ι → Q) (g : Q) :
+    realPair (∑ i ∈ s, f i) g = ∑ i ∈ s, realPair (f i) g := by
+  simp only [realPair, components_sum, Finset.sum_apply, Finset.sum_mul]
+  exact Finset.sum_comm
+
+theorem realPair_sum_right {ι : Type*} (s : Finset ι) (g : Q) (f : ι → Q) :
+    realPair g (∑ i ∈ s, f i) = ∑ i ∈ s, realPair g (f i) := by
+  simp only [realPair, components_sum, Finset.sum_apply, Finset.mul_sum]
+  exact Finset.sum_comm
+
+/-- Standard Euclidean pairing on a quaternion vector's real components. -/
+def vectorPair {n : ℕ} (v w : QVector n) : ℝ := ∑ i, realPair (v i) (w i)
+
+/-- Standard Euclidean pairing on independent real weight coordinates. -/
+def matrixPair {m n : ℕ} (W V : QMatrix m n) : ℝ :=
+  ∑ i, ∑ j, realPair (W i j) (V i j)
+
+/-- The matrix pullback requires a conjugate transpose, not just conjugation. -/
+theorem matrix_mul_pair {m n : ℕ} (W : QMatrix m n) (x : QVector n) (g : QVector m) :
+    vectorPair (W.mulVec x) g = vectorPair x (W.conjTranspose.mulVec g) := by
+  simp only [vectorPair, Matrix.mulVec, dotProduct, realPair_sum_left,
+    realPair_sum_right, Matrix.conjTranspose_apply, left_mul_pair]
+  exact Finset.sum_comm
+
+/-- Entrywise real gradient contribution for a Hamilton affine weight. -/
+def weightOuter {m n : ℕ} (g : QVector m) (x : QVector n) : QMatrix m n :=
+  fun i j => g i * star (x j)
+
+theorem matrix_weight_pair {m n : ℕ} (dW : QMatrix m n) (x : QVector n) (g : QVector m) :
+    vectorPair (dW.mulVec x) g = matrixPair dW (weightOuter g x) := by
+  simp only [vectorPair, matrixPair, weightOuter, Matrix.mulVec, dotProduct,
+    realPair_sum_left, weight_mul_pair]
+
+/-- Real expansion preserves all independent quaternion parameters. -/
+theorem expand_injective {m n : ℕ} : Function.Injective (expand (m := m) (n := n)) := by
+  intro W V h
+  ext i j
+  apply components_injective
+  ext a
+  have hc := congrFun (congrFun h (i, a)) (j, 0)
+  fin_cases a <;> simpa [expand, leftBlock, components, Quaternion.equivTuple_apply] using hc
+
+/-- The real block matrix dimensions, including zero-sized shapes. -/
+theorem real_coordinate_count (n : ℕ) : Fintype.card (Fin n × Fin 4) = 4 * n := by
+  simp [Nat.mul_comm]
+
 /-- Componentwise product for gates and split activation cotangents. -/
 def hadamard (p q : Q) : Q := ofComponents (fun a => components p a * components q a)
 
