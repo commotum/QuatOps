@@ -1,5 +1,8 @@
 # 5-numerical-audit
 
+> Historical numerical stage record. Active revised stage 5 is `5-unified.md`;
+> remaining numerical/final audit work is tracked in `6-final-audit.md`.
+
 ## Current Facts
 
 Quaternion, bank, and exact RGB stages are complete with actual axiom audits.

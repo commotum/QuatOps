@@ -72,7 +72,8 @@ Completed 2026-09-26:
   do not claim optimized arithmetic, actual Lean evaluator cost, BPTT runtime,
   measured training speed, or a CUDA performance result.
 - Focused builds passed, including the parameter-count consumer OperationCounts.
-  Public build and explicit 102-result axiom audit are required at integration.
+  The subsequent clean public/diagnostic build and explicit 102-result axiom
+  audit passed at integration (see 6-integration.md).
   Source experiment totals remain outside scope: referenced tables/diagrams
   are absent, and the counts specify a single layer/direction explicitly.
 

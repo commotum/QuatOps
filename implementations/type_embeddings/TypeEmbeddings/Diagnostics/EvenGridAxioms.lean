@@ -1,0 +1,16 @@
+import TypeEmbeddings.RGB.EvenDecoding
+import TypeEmbeddings.Probability.EvenMode
+
+#print axioms TypeEmbeddings.roundTiesEven_interval
+#print axioms TypeEmbeddings.roundTiesEven_halfway
+#print axioms TypeEmbeddings.roundTiesEven_halfway_eq
+#print axioms TypeEmbeddings.channel_minimizes_of_closed_interval
+#print axioms TypeEmbeddings.nearestChannelEven_minimizes
+#print axioms TypeEmbeddings.nearestChannelEven_exact_of_margin
+#print axioms TypeEmbeddings.nearestRGBEven_minimizes
+#print axioms TypeEmbeddings.nearestRGBEven_global_minimizer
+#print axioms TypeEmbeddings.decodeRGBEven_roundTrip
+#print axioms TypeEmbeddings.decodeRGBEven_exact_of_margin
+#print axioms TypeEmbeddings.decodeRGBEven_exact_of_noise
+#print axioms TypeEmbeddings.channelProbability_even_mode
+#print axioms TypeEmbeddings.rgbProbability_even_mode

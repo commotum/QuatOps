@@ -90,3 +90,25 @@ prove moments; scalar norm variance and covariance trace remain distinct.
 The public build passed (3114 tasks); explicit axiom checking passed for 76
 main results, with only the standard three foundational axioms. See the current
 build.log and axioms.txt. Stage 4 is complete; QLSTM/count/cost integration remains.
+
+## Final requirement audit and clean build (2026-09-26)
+
+`lake clean qrnn` removed only QRNN project artifacts; pinned dependency caches
+were retained. `bash scripts/check.sh` then exited 0 and rebuilt the public
+library, smoke and diagnostic leaves from those clean project artifacts:
+`Build completed successfully (3120 jobs).` All 21 source modules passed scans,
+and all 102 selected main results were matched to actual kernel axiom reports.
+Only propext, Classical.choice and Quot.sound occur. See final-check.log,
+build.log and axioms.txt; task counts include cached dependency tasks.
+
+Toolchain: Lean 4.32.0 commit 8c9756b28d64dab099da31a4c09229a9e6a2ef35.
+Manifest mathlib commit: 81a5d257c8e410db227a6665ed08f64fea08e997 (tag v4.32.0).
+The preserved paper checksum remains the original recorded SHA-256.
+Import-boundary, pin/source-checksum, proof-hole and scoped diff checks passed.
+The targeted cache helper also exited 0 with no download required (cache-check.log).
+
+All requirements of the original verified core have actual declaration/build
+coverage, recorded in the requirement table of 6-integration.md. The optional
+chi density/law, QLSTM gradients, coupled softmax/NLL adapters and experimental/
+optimization assertions are outside that core; no unsupported theorem or axiom
+fills these limits. No required stage remains unfinished.

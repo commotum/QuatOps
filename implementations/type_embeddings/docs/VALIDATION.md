@@ -14,9 +14,9 @@ Limitations focused builds passed. The numerical/limitation consolidated audit i
 Historical scaffold timing/job counts below describe that earlier import-only state;
 they are not the current mathematical library's dependency graph.
 
-# Validation history and current revised-source coverage
+## Historical scaffold validation — 2026-09-25
 
-Status: PASS, 2026-09-25. No mathematical claim has been formalized.
+Historical status: PASS. At this point no mathematical claim had been formalized.
 
 The original scaffold target was import-only; successful compilation validated toolchain, package
 configuration, and candidate import paths. It does not validate proposal mathematics.
@@ -46,7 +46,7 @@ BF16 counterexample, or mathematical identity was independently verified by this
 
 ## Build-layout maintenance validation
 
-The public root now has no imports or declarations; the original eight imports reside
+At this historical maintenance step the public root had no imports or declarations; the original eight imports reside
 in `TypeEmbeddings.Diagnostics.Dependencies`, an optional explicit diagnostic target.
 Both compile under the unchanged pins. No theorem/proof was removed or weakened.
 
@@ -86,3 +86,12 @@ TypeEmbeddings` passed (2887 jobs). This confirms current leaves/public root com
 it does not discharge the new revised-head obligations. The documentation migration
 changed no Lean theorem or proof. The dyadic statement's already-pending public-numerator
 cleanup was included in this focused validation.
+
+## Documentation-only refresh checks — 2026-09-26
+
+Rechecked both proposal fingerprints, all 14 local Markdown links, continuation paths,
+reopened stage-3 and pending stage-5 status, documentation whitespace and scoped
+`git diff --check`. All passed. Historical import-only records now carry explicit labels;
+proposed stage-5 leaf targets are distinguished from existing compiled modules.
+No Lean source, dependency pin or build configuration was changed in this refresh.
+No new Lean build was needed or run; earlier build evidence above remains historical.

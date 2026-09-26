@@ -16,8 +16,10 @@ and actual main-result axiom audits without proof holes or unexplained project a
 ## Constraints and known context
 
 - Work exclusively in `implementations/type_embeddings`, including records and artifacts.
-- Full implementation is authorized. Follow `implementations/BUILD-PLAN.md` with narrow
-  leaves, focused builds, stage records, and a thin public root.
+- The implementation continuation prompt requests the full library. A request to refresh
+  these documents changes planning only; it does not execute the pending proof stages.
+  Follow `implementations/BUILD-PLAN.md` with narrow leaves, focused builds, stage records, and a thin public root. Build-time optimization
+  must preserve theorem strength, pinned dependencies and Lean kernel checking.
 - The revised proposal is authoritative. The original `type_value_embeddings_proposal.md`
   is retained as provenance, not the default design. Source transition: 2026-09-26;
   see `docs/REVISION.md` for the content fingerprint and requirement changes.
@@ -92,7 +94,8 @@ normalized joint distribution and revised structured coefficient/work accounting
 S>0 and 4N−3>0; width positivity/floor/monotonicity; softplus gain and bank normalization;
 conditional normalization independent of transformer architecture.
 **Completion signal:** Actual declarations cover revised §§3–7,9–10 core obligations
-listed in `docs/THEOREM_OUTLINE.md`, compile and are audited. Example count is 514
+listed as required in `docs/THEOREM_OUTLINE.md`, compile and are audited. Optional
+counterexamples and separately scoped extensions are not prerequisites. Example count is 514
 coefficients for dT=64,dV=448,K=1; optional text is accounted separately.
 See `5-unified.md`.
 

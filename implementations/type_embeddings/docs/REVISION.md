@@ -30,3 +30,12 @@ The revised verifier `verify_unified_type_value_embeddings.py`, result JSON
 `unified_type_value_verification_results.json`, and cited upstream
 `README(20260926-065240).md` are absent locally. Their reported symbolic/gradient/top-k
 checks remain source reports, not Lean proofs or independently rerun experiments.
+
+## Documentation refresh scope
+
+The continuation prompt explicitly requests implementation when invoked. A request to
+revise the prompt/plan is a documentation task; it does not execute the pending stages.
+Historical stage records are labeled to prevent their original completion or import-only
+build results from being mistaken for revised-core coverage. Build-time requirements
+preserve theorem strength and kernel checking; provisional new leaf targets are identified
+as plans rather than compiled modules.

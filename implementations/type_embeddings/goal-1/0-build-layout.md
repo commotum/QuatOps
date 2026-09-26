@@ -1,5 +1,8 @@
 # 0-build-layout
 
+> Historical import-only build-layout record. Current public-root imports and proof
+> coverage are recorded in `0-plan.md` and `../docs/VALIDATION.md`.
+
 ## Current Facts
 
 The project is a validated scaffold with no mathematical declarations. Its sole public

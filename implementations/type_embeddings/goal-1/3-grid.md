@@ -1,5 +1,9 @@
 # 3-grid
 
+**Current status:** reopened for revised ties-to-even decoding. The body through
+Stage Results records the original half-down implementation; the revised requirements
+are at the end. Its historical completion does not complete revised stage 3.
+
 ## Current Facts
 
 Quaternion and bank leaves compile, including exact matrix Gram, fused inverse,
@@ -60,3 +64,14 @@ Original half-down stage passed, but revised §7 explicitly requires ties-to-eve
 Stage reopened: add a separate even-tie leaf and prove its nearest/minimizer, clipping,
 mode and margin bridges. Preserve half-down results under explicit names. Existing
 build/axiom results are evidence for those statements, not revised tie compatibility.
+
+## Active implementation: revised even ties
+
+Current evidence confirms the half-down API and its explicit rounding interval. Add
+RGB/EvenRounding as a narrow leaf importing Rounding: correct only odd lower-index
+halfway ties, prove a closed Voronoi interval and bounded minimizing property, then
+coordinate recovery. Add RGB/EvenDecoding for bank/global/noise bridges. Separate
+EvenGridAxioms will audit the new results; no spectral imports in rounding.
+Focused commands: `lake build TypeEmbeddings.RGB.EvenRounding`, then
+`lake build TypeEmbeddings.RGB.EvenDecoding TypeEmbeddings.Diagnostics.EvenGridAxioms`.
+Public root is promoted only after these leaves pass.

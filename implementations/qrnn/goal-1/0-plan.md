@@ -24,10 +24,10 @@ shapes, product order, and initial-state assumptions must be explicit.
 
 The supplied file is a Markdown transcription; figures and experiment tables
 referenced in it are absent locally. Section titles and line locations are in
-`paper-map.md`. Preliminary concerns are in `audit.md`; none is a Lean theorem.
-Prefer mathlib quaternions with finite vectors/matrices, and structured real
-maps for calculus. This direction is provisional: inspect the pinned APIs and
-adapt to actual evidence before committing representations. The compact and
+`paper-map.md`. Verified corrections and explicit excluded/unresolved claims are in `audit.md`.
+The implementation uses mathlib quaternions with finite vectors/matrices and
+ordinary structured real maps for calculus; the pinned APIs and actual builds
+validate these choices. The compact and
 appendix QBPTT formulas must be checked against each other and the real chain
 rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 
@@ -82,7 +82,7 @@ rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 - **Completion signal:** forward definitions and conditional count theorems compile;
   comparison dimensions and asymptotic assumptions are explicit.
 
-### 6. Library integration and final audit — in progress
+### 6. Library integration and final audit — complete
 - **Outcome:** reusable documented modules, faithful paper-to-declaration map,
   correction record, pinned reproducible build, and main-result axiom audit.
 - **Focus:** coherent APIs, clean build, no placeholders or unsupported empirical
@@ -123,7 +123,7 @@ imports quaternion modules, Forward imports calculus-free ActivationCore, and
 AxiomAudit is a diagnostic leaf outside the public entry point. Use focused
 module builds during stage work, adjacent consumer builds for changed imports,
 and full builds for public API/configuration changes. Existing proof bodies and
-statements are preserved. Full API build and all 76 audited results passed.
+statements are preserved. Full API build and all 102 audited results passed.
 Stage 4 compiled in InitializationCore/Moments/Gaussian/Uniform, with diagnostic
 normalization checks in InitializationAudit. Actual Gaussian component laws give
 norm second moment and covariance trace 4σ². The bounded signed uniform polar
@@ -141,5 +141,20 @@ index counts give independent matrix/QRNN/QLSTM scalar counts with exact bias
 corrections. Finite operation schedules, activation costs, equal-width cost
 polynomials and quadratic bounds are explicit. Costs describe the stated forward
 schedule, not measured Lean execution, BPTT runtime or experimental speed.
-Next: stage 6 documentation integration and a clean project build/axiom audit.
-The full goal is active; current build coverage is not completion of the library.
+Stage 6 complete: `lake clean qrnn` followed by `bash scripts/check.sh` rebuilt
+the public library, smoke and diagnostic leaves from clean project artifacts
+while retaining pinned dependency caches. It passed (3120 build tasks); all 21
+source modules were scanned and all 102 selected main results were checked
+against kernel axiom output. Only propext/Classical.choice/Quot.sound occur.
+Pins, source checksum, import boundaries and scoped diff checks passed.
+The cache helper was executed successfully using this project's 19 direct
+mathlib imports; no files needed downloading. Exact logs and the requirement
+coverage table are in `6-integration.md` and `validation.md`.
+
+The original verified-core objective is achieved. There is no unfinished required
+stage. Explicit extensions are chi-density/law identification, QLSTM derivatives,
+coupled softmax/NLL adapters, extra architecture variants and separately specified
+optimization/convergence theory. Empirical recognition/runtime comparisons remain
+experimental context, not formal theorems.
+Final library completion is supported by the requirement-by-requirement audit,
+not by build coverage alone.

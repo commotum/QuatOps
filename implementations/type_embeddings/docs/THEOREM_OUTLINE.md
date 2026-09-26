@@ -27,6 +27,10 @@ mode. Likelihood evaluation must use the original unclamped location.
 
 ## Stage 5: revised unified mathematics
 
+The table specifies required core obligations except the explicitly optional greedy-mode
+counterexample. Names are tentative; reusable statements and checked hypotheses determine
+coverage, not the spelling of a declaration.
+
 | Proposed obligation | Exact statement and assumptions |
 |---|---|
 | `typeCodebook`, separation | Finite nonempty TYPE support; distinct codes in Euclidean three-space. Equal unit norms are explicit assumptions; minimum positive pairwise distance needs at least two types |

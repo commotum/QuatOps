@@ -44,9 +44,9 @@ coverage and actual declaration names follow below; all are in namespace `Qrnn`.
 | QLSTM real representation / §4.3 | `Qrnn/QLSTMReal.lean`: `qlstmStep_expand`, `qlstmRun_expand` | Proved for the stated Hamilton candidate-affine interpretation, split scalar gates/cell activation, Hadamard products, and supplied initial cell/hidden state. No QLSTM gradient assertion. |
 | Independent parameters / §2, §3.2, §4.2 | `Qrnn/ParameterCounts.lean`: `matrixCoordinateEquiv`, `qrnnCoordinateEquiv`, `qlstmCoordinateEquiv`, `weight_parameter_count`, `weight_parameter_fourfold`, `qrnn_parameter_count`, `qlstm_parameter_count`, `qrnn_parameter_bias_correction`, `qlstm_parameter_bias_correction` | Bijections and finite-index cardinalities prove free real-coordinate counts, including zero dimensions. Fourfold saving is exact for weights; biases correct whole-model comparisons. One layer/direction, stated head convention. |
 | Arithmetic/complexity / appendix §6.1.2 | `Qrnn/OperationCounts.lean`: `hamilton_naive_cost`, `qrnn_step_cost`, `qlstm_step_cost`, `qrnn_cost_equal_width`, `qlstm_cost_equal_width`, `qrnn_cost_quadratic_bounds`, `qlstm_cost_quadratic_bounds`, `qrnn_sequence_cost`, `qlstm_sequence_cost` | Proved finite schedule counts. Dot products accumulate from zero; scalar activation costs fixed; equal widths scale together. No wall-clock, optimality, BPTT cost, or GPU-kernel theorem. |
-| All completed main results | `Qrnn/AxiomAudit.lean`; `goal-1/axioms.txt` | Observed axioms: standard Lean foundations only; 102 main results selected for audit; diagnostic leaf excluded from public imports. |
+| All completed main results | `Qrnn/AxiomAudit.lean`; `goal-1/axioms.txt` | Observed axioms: standard Lean foundations only; 102 main results audited; diagnostic leaf excluded from public imports. |
 
-All verified-core stages are implemented; final integration checks remain.
+All verified-core stages and final integration checks are complete.
 The chi-density/law derivation is not formalized; Gaussian moment results use
 actual Gaussian component laws instead. No unsupported chi law is assumed.
 
