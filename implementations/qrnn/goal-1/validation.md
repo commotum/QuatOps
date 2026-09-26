@@ -71,3 +71,13 @@ imports; after the refactor it took 4.01 s, peak RSS 2554528 KiB. A no-change
 public build took 2.22 s. Individual local timings are observations, not portable
 performance guarantees; see build-times.txt and 3-bptt.md. The substantive
 optimization is the smaller rebuild dependency graph, not a timing promise.
+
+## Completed gradient-stage checks (2026-09-25)
+
+Focused `lake build Qrnn.QRNNGradients Qrnn.BPTTAudit` passed after adding
+actual joint-Jacobian evaluation and terminal/summed gradients for all parameter
+families. The public API imports QRNNGradients; diagnostics remain separate.
+The subsequent `lake build` passed (2437 tasks), and explicit AxiomAudit checking
+passed with 47 main results depending only on propext, Classical.choice,
+Quot.sound. The newest output is in build.log and axioms.txt. Stage 3 is complete;
+initialization, architecture counts, and final integration are still unfinished.

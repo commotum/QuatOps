@@ -244,5 +244,82 @@ theorem qrnnTerminalGradient_correct {d h o : ℕ} (p : QRNNParameterSpace d h o
   simp only [qrnnTerminalGradient, parameterPair_add_right, outputParameterGradient_pair]
   exact add_comm _ _
 
+/-- The hidden recurrence never uses output weights, including at horizon zero. -/
+theorem quaternionBpttGradient_output_zero {d h o : ℕ} (p : QRNNParams d h o) (f : ℝ → ℝ)
+    (x : ℕ → QVector d) (initial : QVector h) (df : ℕ → Fin h → Fin 4 → ℝ)
+    (T : ℕ) (g : QVector h) :
+    (quaternionBpttGradient p f x initial df T g).2.2.1 = 0 := by
+  induction T generalizing g with
+  | zero => rfl
+  | succ T ih => simpa only [quaternionBpttGradient, Prod.snd_add, Prod.fst_add,
+      stepParameterGradient, add_zero] using
+        (ih (p.recurrent.conjTranspose.mulVec (vectorSplitDerivative (df T) g)))
+
+/-- Total loss over any finite set of state times. A time-zero output loss still
+has a direct output-weight gradient even though the initial hidden state is fixed. -/
+def qrnnSequenceLoss {d h o : ℕ} (p : QRNNParameterSpace d h o) (f β : ℝ → ℝ)
+    (x : ℕ → QVector d) (initial : QVector h) (times : Finset ℕ) (y : ℕ → QVector o) : ℝ :=
+  ∑ t ∈ times, qrnnTerminalLoss p f β x initial t (y t)
+
+/-- Shared-parameter gradient of the summed loss. No time averaging is implicit. -/
+def qrnnSequenceGradient {d h o : ℕ} (p : QRNNParams d h o) (f β : ℝ → ℝ)
+    (x : ℕ → QVector d) (initial : QVector h) (df : ℕ → Fin h → Fin 4 → ℝ)
+    (times : Finset ℕ) (y : ℕ → QVector o) (dβ : ℕ → Fin o → Fin 4 → ℝ) :
+    QRNNParameterSpace d h o :=
+  ∑ t ∈ times, qrnnTerminalGradient p f β x initial df t (y t) (dβ t)
+
+private theorem parameterPair_sum_right {ι : Type*} {d h o : ℕ}
+    (dp : QRNNParameterSpace d h o) (s : Finset ι) (g : ι → QRNNParameterSpace d h o) :
+    parameterPair dp (∑ i ∈ s, g i) = ∑ i ∈ s, parameterPair dp (g i) := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => simp [parameterPair_zero]
+  | @insert a s ha ih => simp only [Finset.sum_insert ha, parameterPair_add_right, ih]
+
+/-- Verified derivative of the actual summed output loss. -/
+theorem qrnnSequenceLoss_hasFDerivAt {d h o : ℕ} (p : QRNNParameterSpace d h o)
+    (f β : ℝ → ℝ) (x : ℕ → QVector d) (initial : QVector h)
+    (df : ℕ → Fin h → Fin 4 → ℝ) (times : Finset ℕ) (y : ℕ → QVector o)
+    (dβ : ℕ → Fin o → Fin 4 → ℝ)
+    (hf : ∀ t ∈ times, ∀ k < t, ∀ i a, HasDerivAt f (df k i a)
+      (components (hiddenPreact (paramsOf p) (x k) (qrnnRun (paramsOf p) f x initial k) i) a))
+    (hβ : ∀ t ∈ times, ∀ i a, HasDerivAt β (dβ t i a)
+      (components ((paramsOf p).output.mulVec (qrnnRun (paramsOf p) f x initial t) i) a)) :
+    HasRealDerivative (fun θ => qrnnSequenceLoss θ f β x initial times y)
+      (∑ t ∈ times, realFDeriv (fun θ => qrnnTerminalLoss θ f β x initial t (y t)) p) p :=
+  HasFDerivAt.fun_sum (fun t ht =>
+    qrnnTerminalLoss_hasFDerivAt p f β x initial df t (y t) (dβ t) (hf t ht) (hβ t ht))
+
+/-- All four gradients of the actual summed loss agree with real multivariable calculus. -/
+theorem qrnnSequenceGradient_correct {d h o : ℕ} (p : QRNNParameterSpace d h o)
+    (f β : ℝ → ℝ) (x : ℕ → QVector d) (initial : QVector h)
+    (df : ℕ → Fin h → Fin 4 → ℝ) (times : Finset ℕ) (y : ℕ → QVector o)
+    (dβ : ℕ → Fin o → Fin 4 → ℝ)
+    (hf : ∀ t ∈ times, ∀ k < t, ∀ i a, HasDerivAt f (df k i a)
+      (components (hiddenPreact (paramsOf p) (x k) (qrnnRun (paramsOf p) f x initial k) i) a))
+    (hβ : ∀ t ∈ times, ∀ i a, HasDerivAt β (dβ t i a)
+      (components ((paramsOf p).output.mulVec (qrnnRun (paramsOf p) f x initial t) i) a))
+    (dp : QRNNParameterSpace d h o) :
+    realFDeriv (fun θ => qrnnSequenceLoss θ f β x initial times y) p dp =
+      parameterPair dp (qrnnSequenceGradient (paramsOf p) f β x initial df times y dβ) := by
+  have hd := qrnnSequenceLoss_hasFDerivAt p f β x initial df times y dβ hf hβ
+  have he := congrArg (fun D => D dp) hd.fderiv
+  simp only [sum_apply] at he
+  refine he.trans ?_
+  rw [qrnnSequenceGradient, parameterPair_sum_right]
+  apply Finset.sum_congr rfl
+  intro t ht
+  exact qrnnTerminalGradient_correct p f β x initial df t (y t) (dβ t) (hf t ht) (hβ t ht) dp
+
+/-- The terminal output-weight gradient has exactly its direct outer-product form. -/
+theorem qrnnTerminalGradient_output {d h o : ℕ} (p : QRNNParams d h o) (f β : ℝ → ℝ)
+    (x : ℕ → QVector d) (initial : QVector h) (df : ℕ → Fin h → Fin 4 → ℝ)
+    (T : ℕ) (y : QVector o) (dβ : Fin o → Fin 4 → ℝ) :
+    (qrnnTerminalGradient p f β x initial df T y dβ).2.2.1 =
+      weightOuter (vectorSplitDerivative dβ (qrnnReadout p β (qrnnRun p f x initial T) - y))
+        (qrnnRun p f x initial T) := by
+  simp only [qrnnTerminalGradient, Prod.snd_add, Prod.fst_add,
+    quaternionBpttGradient_output_zero, outputParameterGradient, zero_add]
+
 end
 end Qrnn

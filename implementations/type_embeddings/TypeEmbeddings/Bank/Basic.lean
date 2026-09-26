@@ -16,6 +16,20 @@ def bankEnergy {N : ℕ} (w : Fin N → Quaternion ℝ) : ℝ := ∑ i, Quaterni
 theorem bankEnergy_nonneg {N : ℕ} (w : Fin N → Quaternion ℝ) : 0 ≤ bankEnergy w :=
   Finset.sum_nonneg fun _ _ => Quaternion.normSq_nonneg
 
+theorem bankEnergy_eq_sum_norm_sq {N : ℕ} (w : Fin N → Quaternion ℝ) :
+    bankEnergy w = ∑ i, ‖w i‖ ^ 2 := by
+  simp [bankEnergy, Quaternion.normSq_eq_norm_mul_self, pow_two]
+
+theorem bankEnergy_pos_iff {N : ℕ} (w : Fin N → Quaternion ℝ) :
+    0 < bankEnergy w ↔ ∃ i, w i ≠ 0 := by
+  rw [bankEnergy, Finset.sum_pos_iff_of_nonneg (fun _ _ => Quaternion.normSq_nonneg)]
+  simp only [Finset.mem_univ, true_and]
+  apply exists_congr
+  intro i
+  exact ⟨fun h => Quaternion.normSq_ne_zero.mp (ne_of_gt h),
+    fun h => lt_of_le_of_ne Quaternion.normSq_nonneg
+      (Ne.symm (Quaternion.normSq_ne_zero.mpr h))⟩
+
 /-- Stack q*Wᵢ and impose the pure-imaginary input restriction. -/
 def encoder {N : ℕ} (w : Fin N → Quaternion ℝ) : RGBSpace →ₗ[ℝ] BankSpace N :=
   (WithLp.linearEquiv 2 ℝ (Fin N → Quaternion ℝ)).symm.toLinearMap.comp

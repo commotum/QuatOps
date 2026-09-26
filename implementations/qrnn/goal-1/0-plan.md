@@ -57,7 +57,7 @@ rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 - **Completion signal:** real derivative statements compile and compact quaternion
   pullbacks are justified under their exact hypotheses.
 
-### 3. Reconstructed QBPTT and gradients — in progress
+### 3. Reconstructed QBPTT and gradients — complete
 - **Outcome:** chain-rule reverse recurrence and recurrent/input/output/bias
   gradients for terminal and summed losses, related to component derivatives.
 - **Focus:** ordered Jacobian composition, time-indexed inputs/states, adjoints,
@@ -106,11 +106,16 @@ matrix-vector product rule, half-squared-loss derivative and output gradient.
 There is also an explicit interpreted QLSTM step, without a correctness theorem
 for its gradient or any empirical/optimization claim.
 
-Stage 3 is in progress: `Qrnn/BPTT.lean` proves generic finite-horizon
-shared-parameter sensitivity and reverse-functional BPTT. `Qrnn/QRNNBPTT.lean`
-proves actual QRNN joint differentiability, run sensitivity, reverse correctness,
-and terminal hidden-state loss derivatives. Explicit accumulated parameter
-gradients with a variable output head and terminal/summed losses remain next.
+Stage 3 compiled in `Qrnn/BPTT.lean`, `QRNNBPTT.lean`, and
+`QRNNGradients.lean`: generic real BPTT, actual joint QRNN Jacobian evaluation,
+explicit recurrent/input/bias reverse accumulation, terminal output loss with a
+variable output head, and summed-loss gradients for all four parameter families.
+Gradient correctness is equality with the real differential on every parameter
+direction under explicit scalar activation derivative hypotheses. A fixed
+initial state, horizon zero, and time-zero output loss are covered.
+`Qrnn/BPTTAudit.lean` gives a checked real-subcase counterexample to literal
+products of propagated errors; compact/appendix index and activation corrections
+are documented in `audit.md`.
 
 The user requested build-time optimization under `implementations/BUILD-PLAN.md`.
 The checked refactor and measurements are in `3-bptt.md`: generic BPTT no longer
@@ -118,6 +123,6 @@ imports quaternion modules, Forward imports calculus-free ActivationCore, and
 AxiomAudit is a diagnostic leaf outside the public entry point. Use focused
 module builds during stage work, adjacent consumer builds for changed imports,
 and full builds for public API/configuration changes. Existing proof bodies and
-statements are preserved. Full API build and all 35 audited results passed.
-Initialization probability and exact architecture counts remain unfinished.
+statements are preserved. Full API build and all 47 audited results passed.
+Next: stage 4 initialization probability; exact architecture counts remain unfinished.
 The full goal is active; current build coverage is not completion of the library.

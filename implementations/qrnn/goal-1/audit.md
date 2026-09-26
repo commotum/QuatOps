@@ -87,3 +87,38 @@ The import refactor preserves mathematical statements and proofs. The public
 entry point excludes diagnostic AxiomAudit; its explicit kernel check still
 covers all 35 reported results with standard foundations only. Details of
 focused builds and timing observations are in 3-bptt.md.
+
+## Completed QBPTT reconstruction (2026-09-25)
+
+A05–A08 now have actual real-calculus correctness theorems in QRNNGradients.
+For a terminal output loss at state time T, write h₀ for the fixed initial state,
+zₖ = R hₖ + I xₖ + b, hₖ₊₁ = split f(zₖ), and e = readout(h_T) − y.
+Set δ_out = Dβ e and g_T = Oᴴ δ_out. For k = T−1,…,0, compute
+δₖ = Dfₖ gₖ₊₁ and gₖ = Rᴴ δₖ. Contributions are
+(R: δₖ hₖ*, I: δₖ xₖ*, b: δₖ); sum over visited steps. The direct
+output contribution is δ_out h_T*. Here outer products are entrywise Hamilton
+products with the conjugated input on the right; Df and Dβ are diagonal real
+split derivatives, equivalent to Hadamard products. They are evaluated at
+preactivations. Every matrix pullback uses conjugate transpose.
+
+`qrnnTerminalGradient_correct` proves pairing with this four-family gradient is
+the actual real differential on every parameter direction.
+`qrnnSequenceGradient_correct` proves the same for finite sums of terminal
+output losses. A time-zero term can differentiate through its variable output
+weights, but not through the fixed initial hidden state.
+
+The compact source lines 332–344 and appendix lines 1353–1414 are not adopted
+as equivalent specifications: their product ranges differ, their error-vector
+products duplicate already propagated errors, appendix recurrent/input factors
+use terminal-time data instead of each local step's data, and the terminal
+hidden activation derivative is absent. Cross-component mixing comes from the
+full real Jacobian, not products of single component derivatives. The printed
+conjugated matrices must be transposed as well when non-scalar shapes are used.
+The appendix's bias Jacobian is identity before activation, not a matrix of ones.
+`propagated_error_product_counterexample` verifies bias accumulation 4 versus
+literal δ₀δ₁+δ₁ = 6 with δ₀=δ₁=2 in a two-step scalar linear subcase. This is
+kept in a diagnostic leaf, separate from the reusable corrected recurrence.
+
+The prior paragraphs about stage 3 being open describe earlier intermediate
+coverage. A06–A08 reconstruction is now complete; initialization A09–A12 and
+counts A14 remain next. No empirical/optimization claims have been promoted.

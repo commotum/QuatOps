@@ -1,4 +1,5 @@
-import Qrnn.QRNNBPTT
+import Qrnn.QRNNGradients
+import Qrnn.BPTTAudit
 
 /-! Kernel-reported dependencies of the main completed results.
 No project axioms are introduced here. Add unrolled BPTT/initialization/count
@@ -41,3 +42,16 @@ results when they are implemented; this audit covers algebra, local calculus, ge
 #print axioms Qrnn.qrnnRun_hasFDerivAt
 #print axioms Qrnn.qrnnBptt_correct
 #print axioms Qrnn.qrnnTerminalStateLoss_hasFDerivAt
+
+#print axioms Qrnn.qrnnJointDerivative_apply
+#print axioms Qrnn.qrnnParameterPartial_apply
+#print axioms Qrnn.qrnnStatePartial_apply
+#print axioms Qrnn.qrnnParameterDerivative_pair
+#print axioms Qrnn.quaternionBpttGradient_correct
+#print axioms Qrnn.quaternionBpttGradient_output_zero
+#print axioms Qrnn.qrnnTerminalLoss_hasFDerivAt
+#print axioms Qrnn.qrnnTerminalGradient_correct
+#print axioms Qrnn.qrnnSequenceLoss_hasFDerivAt
+#print axioms Qrnn.qrnnSequenceGradient_correct
+#print axioms Qrnn.qrnnTerminalGradient_output
+#print axioms Qrnn.propagated_error_product_counterexample

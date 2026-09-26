@@ -4,7 +4,9 @@
 
 Stages 1–2 compile. Generic BPTT, actual QRNN joint differentiability, finite-run
 sensitivity, reverse pullback, and terminal hidden-state loss derivatives compile.
-Explicit accumulated parameter gradients and a variable output head remain open.
+`Qrnn/QRNNGradients.lean` now identifies the actual joint derivative and all four
+accumulated parameter gradients for terminal and summed output losses.
+`Qrnn/BPTTAudit.lean` refutes the literal product-of-propagated-errors formula.
 Before this refactor BPTT imported the complete quaternion loss stack and the
 public entry point imported diagnostic axiom printing. The baseline standalone
 BPTT check took 4.30 s, peak RSS 2967744 KiB (one warm-cache measurement).
@@ -87,5 +89,28 @@ Build-time subtask completed on 2026-09-25:
 - Whitespace and import-boundary checks passed. Existing theorem names,
   statements, and proof bodies are retained; only dependency ownership changed.
 
-Mathematical stage remains in progress. Next establish explicit accumulated
-parameter gradients with a variable output head and terminal/summed losses.
+Mathematical stage completed on 2026-09-25:
+- QRNNGradients evaluates the actual joint derivative and its partial maps,
+  preserving Hamilton order. The proof uses actual real derivative uniqueness
+  on directions; no stipulated quaternion Jacobian or new hypotheses replace it.
+- quaternionBpttGradient_correct identifies explicit reverse accumulation with
+  the generic real BPTT differential. Recurrent/input gradients use local
+  cotangent times conjugated previous state/input; bias uses that cotangent.
+- qrnnTerminalLoss_hasFDerivAt and qrnnTerminalGradient_correct prove actual
+  half-squared output-loss differentiation with a variable output head.
+  qrnnSequenceLoss_hasFDerivAt and qrnnSequenceGradient_correct cover arbitrary
+  finite sets of times and summation without implicit averaging.
+- qrnnTerminalGradient_output and quaternionBpttGradient_output_zero separate
+  direct output gradients from hidden parameter dependence. Fixed initial state,
+  horizon zero, and time-zero output loss are included.
+- The bias counterexample propagated_error_product_counterexample establishes
+  correct accumulation 4 versus the printed literal product expression 6 in a
+  two-step one-neuron real subcase. BPTTAudit stays outside the public entry point.
+- Focused QRNNGradients/BPTTAudit builds passed; the new proof leaf built in
+  5.4 s in the last focused run. Full public API build passed (2437 tasks).
+  Explicit audit passed: 47 main results, only standard Lean axioms.
+- Proof-hole/import scans and diff checks passed. Scalar differentiability at
+  visited preactivations is explicit; no convergence or empirical claim is proved.
+
+Next stage: initialization norm/moment identities, separating Gaussian models
+from the paper's bounded polar sampler and norm variance from vector variance.
