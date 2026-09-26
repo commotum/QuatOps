@@ -1,7 +1,8 @@
 # Corrections, assumptions, unresolved points, and axiom audit
 
-No substantive proof or numerical reproduction has been performed during scaffolding.
-The following are review findings and future obligations, not verified Lean results.
+Quaternion and bank stages now have compiled substantive proofs and actual axiom audits.
+No numerical reproduction has been performed. The qualifications below remain scope
+requirements; the declaration map identifies which obligations are discharged.
 
 ## Required qualifications
 
@@ -53,13 +54,14 @@ No material correction to the source is claimed proved at this stage.
 
 ## Axiom status and future audit procedure
 
-`TypeEmbeddings.lean` is a thin declaration-free root; candidate imports now live in
-`TypeEmbeddings.Diagnostics.Dependencies`. There are no project-specific definitions,
-theorems, proof holes, or axioms and no main results to audit yet. Imports bring
-mathlib's usual foundational dependencies; this is not a claim that all imported
-results are axiom-free. The source is not imported as assumptions.
+The public root exports completed quaternion and bank leaves; diagnostics remain
+separate. Actual `#print axioms` runs for 8 quaternion results and 20 bank results
+report exactly `[propext, Classical.choice, Quot.sound]`. No `sorryAx` or custom
+project axiom is reported. Audit sources are
+`TypeEmbeddings/Diagnostics/QuaternionAxioms.lean` and `BankAxioms.lean`.
+Build these targets explicitly to reproduce the checks.
 
-When main results exist, run Lean `#print axioms` for each mapped major declaration
+For every subsequent main result, run Lean `#print axioms` for each mapped major declaration
 in a reproducible audit target and record actual output with the build/toolchain.
 Reject `sorryAx` and unexplained project-specific axioms. Distinguish normal Lean
 foundations (such as classical choice, propositional extensionality, quotient soundness)

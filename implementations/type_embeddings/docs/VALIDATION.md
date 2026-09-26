@@ -45,3 +45,14 @@ job-graph reduction is the structural result. Diagnostic coverage stays availabl
 explicitly. Import boundaries, no project declarations/proof holes, direct whitespace
 checks, and repository-root `git diff --check` pass. There remain no mathematical
 results to audit. See `../goal-1/0-build-layout.md` and `BUILD.md` for future build rules.
+
+
+## Mathematical stages 1–2
+
+Focused quaternion Core/Basic/Matrix and Bank Basic/Decoder/LeastSquares/Matrix/Spectral
+builds passed. Public API and BankAxioms audit passed together (2726 jobs). Actual
+`#print axioms` checks cover eight quaternion and twenty bank main results, each with
+only `propext`, `Classical.choice`, `Quot.sound`. This validates those mathematical
+statements under their explicit hypotheses, not floating-point execution or model quality.
+Subsequent stages remain incomplete; the original scaffold-only statements above are
+historical records, superseded by this mathematical implementation status.

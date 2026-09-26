@@ -45,4 +45,4 @@ Record actual main-result axiom output, focused builds, scans, and mapped declar
 Focused Core, Basic, Matrix, and QuaternionAxioms builds pass. Matrix elaboration took
 3.5s; Basic 2.5s. Eight main-result `#print axioms` commands report exactly
 `propext`, `Classical.choice`, and `Quot.sound`, with no proof-hole/custom axioms.
-Declarations are promoted through the thin public root. Adjacent build pending.
+Declarations are promoted through the thin public root. Adjacent public-root build passed (2380 jobs). Stage complete.

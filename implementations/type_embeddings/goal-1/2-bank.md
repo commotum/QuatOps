@@ -39,4 +39,17 @@ statements remain required before stage completion. Update declaration map and p
 
 ## Stage Results
 
-In progress.
+Complete. Basic, Decoder, LeastSquares, Matrix, Spectral, BankAxioms, and public-root
+builds pass. The last combined root/audit build completed successfully (2726 jobs).
+Twenty main-result axiom checks report exactly `propext`, `Classical.choice`, `Quot.sound`.
+No proof holes or custom project axioms occur.
+
+Implemented: bank energy/nondegeneracy, encoder and explicit adjoint, Gram laws in both
+linear maps and stacked matrices, coordinate action, matrix left inverse, fused decoder,
+round-trip/injectivity, four Penrose identities, exact perturbation equation, orthogonal
+residual, reconstruction-score decomposition, least-squares uniqueness, Euclidean bound,
+rank three, singular-value sequence, condition one, and exact encoder/decoder operator norms.
+Positive S is explicit on all inverse/unique/condition assertions; individual weights
+may be zero. Spectral proofs are isolated and do not enter basic/grid imports.
+
+Next: exact RGB discretization and its bridge to the reconstruction-score theorem.

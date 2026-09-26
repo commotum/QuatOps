@@ -37,7 +37,7 @@ statements, dependency lock, and import-only validated Lean library.
 minimal build result and limits are recorded. Build-layout maintenance is tracked in
 `0-build-layout.md`.
 
-### 1. Quaternion linear algebra — focused proofs complete; adjacent build pending
+### 1. Quaternion linear algebra — complete
 
 **Outcome:** A reusable right-multiplication real linear map, its correctly oriented
 4×4 coordinate matrix, and its scaled Gram identity, including zero weights.
@@ -45,7 +45,7 @@ minimal build result and limits are recorded. Build-layout maintenance is tracke
 Euclidean tuple equivalence, and the pure-imaginary isometric insertion P.
 **Completion signal:** Coordinate action and R(W)ᵀR(W) = ‖W‖² I₄ compile without holes.
 
-### 2. Bank encoder and analytic decoder — in progress
+### 2. Bank encoder and analytic decoder — complete
 
 **Outcome:** The stacked encoder B has Gram S I₃; under S > 0 its analytic reader
 is its Moore–Penrose inverse, with injectivity, singular values, condition one,
@@ -55,7 +55,7 @@ and explicit handling of the degenerate bank.
 **Completion signal:** Main reusable bank/decoder theorems compile and their actual
 axiom dependencies are recorded; no numerical recovery claim is inferred.
 
-### 3. Exact grid and optimal discrete decoding — not started
+### 3. Exact grid and optimal discrete decoding — in progress
 
 **Outcome:** The 256-point channel grid and Cartesian RGB grid are exact, a specified
 tie/clipping decoder globally minimizes reconstruction error, and strict half-spacing
@@ -91,7 +91,8 @@ An unsupported extension may be resolved by a documented disproof or exclusion.
 
 Scaffold completed on 2026-09-25. `lake build` passed (2868 jobs); all nine
 locked dependency revisions and prompt paths were checked. Quaternion stage declarations
-now compile with actual axiom checks; the bank stage is in progress. Build-layout maintenance separates optional smoke checks from the public root;
-see `0-build-layout.md`. The next mathematical stage is right multiplication and its
-Euclidean coordinate convention. Use narrow leaves and focused builds as described in
+now compile with actual axiom checks. Quaternion and bank stages are complete;
+the exact grid stage is in progress. Build-layout maintenance separates optional smoke checks from the public root;
+see `0-build-layout.md`. Current work is exact channel grid, tie-aware nearest selection, and global decoding
+optimality. Use narrow leaves and focused builds as described in
 `docs/BUILD.md`, preserving the full theorem requirements.

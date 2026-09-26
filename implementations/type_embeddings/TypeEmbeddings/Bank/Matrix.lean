@@ -60,4 +60,13 @@ theorem encoderMatrix_apply {N : ℕ} (w : Fin N → Quaternion ℝ) (x : RGBSpa
   rw [rightMulMatrix_apply]
   rfl
 
+/-- Analytic pseudoinverse matrix for the pure RGB encoder. -/
+def decoderMatrix {N : ℕ} (w : Fin N → Quaternion ℝ) :
+    Matrix (Fin 3) (Fin N × Fin 4) ℝ := (bankEnergy w)⁻¹ • (encoderMatrix w).transpose
+
+theorem decoderMatrix_leftInverse {N : ℕ} (w : Fin N → Quaternion ℝ)
+    (hS : 0 < bankEnergy w) : decoderMatrix w * encoderMatrix w = 1 := by
+  rw [decoderMatrix, Matrix.smul_mul, encoderMatrix_gram, smul_smul]
+  simp [ne_of_gt hS]
+
 end TypeEmbeddings
