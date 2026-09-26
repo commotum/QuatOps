@@ -5,3 +5,5 @@ import QNN.Model
 import QNN.Calculus
 import QNN.Activation
 import QNN.Training
+import QNN.ForwardCalculus
+import QNN.ParameterCalculus

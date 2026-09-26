@@ -30,8 +30,7 @@ theorem sandwich_hasFDerivAt (w x : H) :
     (hasFDerivAt_id (𝕜 := ℝ) w).star
   apply hd.congr_fderiv
   ext1 h
-  simp [sandwichDerivative, ContinuousLinearMap.smul_apply,
-    MulOpposite.smul_eq_mul_unop, smul_eq_mul, mul_assoc]
+  simp [sandwichDerivative, MulOpposite.smul_eq_mul_unop, smul_eq_mul, mul_assoc]
 
 def normDerivative (w : H) : H →L[ℝ] ℝ := ‖w‖⁻¹ • innerSL ℝ w
 

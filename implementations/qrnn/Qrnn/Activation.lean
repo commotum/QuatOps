@@ -15,10 +15,12 @@ namespace Qrnn
 
 -- The generalized calculus API uses additive/module instances independently of
 -- the topology. Select the instances used by mathlib's quaternion isometry.
-@[local instance] noncomputable abbrev calculusAddCommGroup : AddCommGroup Q :=
+@[reducible] noncomputable def calculusAddCommGroup : AddCommGroup Q :=
   Quaternion.instNormedAddCommGroupReal.toAddCommGroup
-@[local instance] noncomputable abbrev calculusModule : Module ℝ Q :=
+@[reducible] noncomputable def calculusModule : Module ℝ Q :=
   Quaternion.instInnerProductSpaceReal.toModule
+
+attribute [local instance] calculusAddCommGroup calculusModule
 
 noncomputable section
 
@@ -71,10 +73,11 @@ def splitDerivative (d : Fin 4 → ℝ) : Q →L[ℝ] Q :=
 theorem splitActivation_hasFDerivAt (f : ℝ → ℝ) (q : Q) (d : Fin 4 → ℝ)
     (hf : ∀ a, HasDerivAt f (d a) (components q a)) :
     HasFDerivAt (splitActivation f) (splitDerivative d) q := by
-  simpa only [Function.comp_def, coordinateEquiv_apply, coordinateEquiv_symm_apply,
-    splitActivation, splitReal, splitDerivative] using
-    (coordinateEquiv.symm.hasFDerivAt.comp q
-      ((splitReal_hasFDerivAt f (coordinateEquiv q) d hf).comp q coordinateEquiv.hasFDerivAt))
+  change HasFDerivAt (coordinateEquiv.symm ∘ splitReal f ∘ coordinateEquiv)
+    (coordinateEquiv.symm.toContinuousLinearMap.comp
+      ((diagonalCLM d).comp coordinateEquiv.toContinuousLinearMap)) q
+  exact coordinateEquiv.symm.hasFDerivAt.comp q
+    ((splitReal_hasFDerivAt f (coordinateEquiv q) d hf).comp q coordinateEquiv.hasFDerivAt)
 
 /-- A split derivative is self-adjoint under the Euclidean real pairing. -/
 theorem splitDerivative_pair (d : Fin 4 → ℝ) (h g : Q) :

@@ -45,7 +45,7 @@ theorem output_loss_chain {E : Type*} [NormedAddCommGroup E]
     [InnerProductSpace ℝ E] [CompleteSpace E] {f : E → Pure}
     {f' : E →L[ℝ] Pure} {p : E} (hf : HasFDerivAt f f' p) (d : Pure) :
     HasGradientAt (fun q => loss (f q) d) (f'.adjoint (f p - d)) p :=
-  gradient_chain hf (loss_hasGradientAt (f p) d)
+  gradient_chain (f := f) (g := fun y => loss y d) hf (loss_hasGradientAt (f p) d)
 
 /-- Four real quaternion coordinates, ordered e,i,j,k. -/
 def component (w : H) (i : Fin 4) : ℝ := Quaternion.linearIsometryEquivTuple w i
@@ -63,12 +63,14 @@ theorem componentPartial_eq_gradient {E : H → ℝ} {w g : H}
   rw [componentPartial, hg.hasFDerivAt.fderiv]
   change inner ℝ g (parameterBasis i) = _
   rw [← Quaternion.linearIsometryEquivTuple.inner_map_map g (parameterBasis i)]
-  simp [parameterBasis, component]
+  simp only [parameterBasis, LinearIsometryEquiv.apply_symm_apply,
+    EuclideanSpace.inner_single_right]
+  simp [component]
 
 /-- Exact agreement with the displayed four-component update. -/
 theorem quaternion_gradientStep_component (η : ℝ) (w g : H) (i : Fin 4) :
     component (gradientStep η w g) i = component w i - η * component g i := by
-  simp [component, gradientStep]
+  fin_cases i <;> simp [component, gradientStep]
 
 theorem quaternion_update_eq_partials {E : H → ℝ} {w g : H}
     (hg : HasGradientAt E g w) (η : ℝ) (i : Fin 4) :
