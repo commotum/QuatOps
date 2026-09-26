@@ -36,6 +36,8 @@ import TypeEmbeddings.Counts.StructuredCost
 #print axioms TypeEmbeddings.typeReaderSummary
 #print axioms TypeEmbeddings.rgb_reconstruction_likelihood
 #print axioms TypeEmbeddings.rgbReader_reconstruction_likelihood
+#print axioms TypeEmbeddings.readerTemperature_pos
+#print axioms TypeEmbeddings.rgbReader_reconstruction_temperature
 #print axioms TypeEmbeddings.typedEmbedding_type_roundTrip
 #print axioms TypeEmbeddings.typedEmbedding_value_roundTrip
 #print axioms TypeEmbeddings.typedJoint_sum

@@ -3,9 +3,9 @@
 ## Current Facts
 
 Revised source is `type_value_embeddings_revised_proposal.md` (see docs/REVISION.md).
-Reusable quaternion/bank/grid/probability/count leaves compile. TYPE codebook,
-concatenated typed interface, residual-width head, TYPE likelihood and revised counts
-are not implemented yet. Revised ties-to-even compatibility is complete in stage 3.
+Reusable foundations and all revised unified core leaves now compile: TYPE codebook,
+structural typed interface, residual-width heads, TYPE/common-scale RGB likelihoods,
+reconstruction-temperature identity, joint PMF and structured counts/work. Revised ties-to-even compatibility is complete in stage 3.
 
 ## Updated Assumptions
 
@@ -24,7 +24,7 @@ Establish energy-normalization and residual-width positivity/floor/monotonicity;
 formalize fixed-code TYPE probabilities and equal-norm logits; specialize common-scale
 RGB and prove reconstruction-temperature equivalence; define concatenated interface
 and normalized dependent joint PMF; establish revised counts and work bounds.
-Names and hypotheses are proposed in docs/THEOREM_OUTLINE.md.
+Actual names and hypotheses are mapped in docs/THEOREM_OUTLINE.md.
 
 ## Build Structure
 
@@ -33,18 +33,18 @@ leaves, a common-scale reconstruction likelihood leaf, and a typed joint/interfa
 Keep scalar-count extensions in Counts. Choose concrete file names from actual APIs.
 Build each touched module directly; public-root and axiom diagnostics after promotion.
 
-Provisional dependency order (module names may adapt to actual consumers):
+Implemented dependency order:
 
 | Leaf | Main prerequisites | Focused target |
 |---|---|---|
 | Bank/Normalization | Bank/Basic, real square roots | `lake build TypeEmbeddings.Bank.Normalization` |
-| Reader/Width | Bank/LeastSquares, exp/log positivity | `lake build TypeEmbeddings.Reader.Width` |
-| TYPE likelihood | Euclidean codebook, finite exp sums | Choose a leaf name before implementation |
-| Common-scale RGB/Gibbs | Probability/Grid, score decomposition, Reader/Width | Choose a leaf name before implementation |
-| Typed interface/joint | Per-bank readers, TYPE and conditional VALUE laws | Choose a leaf name before implementation |
-| Structured counts/work | Counts/Basic and Cost, explicit slot/work model | Choose a leaf name before implementation |
+| Reader/Width | Bank/LeastSquares (exp/log isolated in Reader/Gain) | `lake build TypeEmbeddings.Reader.Width` |
+| TYPE likelihood | Euclidean codebook, finite exp sums | `lake build TypeEmbeddings.TypeCode.PMF` |
+| Common-scale RGB/Gibbs | Probability/Grid, score decomposition, Reader/Width | `lake build TypeEmbeddings.Probability.Reconstruction` |
+| Typed interface/joint | Per-bank readers, TYPE and conditional VALUE laws | `lake build TypeEmbeddings.Typed.Interface TypeEmbeddings.Typed.Probability` |
+| Structured counts/work | Counts/Basic and Cost, explicit slot/work model | `lake build TypeEmbeddings.Counts.Structured TypeEmbeddings.Counts.StructuredCost` |
 
-These are proposed targets, not existing modules or build evidence. Width does not need
+All listed targets passed focused builds. Width does not need
 spectral theorems; finite TYPE normalization does not need quaternion coordinates.
 Combine these dependencies only in the head/interface consumers that require them.
 
@@ -63,7 +63,11 @@ hardware performance remain separately classified rather than claimed from algeb
 
 ## Stage Results
 
-In progress. First implementation leaves: Bank/Normalization, Reader/Width and
-Reader/Gain. Width depends on residual geometry but not spectral theory; Gain isolates
-exp/log imports. Prove positive degrees from nonzero energy before width division.
-Focused builds for these three leaves; separate UnifiedAxioms after completed results.
+Complete. Bank/Normalization, Reader/Width and Gain, TypeCode/Basic/Probability/PMF,
+Reader/RGBProbability/TypeProbability/Summary, Probability/Reconstruction,
+Typed/Interface/Probability and Counts/Structured/StructuredCost compile. Public root
+exports these leaves. Actual declared statement/hypothesis review covers each required
+outline obligation; optional/deferred mathematics remains explicitly classified.
+UnifiedAxioms has 39 checks; the consolidated 115-result AllAxioms target includes them.
+The final public-root/consolidated audit build passed (2906 jobs), with only standard
+foundational axioms. Source scans and final record checks are tracked in stage 6.

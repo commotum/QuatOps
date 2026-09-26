@@ -32,3 +32,8 @@ from the quaternion/grid core; heavy TYPE/probability proof imports must not ent
 Core modules. Keep even-tie rounding separate from the existing half-down proof leaf.
 Reopened/new obligations belong in goal-1/3-grid.md and goal-1/5-unified.md. Document
 updates alone do not establish revised-head coverage or require broad proof rebuilding.
+
+Completed revised leaves have focused targets under RGB/EvenRounding, Reader, TypeCode,
+Probability/Reconstruction, Typed, and Counts/Structured*. The consolidated reproducible
+audit command is `lake build TypeEmbeddings.Diagnostics.AllAxioms`; it remains outside
+the public graph. Final audit evidence is in goal-1/final-build.log.

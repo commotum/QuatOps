@@ -15,7 +15,7 @@ requirements; the declaration map identifies which obligations are discharged.
 3. ℓ² bounds require Euclidean norms. Plain coordinate functions may carry a maximum
    norm; bridge these representations explicitly. A maximum coordinate error strictly
    below 1/256 gives recovery, while equality can tie and need not recover the target.
-4. Nearest-grid minimizers need not be unique. Existing code uses smallest-index ties; revised §7 requires ties-to-even compatibility, still pending;
+4. Nearest-grid minimizers need not be unique. Existing code uses smallest-index ties; the revised even-tie API is separately compiled and audited;
    clipping handles locations outside the grid. Least-squares uniqueness refers to the
    continuous solution under S>0, not necessarily the discrete argmin.
 5. Mathlib's singular-value sequence has zero entries after the domain dimension.
@@ -50,7 +50,7 @@ requirements; the declaration map identifies which obligations are discharged.
 Active source is `type_value_embeddings_revised_proposal.md` (REVISION.md records hash).
 The original additive TYPE embedding and separate classifier are superseded. Shared
 TYPE/VALUE banks reuse existing per-bank results; concatenation does not imply transformer
-slice preservation. No unified interface or head is yet claimed implemented.
+slice preservation. The revised interface and heads now compile; exact declaration coverage is mapped.
 
 - Revised positive width requires floor>0,γ>0,S>0 and d−3>0. Bank positivity implies
   N≥1, hence d=4N≥4; prove this dependency explicitly before dividing. Width increases
@@ -58,8 +58,8 @@ slice preservation. No unified interface or head is yet claimed implemented.
   the floor even for a wrong code, so this parameterization does not imply calibration.
 - Equal-norm TYPE score equivalence applies to exact codes. FP32 storage generally
   perturbs norms; distinctness/equal norms of the actual used codes must be established
-  or the exact squared-distance likelihood retained. Positive separation needs a finite
-  distinct codebook with at least two types; one-type classification is a separate case.
+  or the exact squared-distance likelihood retained. An exact off-diagonal minimum distance needs at least two types. The proved positive
+  uniform bound also handles a singleton vacuously; no singleton minimum is asserted.
 - The reconstructed Gibbs likelihood has scalar T(h)=2S s²(h), positive and constant
   across candidates. Independent channel scales only specialize to it when equal; a
   candidate-dependent width would invalidate the cancellation argument.
@@ -83,8 +83,8 @@ is proved using a kernel-checked rational certificate, without asserting operati
 
 Resolved design choices: Euclidean locations, PiLp quaternion banks, product-indexed
 stacked matrices, explicit adjoint/four Penrose identities, real finite sums then PMF.
-Unfinished: ties-to-even mode interface, residual-width/TYPE/joint likelihood, revised
-structured counts/cost, and a consolidated final axiom audit. Gaussian law, heap top-k,
+Compiled and audited: even-tie mode interface, residual-width/TYPE/joint likelihood,
+revised structured counts/cost, and consolidated main-result checks. Gaussian law, heap top-k,
 serialization and broader heads remain separately specified extensions.
 
 ## Axiom status and future audit procedure
@@ -96,7 +96,7 @@ were additionally checked with the same output in `Diagnostics/GridAxioms.lean`.
 project axiom is reported. Audit sources are
 `TypeEmbeddings/Diagnostics/QuaternionAxioms.lean` and `BankAxioms.lean`.
 ProbabilityCountAxioms additionally checked thirteen probability/count main results
-with the same standard-axiom set. Numerical/limitation consolidated checks are pending.
+with the same standard-axiom set. Numerical/limitation checks now pass, including the revised even-tie witness.
 Build these targets explicitly to reproduce the checks.
 
 For every subsequent main result, run Lean `#print axioms` for each mapped major declaration
@@ -105,3 +105,14 @@ Reject `sorryAx` and unexplained project-specific axioms. Distinguish normal Lea
 foundations (such as classical choice, propositional extensionality, quotient soundness)
 from stated theorem hypotheses and any external numerical semantics. Text searches
 supplement compilation and actual audits; they do not substitute for them.
+
+## Consolidated revised-core audit — 2026-09-26
+
+`Diagnostics/AllAxioms` prints 115 distinct main-result dependencies. All actual reports
+contain only `propext`, `Classical.choice`, `Quot.sound`; no `sorryAx` or project axiom.
+The public-root/audit build passed (2906 jobs); raw output is `../goal-1/final-build.log`.
+`wrongCode_floorWidth` preserves wrong prediction at minimum width, and
+`storageCounter_wrong_even_decode` preserves the BF16 storage limitation under the
+revised default. No calibration, FP32 arithmetic, Gaussian statistics or heap implementation
+is inferred. A structural segment pair is used only for projections: its default product
+norm is not asserted to be the Euclidean concatenation norm.

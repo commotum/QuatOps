@@ -1,18 +1,21 @@
-# Current revised-source status
+# Current revised-core validation
 
-Active source: `type_value_embeddings_revised_proposal.md`, SHA256
-`da2d012ff531f71a199a23c010b9ce027605139298c9ca8e691d1b64615f9d1e`.
-The source migration changes documentation and scope tracking, not mathematical proofs.
-Quaternion/bank, original half-down grid, general finite-grid PMF/counts, ideal BF16 and
-limitation leaves have passed focused builds. Revised even-tie compatibility and unified
-TYPE/residual-width/joint/count obligations remain unfinished. A full revised-core
-completion/audit is not claimed.
+The revised mathematical core compiles under pinned Lean 4.32.0 and mathlib
+`81a5d257c8e410db227a6665ed08f64fea08e997`. All nine private package HEADs match
+`lake-manifest.json`. Source proposal fingerprints are unchanged.
 
-Generic probability/count root and audit build passed (2886 jobs), with thirteen actual
-axiom checks showing only propext, Classical.choice and Quot.sound. Ideal BF16 and
-Limitations focused builds passed. The numerical/limitation consolidated audit is pending.
-Historical scaffold timing/job counts below describe that earlier import-only state;
-they are not the current mathematical library's dependency graph.
+`lake build TypeEmbeddings.Diagnostics.AllAxioms TypeEmbeddings` passed (2906 jobs).
+The consolidated target actually printed 115 distinct main-result axiom dependencies;
+each is contained in `propext`, `Classical.choice`, `Quot.sound`. Raw output is
+`../goal-1/final-build.log`. Focused builds for all new leaves passed before promotion.
+RevisedLimitations and NumericalAxioms passed (2556 jobs), including both revised
+counterexamples. Per-leaf elaboration observations were about 1.4–2.9 seconds; these
+are local cached observations, not clean-build or portable performance benchmarks.
+
+The mathematical setup uses exact real arithmetic. It does not validate FP32 execution,
+source numerical experiments, Gaussian noise statistics, trained models, top-k heaps,
+or fresh online dependency bootstrap. Historical evidence follows for provenance;
+its scaffold-only/incomplete statuses describe the earlier state.
 
 ## Historical scaffold validation — 2026-09-25
 

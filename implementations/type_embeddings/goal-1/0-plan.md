@@ -84,7 +84,7 @@ and baseline core counts from total structured counts.
 **Completion signal:** Probability/Counts leaves and ProbabilityCountAxioms build pass.
 This stage does not discharge the revised residual/TYPE/joint/count obligations.
 
-### 5. Unified TYPE/VALUE mathematical model — in progress
+### 5. Unified TYPE/VALUE mathematical model — complete
 
 **Outcome:** Exact concatenated interface, fixed-code TYPE likelihood, residual-derived
 width, revised common-scale RGB likelihood, reconstruction-temperature equivalence,
@@ -110,10 +110,11 @@ semantics; record their conditional/deferred/empirical status without inventing 
 source scans, revision mapping and actual main-result axiom audits pass. No completion
 claim while stage 3 or stage 5 remains unfinished. See `6-final-audit.md`.
 
-## Session handoff
+## Current verification state
 
-Source migration performed on 2026-09-26. Stages 1–2 and generic stage 4 compile with
-actual audits; original half-down stage 3 compiles but needs ties-to-even compatibility.
-BF16 representation and limitation examples compile; final consolidated audit is pending.
-Revised ties-to-even decoding now compiles and has actual audits. Next: stage 5's
-residual width, bank normalization and fixed-code TYPE likelihood. Preserve the full revised objective and build hygiene.
+Stages 0–5 are complete. The public library includes revised even-tie decoding,
+residual-width TYPE/RGB heads, normalized typed joint law, positive-temperature
+reconstruction equivalence and structured count/work results. The consolidated audit
+passed for 115 distinct main declarations under the pinned setup. Stage 6 is completing
+final source/pin/import scans, faithful document coverage and scope review.
+No new theorem is needed unless that requirement-by-requirement review finds a gap.

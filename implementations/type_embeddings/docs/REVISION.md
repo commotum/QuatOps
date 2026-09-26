@@ -5,7 +5,7 @@ SHA256: `da2d012ff531f71a199a23c010b9ce027605139298c9ca8e691d1b64615f9d1e`.
 Original [`type_value_embeddings_proposal.md`](../type_value_embeddings_proposal.md)
 remains provenance. Neither source file was modified.
 
-| Aspect | Original design / current reusable code | Revised default / remaining obligation |
+| Aspect | Original design / reusable foundations | Revised default (initial migration obligations) |
 |---|---|---|
 | TYPE interface | Additive type embedding, separate classifier | Fixed distinct unit codebook, shared quaternion TYPE bank, concatenated segments |
 | Segment widths | One RGB bank of width d | D=dT+dV; each width a positive multiple of four; both banks independently require S>0 |
@@ -39,3 +39,11 @@ Historical stage records are labeled to prevent their original completion or imp
 build results from being mistaken for revised-core coverage. Build-time requirements
 preserve theorem strength and kernel checking; provisional new leaf targets are identified
 as plans rather than compiled modules.
+
+## Subsequent implementation
+
+The initial pending obligations in the migration table are now compiled: even-tie
+decoding, residual width, bank normalization, TYPE/common-scale RGB likelihoods,
+reconstruction temperature, typed interface/joint law and revised counts/work.
+See THEOREM_OUTLINE.md for actual declarations and explicit deferred extensions.
+The final consolidated diagnostic covers 115 distinct main results.

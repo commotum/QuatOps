@@ -3,8 +3,7 @@
 ## Current Facts
 
 Prior quaternion/bank/grid/general-probability audits passed. Ideal BF16 grid certificate
-and independent precision/consistency/multi-input limitations compile. Revised stage 3
-and stage 5 remain unfinished. Historical numerical record: 5-numerical-audit.md.
+and independent precision/consistency/multi-input limitations compile. Revised stages 3 and 5 are compiled and audited. Historical numerical record: 5-numerical-audit.md.
 
 ## Updated Assumptions
 
@@ -42,4 +41,8 @@ empirical claims are clearly identified. Stage 3 and 5 must be complete.
 
 ## Stage Results
 
-In progress: representation/limitation foundations available; final audit pending.
+In progress: consolidated AllAxioms/public-root build passed (2906 jobs), with
+115 distinct actual reports restricted to propext, Classical.choice and Quot.sound.
+All nine private package HEADs match the lock. Final source/doc checks and explicit
+completion coverage record are being validated. RevisedLimitations checks both even-tie
+BF16 failure and wrong prediction at minimum residual width.

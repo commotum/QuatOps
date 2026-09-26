@@ -19,7 +19,7 @@ in `VALIDATION.md`. No dependency of this package points at another paper's libr
 - `Mathlib.Analysis.InnerProductSpace.SingularValues`: `LinearMap.singularValues`,
   `singularValues_fin`, `singularValues_of_finrank_le`. The API uses an infinite
   finitely supported sequence; only its first three values should equal √S.
-- `Mathlib.Probability.ProbabilityMassFunction.Constructions`: eventual PMF packaging;
+- `Mathlib.Probability.ProbabilityMassFunction.Constructions`: PMF packaging;
   prove real finite-sum normalization first if that gives cleaner statements.
 - `Mathlib.Analysis.SpecialFunctions.Exp`: strictly positive real finite-grid kernels.
 
@@ -43,11 +43,11 @@ statement through orthonormal coordinate equivalences. Right adjoint must be rig
 multiplication by conjugate W, with the RGB projection taking imaginary coordinates.
 
 Current `nearestChannel` selects the smallest equal-cost index and its half-down
-clipped formula is proved. Revised §7 requires a new ties-to-even decoder. Mathlib's
+clipped formula is proved. Revised §7 is implemented in RGB/EvenRounding and EvenDecoding. Mathlib's
 `round` is ties toward positive infinity; it cannot be used unmodified as ties-to-even.
 Keep the existing half-down API explicit and add the revised convention in a narrow leaf.
 
-Revised additions: generic finite TYPE indices with fixed codes in the same Euclidean
+Compiled revised additions: generic finite TYPE indices with fixed codes in the same Euclidean
 three-space, a positive floor/gain residual-width record, common-scale RGB specialization,
 and a dependent sum of TYPE payloads for the joint PMF. Concatenated BankSpace segments
 can use an explicit product/isometric coordinate equivalence; do not assume slice isolation.

@@ -1,33 +1,34 @@
 # Unified Type & Value Embeddings: Lean library
 
-Active mathematical/engineering source:
-[type_value_embeddings_revised_proposal.md](type_value_embeddings_revised_proposal.md).
-The [original proposal](type_value_embeddings_proposal.md) is retained as provenance.
-See [revision changes](docs/REVISION.md); no full revised-core completion is claimed.
+Verified mathematical core of the
+[revised proposal](type_value_embeddings_revised_proposal.md). The
+[original proposal](type_value_embeddings_proposal.md) remains provenance.
 
-Compiled foundations cover quaternion right multiplication, stacked Gram and fused
-pseudoinverse, spectral/least-squares/error results, exact RGB grid and half-down decoding,
-generic finite-grid probabilities/PMF, coefficient slots and multiplication-slot O(d).
-Ideal-normal BF16 representability and independent limitation examples also compile.
+The public library covers quaternion right multiplication, stacked Gram and fused
+Moore–Penrose inverse, spectral/least-squares/error results, exact RGB grid and ties-to-even
+decoding, finite TYPE/RGB probabilities, residual-derived width, reconstruction-temperature
+equivalence, typed segment round-trips, normalized dependent joint laws, and explicit
+coefficient/work counts. The revised 64/448 example has 514 learned coefficients.
+The original half-down and independent-channel-scale APIs remain reusable alternatives.
 
-The revised proposal requires ties-to-even decoding, shared fixed-code TYPE scoring,
-concatenated TYPE/VALUE conventions, residual-derived common width, a normalized typed
-joint law, reconstruction-temperature equivalence and structured counts including gains.
-These new obligations remain unfinished. Existing half-down decoding and independent
-channel scales are reusable mathematics, not implementations of the revised defaults.
+Ideal-normal BF16 representation and exact counterexamples compile in separate numerical
+and diagnostic leaves. Representation is not exact prediction; floor residual width is not
+calibrated confidence. Gaussian statistics, exact heap top-k, int64 serialization, numerical
+gradients, trained-model quality and hardware latency are outside this verified core.
+No trained transformer or FP32 execution engine is supplied.
 
 - [Plan](goal-1/0-plan.md), [loop](goal-1/0-loop.md), [continuation prompt](goal-1/0-prompt.md).
-- [Source map](docs/PROPOSAL_MAP.md), [theorem outline](docs/THEOREM_OUTLINE.md).
+- [Source map](docs/PROPOSAL_MAP.md), [theorem coverage](docs/THEOREM_OUTLINE.md).
 - [Corrections/axioms](docs/AUDIT.md), [dependencies](docs/DEPENDENCIES.md),
   [validation](docs/VALIDATION.md), [incremental builds](docs/BUILD.md).
 
-Lean 4.32.0 and exact mathlib/transitive revisions are pinned. From this directory,
-`lake build` checks the public root and its dependencies. Build touched leaves directly
-while implementing. Diagnostics are explicit targets, including
-`TypeEmbeddings.Diagnostics.QuaternionAxioms`, `BankAxioms`, `GridAxioms`,
-`ProbabilityCountAxioms`, and `Limitations`; the optional import smoke target is
-`TypeEmbeddings.Diagnostics.Dependencies`. Public/internal leaves do not import diagnostics.
+Lean 4.32.0 and mathlib `81a5d257c8e410db227a6665ed08f64fea08e997` are pinned;
+`lake-manifest.json` locks transitive revisions. From this directory, run `lake build`
+for the public library and `lake build TypeEmbeddings.Diagnostics.AllAxioms` for the
+consolidated main-result audit. Build touched leaves directly during changes. Diagnostics
+remain outside the public dependency graph; the optional dependency smoke target is
+`TypeEmbeddings.Diagnostics.Dependencies`.
 
-Fresh online bootstrap (`lake update`, `lake exe cache get`) has not been tested here;
-local builds use compatible private cached dependencies, as recorded in validation.
-All work and artifacts stay inside this project directory.
+Local validation uses private compatible cached packages; all nine HEADs match the manifest.
+Fresh online bootstrap (`lake update`, `lake exe cache get`) has not been tested here.
+All project edits, records and artifacts stay inside this directory.

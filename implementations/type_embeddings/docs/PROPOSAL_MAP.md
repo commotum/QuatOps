@@ -4,27 +4,27 @@ Active source: `../type_value_embeddings_revised_proposal.md`; original proposal
 historical provenance. This map distinguishes actual declarations from planned work.
 `THEOREM_OUTLINE.md` specifies new obligations and `REVISION.md` records the transition.
 
-| Revised section | Claim category | Evidence / remaining coverage |
+| Revised section | Claim category | Verified coverage / explicit boundary |
 |---|---|---|
-| §§1–3 concatenated TYPE/VALUE | Architecture with exact interface underneath | Shared per-bank algebra exists; concatenation/projection/joint-law APIs pending. No slice preservation through transformer assumed |
-| §4 RGB MR | Exact algebra / representation | Compiled `channelValue_*`, `rgb_card`, `rgbValue_injective`; `channelValue_bf16` models ideal normal representation |
-| §4 TYPE MR | Exact codebook hypotheses / storage convention | Fixed distinct unit-code interface and finite-separation facts pending; FP32 storage is not exact equal-norm proof |
-| §5 shared encoder/reader | Exact real linear algebra | Compiled maps, matrix Gram, fused pseudoinverse, spectral/conditioning/reconstruction results apply separately to either bank |
-| §6 residual width | Modeling choice with exact positivity underneath | Residual and orthogonality compiled; positive floor/gain, d−3 denominator, width/floor/monotonicity and softplus properties pending |
-| §6 Gaussian motivation | Conditional statistical claim | Deferred to an explicit isotropic noise model; no transformer/posterior/calibration implication |
-| §7 TYPE likelihood | Exact finite normalization / chosen family | TYPE normalizer, PMF, equal-norm logit equivalence and separation decoding pending |
-| §7 RGB likelihood | Exact normalization / chosen common-scale family | Generic channel/product PMF compiles; common residual-width reader specialization and reconstruction-temperature equivalence pending |
-| §7 mode | Exact finite optimization | Half-down implementation compiles; required ties-to-even alternative and its mode/global/recovery bridges pending |
-| §7 sampling and global joint | Finite probability law | Dependent TYPE/conditional joint normalization pending; greedy-type limitation is not a joint maximization theorem |
-| §§7,10 top-k | Algorithm proposal / approximate complexity | Separate future sorted-cost heap specification; not proved by top-1 or reported exhaustive reference check |
-| §8 training | Architecture / numerics | Ground-truth bank selection, differentiability, loss implementation and gradient reports are outside current exact core |
-| §9 bank normalization | Exact scaling + numerical guard | Fixed-target energy theorem pending; nonzero raw bank and actual stored-weight denominator required |
-| §9 precision | Representation and implementation | Compiled ideal-normal BF16 grid and independent rounding counterexample; FP32 execution, overflow guards and source trace remain separate |
-| §10 counts | Exact slot cardinalities | Existing core/baseline counts; revised dT+K dV+(K+1), 514 example and text/codebook storage distinctions pending |
-| §10 complexity | Explicit arithmetic model / empirical latency | Single-bank multiplication-slot O(d) compiled; TYPE+RGB total work pending. No hardware speedup theorem |
-| §11 limits/extensions | Structural restriction / later types | Compiled three-dimensional rank and shared-two-input noninjectivity diagnostic. Int64, mixtures, arbitrary bank sums require new assumptions |
-| §12 reference checks | Reported experiments | Revised script/results unavailable; no independent rerun or gradient/top-k theorem claimed |
-| §§12–13 quality/rollout | Empirical claims / decisions | Outside verified core; no trained model, calibration or hardware benefit is asserted |
+| §§1–3 concatenated TYPE/VALUE | Architecture with exact interface | `typedEmbedding` and segment round-trips; structural pair, no transformer slice-preservation or total Euclidean norm claim |
+| §4 RGB MR | Exact algebra / representation | Grid, spacing, cardinality and ideal-normal BF16 representability compiled |
+| §4 TYPE MR | Exact codebook hypotheses | `TypeCodebook.exists_separation`; fixed distinct unit codes assumed, FP32 exact norms not inferred |
+| §5 shared encoder/reader | Exact real linear algebra | Maps, matrix Gram, fused pseudoinverse, spectral/error and least-squares results apply separately to either bank |
+| §6 residual width | Modeling rule with exact guarantees | Positive degrees/variance/scale, floor and strict monotonicity compiled; zero residual still permits a wrong code |
+| §6 Gaussian motivation | Conditional statistical extension | Explicit isotropic noise law/covariance/expectation not formalized; no calibration or posterior implication |
+| §7 TYPE likelihood | Finite normalized chosen family | TYPE probability/PMF, equal-norm logit identity, separation recovery and residual-width reader compiled |
+| §7 RGB likelihood | Finite normalized chosen family | Common residual-width PMF and exact positive-temperature reconstruction equivalence compiled |
+| §7 mode | Exact finite optimization | Even-tie decoder, clipped integer definition, global optimum, strict margin/noise recovery and probability mode compiled |
+| §7 sampling/joint | Finite probability law | Normalized dependent joint and TYPE marginal compiled; no executable sampler or greedy joint mode claim |
+| §§7,10 top-k | Separate algorithm proposal | Heap/sorting/visited-set semantics and complexity deferred; top-1 theorem is not top-k proof |
+| §8 training | Architecture / numerics | Branch selection, loss/gradient implementation and reports remain outside exact core |
+| §9 normalization | Exact real scaling | `normalizedBank_energy`; raw energy positive, target nonnegative (positive target corollary) |
+| §9 precision | Representation / checked limitation | Ideal-normal BF16 and independent rounding witness; FP32 execution, hardware guards and source trace separate |
+| §10 counts | Exact slot cardinalities | Structured formula and 514 example compiled; fixed codebook, text tables/adapters excluded |
+| §10 complexity | Explicit scalar-work model | Single-bank and TYPE+RGB O(dT+dV+types+768) compiled; scalar operations have fixed modeled cost, no latency theorem |
+| §11 limits/extensions | Structural restriction / later types | Rank and two-input noninjectivity diagnostic compiled; int64, mixtures and generic multi-input assumptions separate |
+| §12 reference checks | Reported experiments | Source script/results unavailable; no independent numerical gradient/top-k rerun claimed |
+| §§12–13 quality/rollout | Empirical claims / decisions | No trained model, calibration or hardware benefit asserted |
 
 ## Completed declaration map (stages 1–2)
 
@@ -58,7 +58,7 @@ The main results' actual axiom checks are in Diagnostics/QuaternionAxioms and Ba
 | Discrete global optimum | `nearestRGB_minimizes`, `nearestRGB_global_minimizer` | RGB/Nearest, Decoding |
 | Recovery | `decodeRGB_roundTrip`, `decodeRGB_exact_of_margin`, `decodeRGB_exact_of_noise` | RGB/Decoding |
 
-The exact half-down convention uses `roundHalfDown t = -round (-t)`; clipping uses
+The historical half-down convention uses `roundHalfDown t = -round (-t)`; clipping uses
 `min 255 n.toNat`, so no unchecked machine-integer conversion is involved.
 
 
@@ -76,4 +76,21 @@ The exact half-down convention uses `roundHalfDown t = -round (-t)`; clipping us
 
 The compiled witness is (0,0,16)→(0,0,17), using ideal BF16 storage rounding and an
 exact real decoder. It is not a reproduction of the source's (237,169,1)→(237,169,0)
-FP32 trace. Numerical/limitation main-result axiom consolidation remains pending.
+FP32 trace. Both half-down and revised even-tie versions of this witness are included in the consolidated audit.
+
+## Revised unified declaration map
+
+The full obligation-to-declaration table is in `THEOREM_OUTLINE.md`. Modules:
+
+| Layer | Modules under TypeEmbeddings/ |
+|---|---|
+| Even-tie grid/decoder/modes | RGB/EvenRounding, RGB/EvenDecoding, Probability/EvenMode |
+| Bank energy and width | Bank/Normalization, Reader/Width, Reader/Gain |
+| TYPE support/likelihood | TypeCode/Basic, Probability, PMF |
+| Residual-width heads/API | Reader/RGBProbability, TypeProbability, Summary |
+| Gibbs identity | Probability/Reconstruction |
+| Typed interface/joint law | Typed/Interface, Probability |
+| Revised counts/work | Counts/Structured, StructuredCost |
+| Preserved revised limitations | Diagnostics/RevisedLimitations |
+
+`Diagnostics/AllAxioms` checks 115 distinct mapped main results and definitions.

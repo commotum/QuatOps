@@ -20,6 +20,7 @@ theorem typedJoint_sum (p : α → ℝ) (q : ∀ t, β t → ℝ)
   simp_rw [← Finset.mul_sum, hq, mul_one]
   exact hp
 
+omit [Fintype α] in
 theorem typedJoint_type_marginal (p : α → ℝ) (q : ∀ t, β t → ℝ)
     (hq : ∀ t, ∑ v, q t v = 1) (t : α) :
     ∑ v : β t, typedJointProbability p q ⟨t, v⟩ = p t := by
