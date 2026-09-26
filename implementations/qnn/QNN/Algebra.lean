@@ -10,17 +10,18 @@ def basisI : H := ⟨0, 1, 0, 0⟩
 def basisJ : H := ⟨0, 0, 1, 0⟩
 def basisK : H := ⟨0, 0, 0, 1⟩
 
- theorem hamilton_rules :
+theorem hamilton_rules :
     basisI * basisI = -1 ∧ basisJ * basisJ = -1 ∧ basisK * basisK = -1 ∧
     basisI * basisJ = basisK ∧ basisJ * basisK = basisI ∧ basisK * basisI = basisJ ∧
     basisJ * basisI = -basisK ∧ basisK * basisJ = -basisI ∧
     basisI * basisK = -basisJ ∧ basisI * basisJ * basisK = -1 := by
   norm_num [basisI, basisJ, basisK, Quaternion.ext_iff,
-    Quaternion.re_mul, Quaternion.imI_mul, Quaternion.imJ_mul, Quaternion.imK_mul]
+    Quaternion.re_mul, Quaternion.imI_mul, Quaternion.imJ_mul, Quaternion.imK_mul,
+    Quaternion.re_one, Quaternion.imI_one, Quaternion.imJ_one, Quaternion.imK_one]
 
 theorem multiplication_not_commutative : basisI * basisJ ≠ basisJ * basisI := by
   intro h
-  have := congrArg Quaternion.imK h
+  have := congrArg (fun q : H => q.imK) h
   norm_num [basisI, basisJ, Quaternion.imK_mul] at this
 
 theorem conjugate_mul (a b : H) : star (a * b) = star b * star a := star_mul a b

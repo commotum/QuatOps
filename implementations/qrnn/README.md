@@ -2,7 +2,8 @@
 
 Scope: this directory only, including dependencies, build artifacts, and goals.
 The source is [Quaternion_Recurrent_Neural_Networks.md](Quaternion_Recurrent_Neural_Networks.md), preserved unchanged.
-This is a scaffold, not a formalization. The Lean files contain only imports and comments.
+Formalization is in progress. The completed scaffold is retained in `goal-1`;
+its validation record describes the initial state, not completion of the library.
 
 Start with [goal-1/0-plan.md](goal-1/0-plan.md). Supporting documents:
 - [Paper map](goal-1/paper-map.md): source locations and proposed declarations.
@@ -16,5 +17,5 @@ From this directory, use `MATHLIB_NO_CACHE_ON_UPDATE=1 lake update` to resolve t
 and `lake build`. Keep generated caches in this directory. Commit the lockfile;
 never silently change the toolchain or dependency pins to make a proof build.
 
-Stop after scaffolding. Implementation requires explicit user instructions.
-The continuation prompt is for use after that authorization, not permission by itself.
+Substantive continuation was authorized on 2026-09-25. See the plan for current
+verified results and remaining work.

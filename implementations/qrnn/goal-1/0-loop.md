@@ -1,9 +1,7 @@
 # Working loop
 
-Current gate: scaffold only. Stop after stage 0 and wait for explicit instructions;
-this loop and the continuation prompt do not authorize implementation.
-
-Once continuation is authorized:
+Continuation authorized by the user on 2026-09-25. Work only inside this QRNN
+folder, preserve the full objective, and use this loop:
 1. Sync `0-plan.md` with actual files, builds, declarations, and audit findings.
 2. Select the first unfinished authorized stage.
 3. Take the actions that directly advance its outcome, using current evidence

@@ -11,7 +11,10 @@ def pureSubspace : Submodule ℝ H where
   carrier := {q | q.re = 0}
   zero_mem' := rfl
   add_mem' := by intro a b ha hb; simpa using congrArg₂ (· + ·) ha hb
-  smul_mem' := by intro r q hq; simp [Quaternion.re_smul, hq]
+  smul_mem' := by
+    intro r q hq
+    change q.re = 0 at hq
+    simp [Quaternion.re_smul, hq]
 
 abbrev Pure := pureSubspace
 
@@ -49,7 +52,7 @@ def pureEuclidean : Pure ≃ₗᵢ[ℝ] EuclideanSpace ℝ (Fin 3) :=
       rw [EuclideanSpace.real_norm_sq_eq]
       change (∑ i : Fin 3, (vector v i) ^ 2) = ‖(v : H)‖ ^ 2
       rw [norm_sq_components]
-      simp [vector, Fin.sum_univ_succ] }
+      simp [vector, Fin.sum_univ_succ, add_assoc] }
 
 /-- Euclidean dot product of imaginary coordinates, also defined for general quaternions. -/
 def dot (u v : H) : ℝ := vector u ⬝ᵥ vector v
@@ -59,7 +62,7 @@ def cross (u v : H) : Pure := ofVector (vector u ⨯₃ vector v)
 
 theorem dot_components (u v : H) :
     dot u v = u.imI * v.imI + u.imJ * v.imJ + u.imK * v.imK := by
-  simp [dot, vector, Matrix.vec3_dotProduct]
+  simp [dot, vector, add_assoc]
 
 /-- Pure multiplication separates into the negative dot product and cross product. -/
 theorem pure_mul (u v : Pure) :

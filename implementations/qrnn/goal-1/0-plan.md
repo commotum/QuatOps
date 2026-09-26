@@ -40,7 +40,7 @@ rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 - **Completion signal:** scaffold review and recorded build result; report to the
   user and stop. Even if complete, do not enter stage 1 without explicit instructions.
 
-### 1. Quaternion operations and real representation — awaiting authorization
+### 1. Quaternion operations and real representation — in progress
 - **Outcome:** reusable finite quaternion vectors/matrices, multiplication and
   left/right real representations with dimension and adjoint identities.
 - **Focus:** multiplication order, component conventions, block layout, Euclidean
@@ -92,7 +92,7 @@ rule. Initialization sampling and Gaussian-norm arguments must be distinguished.
 
 ## Session handoff
 
-Current authorization ends at stage 0. Scaffold review and `lake build` passed
-on 2026-09-25; details are in `validation.md`. No substantive declarations exist.
-Next action: report the scaffold and wait for explicit instructions. After explicit authorization, begin stage 1 by
-inspecting quaternion/vector/matrix APIs and choosing component/block conventions.
+The user supplied the continuation prompt on 2026-09-25 and requested progress
+through the formalization stages. Stage 0 is complete; substantive continuation
+is now authorized. Stage 1 is in progress. Keep the full objective active and
+record compiled results and remaining work before handing off.
