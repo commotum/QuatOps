@@ -1,37 +1,73 @@
-# Validation and axiom status
+# Final validation and axiom audit
 
-## Current implementation checkpoint — 2026-09-25
+## Observed build results — 2026-09-25
 
-- `lake build`: exit 0, “Build completed successfully (3245 jobs).” All nine
-  mathematical modules and the root import compiled. There were no warnings
-  in the final build of changed modules.
-- `lake env lean QNN/AxiomAudit.lean`: exit 0; actual output saved in
-  `AXIOMS.txt`. Thirty-two main definitions/results were inspected.
-- Every audited declaration depends only on `propext`, `Classical.choice`,
-  and `Quot.sound`, the usual Lean/mathlib foundations used by real analysis.
-  No proof-hole or project-specific axiom appears in the actual reports.
-- A supplementary source scan found no proof holes or custom axioms in project
-  Lean code. Documentation links resolve. This scan supplements the kernel
-  build and actual axiom output; it does not substitute for them.
+- `lake build`: exit 0, “Build completed successfully (3252 jobs).”
+  The default targets check the `QNN` library, `Examples.Autoencoder`, and
+  `QNN.AxiomAudit`; project warnings are errors. All 13 mathematical modules,
+  the root import, the example and the axiom-command module compiled.
+- `lake env lean QNN/AxiomAudit.lean`: exit 0. The fresh raw output is in
+  `AXIOMS.txt`, covering 54 main definitions/results and the hidden-weight example.
+- Every printed axiom set is exactly `[propext, Classical.choice, Quot.sound]`.
+  These are the usual Lean/mathlib foundations for propositional extensionality,
+  classical choice and quotients; no project-specific or proof-hole axiom is used.
+- Supplementary source checks found no proof holes, custom axioms, unsafe
+  definitions, implementation substitution, or native proof shortcuts in the
+  project's Lean code. These checks supplement actual compilation and axiom
+  inspection; they do not substitute for them.
+- Lean reports 4.32.0, commit `8c9756b28d64dab099da31a4c09229a9e6a2ef35`.
+  The mathlib requirement and lock agree on
+  `81a5d257c8e410db227a6665ed08f64fea08e997`. All nine dependency HEAD revisions
+  match their lock entries, and tracked dependency source files are clean.
+- Documentation links, the three goal files, continuation paths, and root-module
+  imports were checked against actual files. All project artifacts are in this folder.
 
-The imported root modules are Algebra, Pure, Geometry, Model, Calculus,
-Activation, Training, ForwardCalculus and ParameterCalculus (nine mathematical
-modules). The axiom-command file imports the root and is checked separately.
+## Requirement-to-evidence completion check
 
-The checkpoint proves the declarations listed in the paper map. It does not
-prove complete weight-gradient assembly for every hidden layer, convergence,
-generalization, or reported PSNR measurements. Stage 3 and final consolidation
-remain open. No result is declared for differentiability at a zero weight or
-preservation of nonzero weights by finite update steps.
+| Requirement | Authoritative evidence |
+| --- | --- |
+| Quaternion algebra, conjugation and corrected norm | `Algebra.lean`: Hamilton rules, reversed conjugation product, four-term norm/square-root and scalar-product identities; actual build/axiom report |
+| Pure quaternions and Euclidean 3-vectors | `Pure.lean`: real subspace, coordinate equivalence, linear isometry, dot/cross multiplication |
+| Spatial rotations | `Geometry.lean`: unit conjugation as linear isometry, cross/oriented-volume preservation, composition, bounded axis-angle existence for every unit quaternion, full/orthogonal Rodrigues identities |
+| Forward neurons and layered networks | `Model.lean`: norm-normalized sandwich, subtractive threshold, finite neuron, `Layer` and `Network.forward`; zero convention explicit |
+| Componentwise sigmoid | `Model.lean`/`Activation.lean`: three coordinates, range and diagonal real derivative using mathlib sigmoid |
+| Source loss and extensions | `loss_components`, `loss_hasGradientAt`; `signalLoss_eq_outputLoss` and its gradient for the explicitly labeled output sum |
+| Differentiability and multiplication order | `weightAction_hasFDerivAt`, `weightDerivative_apply`; `ParametricForward.lean` proves joint parameterized forward/objective differentiability under nonzero coordinate weights |
+| Backpropagation in every layer | `Network.WeightIndex.hasFDerivAt` differentiates actual weight replacement; `backprop_eq` and `backprop_hasGradientAt` prove recursive reverse propagation gives the real gradient |
+| Component partials and weight updates | `componentPartial_hasDerivAt` proves an actual scalar coordinate partial; `Network.trainStep_components` proves all simultaneous hidden/output component updates at admissible original weights |
+| Reusable public interfaces | Root imports all mathematical modules; `Network.objective`, `WeightIndex`, `weightGradient`, `mapWeights`, `trainStep`, `updatedIndex`; the checked 16-4-16 example instantiates a hidden update |
+| Paper mapping/corrections/assumptions | `PAPER_MAP.md`, `AUDIT.md`, `DERIVATION.md`, `DEPENDENCIES.md`; Eq. (5), norm denominator, zero policy, omitted BP equations, threshold policy, aggregation and parameter-count issue recorded |
+| Distinct learning and empirical claims | Paper map/audit identify convergence, generalization and PSNR reports as unsupported or empirical; no such project theorem is asserted |
+| Pinned build and proof integrity | Exact toolchain/lock, default warning-as-error build, no proof holes/custom axioms in source, 54 actual axiom reports |
 
-## Original scaffold validation
+This establishes the requested mathematical library for the explicitly documented
+interpretation of the supplied transcription. Its BP formulas are independently
+reconstructed, not recovered equations from an omitted implementation.
 
-The import-only setup built successfully (2537 jobs). Lean reported version
-4.32.0, commit `8c9756b28d64dab099da31a4c09229a9e6a2ef35`. All nine dependency
-HEAD revisions matched the lock; tracked dependency source files were clean.
-The three goal files and prompt paths were checked.
+## Remaining source limits and optional work
 
-Initial remote Git access failed because the sandbox could not resolve GitHub.
-Dependency sources/artifacts were privately copied inside this folder from a clean
-local checkout of the exact mathlib revision. Fresh network bootstrap has not
-been tested. Most dependency build jobs reused those artifacts.
+The original typeset pages and referenced images are absent. The single denominator
+is interpreted as the norm; its zero extension is explicitly defined, while weight
+derivative/update correctness requires nonzero original weights. The source does
+not specify threshold training, batching, mean/sum dataset aggregation, or robust
+handling of iterates that hit zero. The provided training rule keeps thresholds
+fixed and uses an explicitly defined finite-output sum. It proves update equations,
+not finite-step decrease, nonzero-domain preservation or convergence. These are
+recorded boundaries, not unfinished proof obligations in completed modules.
+
+PSNR figures and improved-generalization claims remain source-reported evidence.
+No experimental reproduction is claimed. SO(3) surjectivity/double-cover
+classification is also not claimed; the implemented geometric results establish
+the paper's unit-conjugation and axis-angle rotation identities directly.
+
+Fresh network bootstrap and rebuilding all dependency sources from scratch were
+not tested. The initial Git probe failed due to sandbox DNS restrictions; private
+copies of clean pinned dependency sources/artifacts were used here. All project
+Lean sources were compiled, and there are no absolute local package dependencies.
+
+## Historical scaffold checkpoint
+
+The original import-only setup passed `lake build` (2537 jobs), dependency-pin
+checks and goal/path checks. Subsequent implementation replaced that target with
+the verified modules listed above; the final audit supersedes the old 32-result
+implementation checkpoint.

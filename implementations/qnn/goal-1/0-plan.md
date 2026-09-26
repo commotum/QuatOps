@@ -56,7 +56,7 @@ normalization derivative, activation Jacobian, adjoints and finite layer chain r
 component formulas agree with the real derivative, or unresolved gaps are explained
 with evidence. No unstated convergence claim is introduced.
 
-### 4. Consolidate a reusable audited library — final validation in progress
+### 4. Consolidate a reusable audited library — complete
 
 **Outcome:** Stable abstractions, reproducible builds, final claim coverage, and a
 separate optional experimental-validation boundary.
@@ -66,21 +66,25 @@ source audit; examples and documentation; provenance for empirical claims.
 axioms in completed modules; main results audited; every relevant paper claim
 mapped to a declaration or explicit empirical/unsupported/unresolved status.
 
-## Resumption state
+## Completion state
 
-The previous implementation turn was progress: it compiled the quaternion geometry,
-forward model, loss, derivative building blocks and connection gradient. The current
-turn assembled those into a proved network-wide reverse pass and simultaneous
-componentwise weight update for every addressed hidden/output connection.
+The preceding turns were progress: they built and verified the geometry, forward
+model, real calculus and connection gradients. The final turn proved actual
+weight replacement derivatives at every layer, recursive reverse gradients,
+simultaneous component updates, joint parameterized forward/loss differentiability,
+and bounded axis-angle existence for every unit quaternion.
 
-Stage 3 is complete for the paper's stated real coordinate updates. Joint real parameterizations of weights/inputs are also proved differentiable.
-No threshold-learning convention, batching convention,
-convergence or empirical-superiority theorem is claimed. The multi-output sum is
-an explicit extension; zero handling and nonzero derivative assumptions are logged.
+All stages are complete for the requested mathematical core. The final default
+warning-as-error build checks the 13 mathematical modules, root, illustrative
+16-4-16 hidden-weight example, and axiom commands. Fifty-four actual audit outputs
+contain only standard Lean foundations. `docs/VALIDATION.md` maps the full original
+requirements to source declarations and observed checks; `docs/PAPER_MAP.md`
+maps the source claims. No proof hole or unexplained project axiom is present.
 
-Stage 4 is undergoing final evidence checks: full warning-as-error build including
-the example/audit targets, refreshed actual axiom output, dependency pins and source
-cleanliness, paper-map links, and requirement-by-requirement validation. Finish those
-checks before declaring completion. The original full mathematical-core objective
-is preserved; unresolved source/experimental details remain explicitly outside the
-proved claims, rather than silently guessed.
+Source limitations are documented rather than guessed: norm notation/zero
+handling, unspecified threshold/batch policy, empirical images/training details,
+unsupported convergence/generalization, and the dense parameter-count mismatch.
+Completed the mathematical library; further numerical experiments, iterative
+convergence theory, alternative normalization or threshold-learning policies would
+require a separately specified task and evidence. No required implementation or
+proof obligation remains within the original mathematical-core objective.

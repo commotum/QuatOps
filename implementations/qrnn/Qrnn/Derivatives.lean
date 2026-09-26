@@ -22,6 +22,11 @@ def HasRealDerivative {E F : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
     [NormedAddCommGroup F] [NormedSpace ℝ F]
     (f : E → F) (D : E →L[ℝ] F) (x : E) : Prop := HasFDerivAt f D x
 
+/-- Mathlib's real derivative, using the declared normed-space structures. -/
+def realFDeriv {E F : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    [NormedAddCommGroup F] [NormedSpace ℝ F] (f : E → F) (x : E) : E →L[ℝ] F :=
+  fderiv ℝ f x
+
 /-- Quaternion matrix action bundled as a continuous ℝ-linear map. -/
 def matrixActionCLM {m n : ℕ} (W : QMatrix m n) : QVector n →L[ℝ] QVector m :=
   ContinuousLinearMap.pi (fun i => ∑ j : Fin n,

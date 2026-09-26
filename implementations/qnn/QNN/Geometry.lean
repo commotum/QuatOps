@@ -1,5 +1,6 @@
 import QNN.Pure
 import Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic
+import Mathlib.Analysis.SpecialFunctions.Trigonometric.Inverse
 
 /-! Conjugation geometry, valid for arbitrary pure vectors (not only unit vectors). -/
 noncomputable section
@@ -83,6 +84,7 @@ theorem unit_conjugate_oriented_volume (a : H) (ha : ‖a‖ = 1) (u v w : Pure)
     dot (conjugatePure a u) (cross (conjugatePure a v) (conjugatePure a w)) =
       dot u (cross v w) := by
   rw [← unit_conjugate_cross a ha, unit_conjugate_dot a ha]
+
 /-- Axis-angle quaternion; the spatial rotation angle is twice this parameter. -/
 def axisAngle (α : ℝ) (u : Pure) : H := (Real.cos α : H) + Real.sin α • (u : H)
 
@@ -136,4 +138,39 @@ theorem rodrigues_orthogonal (α : ℝ) (u v : Pure) (hu : ‖u‖ = 1)
     conjugate (axisAngle α u) v =
       Real.cos (2 * α) • (v : H) + Real.sin (2 * α) • (cross u v : H) := by
   rw [rodrigues α u v hu, huv]; simp
+/-- Every unit quaternion admits the paper's axis-angle form, including ±1.
+    At the endpoints the axis is nonunique; a fixed unit axis is chosen. -/
+theorem exists_axisAngle (a : H) (ha : ‖a‖ = 1) :
+    ∃ (α : ℝ) (u : Pure), ‖u‖ = 1 ∧ 0 ≤ α ∧ α ≤ Real.pi ∧ a = axisAngle α u := by
+  let v : Pure := pureProjection a
+  have hrec : a = (a.re : H) + (v : H) := by
+    ext <;> simp [v, pureProjection, ofVector, vector]
+  have hv : ‖v‖ ^ 2 = a.imI ^ 2 + a.imJ ^ 2 + a.imK ^ 2 := by
+    change ‖(v : H)‖ ^ 2 = _
+    rw [norm_sq_components]
+    simp [v, pureProjection, ofVector, vector]
+  have hna := norm_sq_components a
+  rw [ha] at hna
+  have hsq : ‖v‖ ^ 2 = 1 - a.re ^ 2 := by linarith
+  have hr : a.re ^ 2 ≤ 1 := by nlinarith [sq_nonneg ‖v‖]
+  have hrange := abs_le.mp ((sq_le_one_iff_abs_le_one a.re).mp hr)
+  have hc := Real.cos_arccos hrange.1 hrange.2
+  have hs : Real.sin (Real.arccos a.re) = ‖v‖ := by
+    rw [Real.sin_arccos, ← hsq, Real.sqrt_sq (norm_nonneg v)]
+  by_cases hv0 : v = 0
+  · let u : Pure := ⟨basisI, rfl⟩
+    have hu : ‖u‖ = 1 := by
+      change ‖(u : H)‖ = 1
+      rw [norm_components]
+      norm_num [u, basisI]
+    refine ⟨Real.arccos a.re, u, hu, Real.arccos_nonneg _, Real.arccos_le_pi _, ?_⟩
+    rw [axisAngle, hc, hs, hv0, norm_zero, zero_smul, add_zero]
+    simpa only [hv0, Submodule.coe_zero, add_zero] using hrec
+  · have hn : ‖v‖ ≠ 0 := norm_ne_zero_iff.mpr hv0
+    have hu : ‖‖v‖⁻¹ • v‖ = 1 := by
+      rw [norm_smul, Real.norm_eq_abs, abs_inv, abs_of_nonneg (norm_nonneg v)]
+      exact inv_mul_cancel₀ hn
+    refine ⟨Real.arccos a.re, ‖v‖⁻¹ • v, hu, Real.arccos_nonneg _, Real.arccos_le_pi _, ?_⟩
+    rw [axisAngle, hc, hs, Submodule.coe_smul, smul_smul, mul_inv_cancel₀ hn, one_smul]
+    exact hrec
 end QNN

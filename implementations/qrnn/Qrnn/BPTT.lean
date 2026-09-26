@@ -28,6 +28,28 @@ def jointStepDerivative (A : P →L[ℝ] H) (B : H →L[ℝ] H) : (P × H) →L[
 @[simp] theorem jointStepDerivative_apply (A : P →L[ℝ] H) (B : H →L[ℝ] H)
     (v : P × H) : jointStepDerivative A B v = A v.1 + B v.2 := rfl
 
+/-- Any real-linear joint derivative decomposes into its two partial maps. -/
+theorem split_joint_derivative (J : (P × H) →L[ℝ] H) :
+    jointStepDerivative (J.comp (ContinuousLinearMap.inl ℝ P H))
+      (J.comp (ContinuousLinearMap.inr ℝ P H)) = J := by
+  apply DFunLike.ext
+  rintro ⟨p, h⟩
+  change J (p, 0) + J (0, h) = J (p, h)
+  rw [← map_add]
+  simp
+
+/-- Parameter partial of a joint derivative in its declared normed structures. -/
+def parameterPartial (J : (P × H) →L[ℝ] H) : P →L[ℝ] H :=
+  J.comp (ContinuousLinearMap.inl ℝ P H)
+
+/-- State partial of a joint derivative in its declared normed structures. -/
+def statePartial (J : (P × H) →L[ℝ] H) : H →L[ℝ] H :=
+  J.comp (ContinuousLinearMap.inr ℝ P H)
+
+theorem split_joint_partials (J : (P × H) →L[ℝ] H) :
+    jointStepDerivative (parameterPartial J) (statePartial J) = J :=
+  split_joint_derivative J
+
 /-- Forward sensitivity to the parameter, with zero initial-state derivative. -/
 def unrollDerivative (A : ℕ → P →L[ℝ] H) (B : ℕ → H →L[ℝ] H) : ℕ → P →L[ℝ] H
   | 0 => 0

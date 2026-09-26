@@ -14,6 +14,7 @@ import Examples.Autoencoder
 #print axioms QNN.unit_conjugate_cross
 #print axioms QNN.unit_conjugate_oriented_volume
 #print axioms QNN.axisAngle_unit
+#print axioms QNN.exists_axisAngle
 #print axioms QNN.rodrigues
 #print axioms QNN.rodrigues_orthogonal
 #print axioms QNN.weightAction_norm

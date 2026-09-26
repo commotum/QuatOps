@@ -10,6 +10,7 @@
 'QNN.unit_conjugate_cross' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.unit_conjugate_oriented_volume' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.axisAngle_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QNN.exists_axisAngle' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.rodrigues' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.rodrigues_orthogonal' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.weightAction_norm' depends on axioms: [propext, Classical.choice, Quot.sound]

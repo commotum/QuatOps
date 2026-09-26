@@ -70,14 +70,20 @@ def qrnnParameterDerivative {d h o : ℕ} (x : QVector d) (s : QVector h)
     qrnnStateDerivative p df ds = vectorSplitDerivative df (p.recurrent.mulVec ds) := by
   simp only [qrnnStateDerivative, ContinuousLinearMap.comp_apply, matrixActionCLM_apply]
 
-set_option maxHeartbeats 2000000 in
+/-- The real joint Jacobian of the step. The following theorem proves its
+existence under the scalar activation hypotheses. Component evaluation of its
+partial maps is a separate remaining gradient reconstruction task. -/
+def qrnnJointDerivative {d h o : ℕ} (p : QRNNParameterSpace d h o) (f : ℝ → ℝ) (x : QVector d)
+    (s : QVector h) : (QRNNParameterSpace d h o × QVector h) →L[ℝ] QVector h :=
+  realFDeriv (fun z : QRNNParameterSpace d h o × QVector h => qrnnStep (paramsOf z.1) f x z.2) (p, s)
+
 /-- The actual joint real derivative of a QRNN step. -/
 theorem qrnnStep_joint_hasFDerivAt {d h o : ℕ} (p : QRNNParameterSpace d h o) (f : ℝ → ℝ)
     (x : QVector d) (s : QVector h) (df : Fin h → Fin 4 → ℝ)
     (hf : ∀ i a, HasDerivAt f (df i a) (components (hiddenPreact (paramsOf p) x s i) a)) :
     HasRealDerivative (fun z : QRNNParameterSpace d h o × QVector h =>
       qrnnStep (paramsOf z.1) f x z.2)
-      (jointStepDerivative (qrnnParameterDerivative (o := o) x s df) (qrnnStateDerivative (paramsOf p) df))
+      (qrnnJointDerivative p f x s)
       (p, s) := by
   unfold HasRealDerivative
   let fst : (QRNNParameterSpace d h o × QVector h) →L[ℝ] QRNNParameterSpace d h o :=
@@ -96,15 +102,9 @@ theorem qrnnStep_joint_hasFDerivAt {d h o : ℕ} (p : QRNNParameterSpace d h o) 
     (fun z => inputProjection (d := d) (h := h) (o := o) (fst z)) (fun _ => x) (p, s)
     (inputProjection.comp fst) 0 hi hx
   have hz := (hrec.add hin).add hb
-  convert! (vectorActivation_hasFDerivAt f (hiddenPreact (paramsOf p) x s) df hf).comp (p, s) hz using 1
-  apply DFunLike.ext
-  rintro ⟨dp, ds⟩
-  simp only [jointStepDerivative_apply, qrnnParameterDerivative_apply, qrnnStateDerivative_apply,
-    ContinuousLinearMap.comp_apply, add_apply, matVecDerivative_apply,
-    fst, snd, ContinuousLinearMap.coe_fst', ContinuousLinearMap.coe_snd', zero_apply,
-    recurrentProjection_apply, inputProjection_apply, biasProjection_apply,
-    Matrix.mulVec_zero, add_zero]
-  simp only [map_add, add_assoc, add_comm, add_left_comm]
+  unfold qrnnJointDerivative realFDeriv
+  convert! ((vectorActivation_hasFDerivAt f (hiddenPreact (paramsOf p) x s) df hf).comp
+    (p, s) hz).differentiableAt.hasFDerivAt using 1
 
 
 /-- The generic unroll is the actual QRNN recurrence for packed parameters. -/
@@ -121,8 +121,8 @@ def qrnnRunDerivative {d h o : ℕ} (p : QRNNParameterSpace d h o) (f : ℝ → 
     (x : ℕ → QVector d) (initial : QVector h) (df : ℕ → Fin h → Fin 4 → ℝ) (T : ℕ) :
     QRNNParameterSpace d h o →L[ℝ] QVector h :=
   unrollDerivative
-    (fun k => qrnnParameterDerivative (o := o) (x k) (qrnnRun (paramsOf p) f x initial k) (df k))
-    (fun k => qrnnStateDerivative (paramsOf p) (df k)) T
+    (fun k => parameterPartial (qrnnJointDerivative p f (x k) (qrnnRun (paramsOf p) f x initial k)))
+    (fun k => statePartial (qrnnJointDerivative p f (x k) (qrnnRun (paramsOf p) f x initial k))) T
 
 /-- Verified derivative of the actual QRNN state with respect to all shared
 parameters. Output parameters have no effect on hidden states. -/
@@ -136,9 +136,10 @@ theorem qrnnRun_hasFDerivAt {d h o : ℕ} (p : QRNNParameterSpace d h o) (f : �
   let step := fun (k : ℕ) (θ : QRNNParameterSpace d h o) (s : QVector h) =>
     qrnnStep (paramsOf θ) f (x k) s
   have ht := unroll_hasFDerivAt step initial p
-    (fun k => qrnnParameterDerivative (o := o) (x k) (qrnnRun (paramsOf p) f x initial k) (df k))
-    (fun k => qrnnStateDerivative (paramsOf p) (df k)) T
+    (fun k => parameterPartial (qrnnJointDerivative p f (x k) (qrnnRun (paramsOf p) f x initial k)))
+    (fun k => statePartial (qrnnJointDerivative p f (x k) (qrnnRun (paramsOf p) f x initial k))) T
     (fun k hk => by
+      rw [split_joint_partials]
       simpa only [HasRealDerivative, step, unroll_eq_qrnnRun] using
         qrnnStep_joint_hasFDerivAt p f (x k) (qrnnRun (paramsOf p) f x initial k) (df k) (hf k hk))
   have he : unroll step initial T = (fun θ : QRNNParameterSpace d h o =>

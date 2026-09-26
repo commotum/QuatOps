@@ -4,7 +4,7 @@ A reusable Lean 4 formalization of the mathematical core of the supplied paper
 transcription. The paper is audited as a source rather than accepted as a specification.
 
 The library currently covers quaternion identities and corrected norm formulas,
-pure quaternions as Euclidean 3-space, unit conjugation and Rodrigues' rotation
+pure quaternions as Euclidean 3-space, unit conjugation, axis-angle existence and Rodrigues' rotation
 formula, finite neurons and layered forward networks, sigmoid activation, squared
 error, the normalized weight derivative over ℝ, and gradient/chain-rule building
 blocks. It includes a recursive reverse pass for every hidden/output weight and

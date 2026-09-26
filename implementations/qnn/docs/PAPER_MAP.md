@@ -3,7 +3,7 @@
 Source: `../Quaternion_Neural_Network_and_Its_Application.md`, supplied Markdown
 transcription by Isokawa, Kusakabe, Matsui and Peper. Original pages/figures are
 not available in this folder. Declaration names below are actual compiled
-names unless explicitly marked pending. All project names have prefix `QNN`.
+names. All project names have prefix `QNN`.
 
 | Source | Kind | Actual coverage | Status |
 | --- | --- | --- | --- |
@@ -13,7 +13,7 @@ names unless explicitly marked pending. All project names have prefix `QNN`.
 | §2 (5) | Corrected norm | `norm_sq_components`, `norm_components`, `mul_conjugate`, `conjugate_mul_self` | Proved; repeated component corrected |
 | §2 (6) | Pure vectors | `pureSubspace`, `pureEuclidean`, `pure_mul`, `pure_inner` | Defined/proved |
 | §3 (7) | Geometry | `unitConjugation`, `unit_conjugate_cross`, `unit_conjugate_oriented_volume` | Proved for arbitrary pure inputs |
-| §3 (8) | Axis-angle | `axisAngle`, `axisAngle_unit` | Defined/proved; arbitrary real angle |
+| §3 (8) | Axis-angle | `axisAngle`, `axisAngle_unit`, `exists_axisAngle` | Construction proved for arbitrary angles; every unit quaternion has an axis with α in [0,π] |
 | §3 (9) | Orthogonal rotation | `rodrigues_orthogonal` | Proved with unit axis and dot=0 |
 | §3 (10) | Full rotation | `rodrigues` | Proved in full Rodrigues form including parallel component |
 | §4 (11) | Forward definition | `weightAction`, `weightAction_formula`, `preactivation`, `inputLinear` | Defined; zero extension explicit |
