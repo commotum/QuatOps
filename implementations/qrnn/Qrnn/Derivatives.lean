@@ -15,6 +15,13 @@ open scoped Matrix.Norms.Elementwise
 attribute [local instance] calculusAddCommGroup calculusModule
 noncomputable section
 
+/-- Ordinary real Fréchet derivative with the structures inherited from the
+specified normed spaces. This avoids instance diamonds when a concrete type is
+also an algebraic product or a matrix. It is exactly mathlib's `HasFDerivAt`. -/
+def HasRealDerivative {E F : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    [NormedAddCommGroup F] [NormedSpace ℝ F]
+    (f : E → F) (D : E →L[ℝ] F) (x : E) : Prop := HasFDerivAt f D x
+
 /-- Quaternion matrix action bundled as a continuous ℝ-linear map. -/
 def matrixActionCLM {m n : ℕ} (W : QMatrix m n) : QVector n →L[ℝ] QVector m :=
   ContinuousLinearMap.pi (fun i => ∑ j : Fin n,

@@ -74,7 +74,7 @@ theorem componentPartial_hasDerivAt {E : H → ℝ} {w g : H}
   have hp : HasDerivAt (fun t : ℝ => w + t • parameterBasis i) (parameterBasis i) 0 := by
     simpa using ((hasDerivAt_id (0 : ℝ)).smul_const (parameterBasis i)).const_add w
   have hd := hg.hasFDerivAt.comp_hasDerivAt_of_eq (0 : ℝ) hp (by simp)
-  simpa only [componentPartial, hg.hasFDerivAt.fderiv] using hd
+  simpa only [componentPartial, hg.hasFDerivAt.fderiv] using! hd
 
 /-- Exact agreement with the displayed four-component update. -/
 theorem quaternion_gradientStep_component (η : ℝ) (w g : H) (i : Fin 4) :

@@ -25,8 +25,8 @@ privately into this folder's ignored `.lake/packages`; other projects were not e
 The scaffold validated imports of these modules. The current library imports
 the infrastructure through its implementation modules; actual theorem coverage
 is recorded in `PAPER_MAP.md`, not inferred from dependency availability.
-Trigonometric calculus, norm differentiation, finite products, adjoints and orthogonal
-maps may need additional modules when substantive work starts.
+The final implementation uses real norm differentiation, finite-coordinate
+Jacobian maps, and Hilbert-space adjoints, as described below.
 
 ## Chosen representations
 
@@ -62,3 +62,14 @@ no custom axiom. Pure-space completeness is obtained from finite dimensionality.
 `Network.euclideanForward` and `euclideanInputDerivative` use `PiLp 2` signal
 spaces for adjoints/gradients. The conversion is explicitly continuous-linear,
 not advertised as an isometry with the raw supremum norm.
+
+The final training interface selects weights by `Network.WeightIndex`, proves the
+real derivative of the actual weight-replaced forward computation, recursively
+propagates the output cotangent, and updates all indexed weights from the original
+network. `Signal n` fixes the Euclidean output metric. Address transport after
+`mapWeights` is explicit, so `trainStep_components` refers to the same connection
+position before/after the simultaneous update. Thresholds are kept fixed.
+
+`Examples.Autoencoder` is a separate example library root checked by the default
+Lake build, together with `QNN.AxiomAudit`. Project warnings are errors. There is
+no executable approximation layer or experimental-data dependency.

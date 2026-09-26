@@ -21,11 +21,13 @@ names unless explicitly marked pending. All project names have prefix `QNN`.
 | §4 (12)–(14) | Component activation | `activation`, `activation_range`, `activation_hasFDerivAt`, `activationDerivative_coordinate`, `neuron` | Defined/proved in fixed i,j,k frame |
 | §4 layered model | Architecture | `Layer`, `Network`, `Network.forward` | Finite architecture defined |
 | §4 unnumbered error | Objective | `loss`, `loss_components`, `loss_nonneg`, `loss_eq_zero`, `loss_hasGradientAt` | Source one-output loss defined/proved |
-| Multiple outputs | Explicit extension | `outputLoss`, `outputLoss_nonneg` | Sum convention, not attributed to source |
+| Multiple outputs | Explicit extension | `outputLoss`, `signalLoss_eq_outputLoss`, `signalLoss_hasGradientAt` | Sum convention explicitly defined/proved, not attributed to source |
 | §4 weight differentiation | Independent derivation | `weightAction_hasFDerivAt`, `weightDerivative_apply`, `pureWeight_hasFDerivAt` | Proved over ℝ, nonzero weights |
-| §4 update equations | Real gradient update | `gradientStep`, `componentPartial_eq_gradient`, `quaternion_update_eq_partials`, `connection_update_components` | Defined/proved; no descent theorem |
+| §4 update equations | Real gradient update | `gradientStep`, `componentPartial_hasDerivAt`, `quaternion_update_eq_partials`, `Network.trainStep_components` | Defined/proved; no descent theorem |
 | §4 BP assertion | Reverse derivative core | `Network.input_hasFDerivAt`, `Network.pullback_eq`, `Network.pullback_hasFDerivAt`, `gradient_chain` | Recursive input differential propagation proved |
-| §4 BP weight learning | Connection rule | `neuron_eq_connection`, `connection_loss_gradient`, `connection_backprop` | Concrete one-connection gradient proved; full network weight-gradient assembly pending |
+| §4 BP weight learning | Independent network-wide reconstruction | `Layer.weight_hasFDerivAt`, `Network.WeightIndex.hasFDerivAt`, `Network.WeightIndex.backprop_hasGradientAt` | All hidden/output weight gradients proved against actual weight replacement |
+| Simultaneous training | Source component updates and sum-loss extension | `Network.weightGradient_hasGradientAt`, `Network.trainStep`, `Network.trainStep_components` | All addressed weight updates proved correct on nonzero original weights |
+| §5 matched parameter counts | Experimental-design claim | Audit A13; dense architecture count arithmetic | Qualified; counts are 1,152 vs 512 weight components |
 | §1/§6 learning/geometric superiority | Informal/unsupported | See audit A10–A12 | No mathematical superiority/convergence theorem |
 | §5 Tables 1–2 | Empirical evidence | Reported PSNR below | Documentation only |
 | §6 theoretical explanation | Speculation/future work | Lack of detailed explanation recorded | Not a theorem |
@@ -41,3 +43,8 @@ Table 1 total PSNR: real 26.68 dB, quaternion 26.67 dB. Table 2 total PSNR:
 real 18.04 dB, quaternion 21.99 dB. These are source-reported measurements, not
 formal consequences. Referenced images, seeds and full training implementation
 are absent. No experimental reproduction or independent PSNR verification was done.
+
+The concrete `Examples/Autoencoder.lean` illustrates the 16-4-16 shape and the
+hidden-layer update theorem. Its all-one weights are illustrative, not empirical
+evidence. Threshold learning, batching, convergence and robustness at singular
+iterates are not specified by the source and are not asserted by this library.

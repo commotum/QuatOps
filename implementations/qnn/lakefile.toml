@@ -1,9 +1,10 @@
 name = "qnn"
 version = "0.1.0"
-defaultTargets = ["QNN"]
+defaultTargets = ["QNN", "QNNExamples", "QNN.AxiomAudit"]
 
 [leanOptions]
 autoImplicit = false
+warningAsError = true
 
 [[require]]
 name = "mathlib"
@@ -12,3 +13,7 @@ rev = "81a5d257c8e410db227a6665ed08f64fea08e997"
 
 [[lean_lib]]
 name = "QNN"
+
+[[lean_lib]]
+name = "QNNExamples"
+roots = ["Examples.Autoencoder"]

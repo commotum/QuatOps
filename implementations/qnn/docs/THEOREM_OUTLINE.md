@@ -30,14 +30,17 @@ No theorem placeholders or proof holes are used in source files.
 | `Training.backprop_chain_rule` | Correct output/hidden-layer adjoint recursion for a fully specified finite network |
 | `Training.gradientStep` | Parameter update by −η times gradient; componentwise agreement with source update |
 
-The normalized weight differential, input reverse recursion and connection gradient
-now have proofs; complete network weight-gradient assembly remains an investigative target. Their
-completion requires independent derivation and proof, not an assertion that they
-were printed in the paper. Optional threshold updates are also an extension.
-No convergence, global loss decrease, improved learning/generalization or PSNR
-comparison is included in the proposed theorem set. Any future local descent
-result must state its separate smoothness, step-size and domain assumptions.
+The normalized weight differential, input reverse recursion and network-wide
+weight gradients/updates now have proofs; see the actual names in `PAPER_MAP.md`
+and the derivation in `DERIVATION.md`. These were independently reconstructed,
+not recovered from printed BP equations. The training theorem proves all real
+coordinate updates via gradients of the actual selected-weight network; it does
+not assert a separate flattened whole-parameter Fréchet chart or global smoothness
+at zero weights. Optional threshold updates are an extension and remain outside
+the source-specified weight-training rule.
 
-When main results exist, collect actual `#print axioms` output by declaration and
-explain standard foundational dependencies. Do not replace an axiom audit with a
-text search alone, and do not require an empty axiom list for ordinary real analysis.
+No convergence, global loss decrease, improved learning/generalization or PSNR
+comparison is included in the theorem set. Future local descent results would
+need separate smoothness, step-size and domain assumptions. Actual main-result
+axiom output is collected from `QNN/AxiomAudit.lean` in `AXIOMS.txt`; the usual
+Lean/mathlib foundations for real analysis are explained in `VALIDATION.md`.

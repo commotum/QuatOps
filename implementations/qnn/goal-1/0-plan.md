@@ -46,7 +46,7 @@ single-output loss, and explicitly labeled multi-output/dataset extensions.
 **Completion signal:** Definitions and basic well-formedness/loss results compile;
 zero-weight policy, indexing, metrics, and departures from the paper are documented.
 
-### 3. Resolve derivatives and backpropagation — in progress
+### 3. Resolve derivatives and backpropagation — complete for source component updates
 
 **Outcome:** Correct real derivatives and gradient updates, with a clear boundary
 between what the paper specifies and what has been independently reconstructed.
@@ -56,7 +56,7 @@ normalization derivative, activation Jacobian, adjoints and finite layer chain r
 component formulas agree with the real derivative, or unresolved gaps are explained
 with evidence. No unstated convergence claim is introduced.
 
-### 4. Consolidate a reusable audited library — unstarted
+### 4. Consolidate a reusable audited library — final validation in progress
 
 **Outcome:** Stable abstractions, reproducible builds, final claim coverage, and a
 separate optional experimental-validation boundary.
@@ -68,15 +68,19 @@ mapped to a declaration or explicit empirical/unsupported/unresolved status.
 
 ## Resumption state
 
-The prior scaffold turn was progress: it created and validated the pinned setup.
-This implementation turn establishes algebra/pure geometry, forward model/loss,
-and real calculus building blocks. Core results are mapped in `docs/PAPER_MAP.md`;
-actual main-result axiom output is in `docs/AXIOMS.txt`.
+The previous implementation turn was progress: it compiled the quaternion geometry,
+forward model, loss, derivative building blocks and connection gradient. The current
+turn assembled those into a proved network-wide reverse pass and simultaneous
+componentwise weight update for every addressed hidden/output connection.
 
-Stage 3 remains unfinished. The finite network has a proved input Jacobian and
-recursive reverse pass; one connection has a proved parameter gradient. Next:
-assemble the reverse pass with connection-weight sensitivities to justify the
-weight gradient at every layer of the complete network, retaining the nonzero
-weight domain and explicit Euclidean metrics. Then validate interfaces and update
-final audits. No convergence/generalization theorem or PSNR reproduction is planned
-without separate justified assumptions/data. The original full objective remains active.
+Stage 3 is complete for the paper's stated real coordinate updates. No flattened
+joint-parameter chart, threshold-learning convention, batching convention,
+convergence or empirical-superiority theorem is claimed. The multi-output sum is
+an explicit extension; zero handling and nonzero derivative assumptions are logged.
+
+Stage 4 is undergoing final evidence checks: full warning-as-error build including
+the example/audit targets, refreshed actual axiom output, dependency pins and source
+cleanliness, paper-map links, and requirement-by-requirement validation. Finish those
+checks before declaring completion. The original full mathematical-core objective
+is preserved; unresolved source/experimental details remain explicitly outside the
+proved claims, rather than silently guessed.
