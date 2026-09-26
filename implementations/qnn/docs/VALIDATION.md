@@ -1,30 +1,37 @@
-# Scaffold validation and axiom status
+# Validation and axiom status
 
-Status: scaffold validated on 2026-09-25. No substantive mathematical declarations exist.
+## Current implementation checkpoint — 2026-09-25
 
-Observed checks from `implementations/qnn`:
+- `lake build`: exit 0, “Build completed successfully (3245 jobs).” All nine
+  mathematical modules and the root import compiled. There were no warnings
+  in the final build of changed modules.
+- `lake env lean QNN/AxiomAudit.lean`: exit 0; actual output saved in
+  `AXIOMS.txt`. Thirty-two main definitions/results were inspected.
+- Every audited declaration depends only on `propext`, `Classical.choice`,
+  and `Quot.sound`, the usual Lean/mathlib foundations used by real analysis.
+  No proof-hole or project-specific axiom appears in the actual reports.
+- A supplementary source scan found no proof holes or custom axioms in project
+  Lean code. Documentation links resolve. This scan supplements the kernel
+  build and actual axiom output; it does not substitute for them.
 
-- `lake build`: exit 0, “Build completed successfully (2537 jobs).” Most jobs
-  reused copied dependency artifacts; QNN compiled successfully (3.6 seconds).
-- `lake env lean --version`: Lean 4.32.0, commit
-  `8c9756b28d64dab099da31a4c09229a9e6a2ef35`.
-- All nine dependency HEAD revisions match the committed lock entries; tracked
-  dependency source files are clean.
-- Exactly three goal scaffold files exist; continuation paths and relative
-  documentation links resolve.
-- The project Lean file contains imports and documentation only, with no
-  declarations or proof holes. No paper identities or derivatives were proved.
+The imported root modules are Algebra, Pure, Geometry, Model, Calculus,
+Activation, Training, ForwardCalculus and ParameterCalculus (nine mathematical
+modules). The axiom-command file imports the root and is checked separately.
 
-The scaffold adds an import-only `QNN.lean`, an exact dependency lock, supporting
-records, and `goal-1/0-plan.md`, `0-loop.md`, `0-prompt.md`. The imports are a setup
-check; they are not formal verification of any paper claim.
+The checkpoint proves the declarations listed in the paper map. It does not
+prove complete weight-gradient assembly for every hidden layer, convergence,
+generalization, or reported PSNR measurements. Stage 3 and final consolidation
+remain open. No result is declared for differentiability at a zero weight or
+preservation of nonzero weights by finite update steps.
 
-Initial remote Git probe failed because the sandbox could not resolve github.com.
-Validation uses privately copied local dependency sources/artifacts for the exact
-pinned mathlib revision and Lean toolchain. A fresh network bootstrap is untested.
+## Original scaffold validation
 
-Axiom status: zero project-specific declarations, axioms or proof holes are intended
-in the import-only target. No main paper results exist to audit yet. At implementation
-completion, run actual `#print axioms` for the main results, record dependencies,
-reject proof-hole axioms and unexplained custom axioms, and distinguish ordinary
-Lean/mathlib foundations from project assumptions.
+The import-only setup built successfully (2537 jobs). Lean reported version
+4.32.0, commit `8c9756b28d64dab099da31a4c09229a9e6a2ef35`. All nine dependency
+HEAD revisions matched the lock; tracked dependency source files were clean.
+The three goal files and prompt paths were checked.
+
+Initial remote Git access failed because the sandbox could not resolve GitHub.
+Dependency sources/artifacts were privately copied inside this folder from a clean
+local checkout of the exact mathlib revision. Fresh network bootstrap has not
+been tested. Most dependency build jobs reused those artifacts.

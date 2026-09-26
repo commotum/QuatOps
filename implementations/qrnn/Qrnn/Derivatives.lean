@@ -1,4 +1,5 @@
 import Qrnn.Forward
+import Mathlib.Analysis.Matrix.Normed
 import Mathlib.Analysis.Calculus.FDeriv.Mul
 import Mathlib.Analysis.Calculus.FDeriv.Add
 
@@ -10,6 +11,7 @@ cotangent is formed before multiplying by the conjugate-transposed output matrix
 -/
 
 namespace Qrnn
+open scoped Matrix.Norms.Elementwise
 attribute [local instance] calculusAddCommGroup calculusModule
 noncomputable section
 
@@ -124,9 +126,9 @@ theorem recurrentWeight_hasFDerivAt {d h o : ℕ} (p : QRNNParams d h o) (f : �
     (hf : ∀ i a, HasDerivAt f (df i a) (components (hiddenPreact p x s i) a)) :
     HasFDerivAt (fun W : QMatrix h h =>
       vectorActivation f (W.mulVec s + p.input.mulVec x + p.bias))
-      ((vectorSplitDerivative df).comp (weightActionCLM s)) p.recurrent :=
-  (vectorActivation_hasFDerivAt f (hiddenPreact p x s) df hf).comp p.recurrent
-    (((weightAction_hasFDerivAt p.recurrent s).add_const (p.input.mulVec x)).add_const p.bias)
+      ((vectorSplitDerivative df).comp (weightActionCLM s)) p.recurrent := by
+  convert! (vectorActivation_hasFDerivAt f (hiddenPreact p x s) df hf).comp p.recurrent
+    (((weightAction_hasFDerivAt p.recurrent s).add_const (p.input.mulVec x)).add_const p.bias) using 1
 
 /-- Input-weight derivative for one step, with all states held fixed. -/
 theorem inputWeight_hasFDerivAt {d h o : ℕ} (p : QRNNParams d h o) (f : ℝ → ℝ)
@@ -134,9 +136,9 @@ theorem inputWeight_hasFDerivAt {d h o : ℕ} (p : QRNNParams d h o) (f : ℝ �
     (hf : ∀ i a, HasDerivAt f (df i a) (components (hiddenPreact p x s i) a)) :
     HasFDerivAt (fun W : QMatrix h d =>
       vectorActivation f (p.recurrent.mulVec s + W.mulVec x + p.bias))
-      ((vectorSplitDerivative df).comp (weightActionCLM x)) p.input :=
-  (vectorActivation_hasFDerivAt f (hiddenPreact p x s) df hf).comp p.input
-    (((weightAction_hasFDerivAt p.input x).const_add (p.recurrent.mulVec s)).add_const p.bias)
+      ((vectorSplitDerivative df).comp (weightActionCLM x)) p.input := by
+  convert! (vectorActivation_hasFDerivAt f (hiddenPreact p x s) df hf).comp p.input
+    (((weightAction_hasFDerivAt p.input x).const_add (p.recurrent.mulVec s)).add_const p.bias) using 1
 
 /-- The additive-bias Jacobian is the identity before the split activation. -/
 theorem bias_hasFDerivAt {d h o : ℕ} (p : QRNNParams d h o) (f : ℝ → ℝ)
@@ -153,9 +155,40 @@ theorem layerWeight_hasFDerivAt {h o : ℕ} (W : QMatrix o h) (β : ℝ → ℝ)
     (s : QVector h) (dβ : Fin o → Fin 4 → ℝ)
     (hβ : ∀ i a, HasDerivAt β (dβ i a) (components (W.mulVec s i) a)) :
     HasFDerivAt (fun A : QMatrix o h => vectorActivation β (A.mulVec s))
-      ((vectorSplitDerivative dβ).comp (weightActionCLM s)) W :=
-  (vectorActivation_hasFDerivAt β (W.mulVec s) dβ hβ).comp W
-    (weightAction_hasFDerivAt W s)
+      ((vectorSplitDerivative dβ).comp (weightActionCLM s)) W := by
+  convert! (vectorActivation_hasFDerivAt β (W.mulVec s) dβ hβ).comp W
+    (weightAction_hasFDerivAt W s) using 1
+
+/-- Joint matrix/input derivative; the two contributions retain Hamilton order. -/
+def matVecDerivative {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {m n : ℕ} (W : QMatrix m n) (x : QVector n)
+    (dW : E →L[ℝ] QMatrix m n) (dx : E →L[ℝ] QVector n) : E →L[ℝ] QVector m :=
+  (weightActionCLM x).comp dW + (matrixActionCLM W).comp dx
+
+@[simp] theorem matVecDerivative_apply {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {m n : ℕ} (W : QMatrix m n) (x : QVector n)
+    (dW : E →L[ℝ] QMatrix m n) (dx : E →L[ℝ] QVector n) (v : E) :
+    matVecDerivative W x dW dx v = (dW v).mulVec x + W.mulVec (dx v) := by
+  simp [matVecDerivative]
+
+/-- Ordinary real product rule for an entire quaternion matrix/vector product. -/
+theorem matVec_hasFDerivAt {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    {m n : ℕ} (W : E → QMatrix m n) (x : E → QVector n) (z : E)
+    (dW : E →L[ℝ] QMatrix m n) (dx : E →L[ℝ] QVector n)
+    (hW : HasFDerivAt W dW z) (hx : HasFDerivAt x dx z) :
+    HasFDerivAt (fun t => (W t).mulVec (x t)) (matVecDerivative (W z) (x z) dW dx) z := by
+  apply hasFDerivAt_pi'.mpr
+  intro i
+  have hwrow := (hasFDerivAt_apply (𝕜 := ℝ) i (W z)).comp z hW
+  have hs := HasFDerivAt.fun_sum (u := Finset.univ) (fun j (_ : j ∈ Finset.univ) =>
+    (((hasFDerivAt_apply (𝕜 := ℝ) j (W z i)).comp z hwrow).mul'
+      ((hasFDerivAt_apply (𝕜 := ℝ) j (x z)).comp z hx)))
+  convert! hs using 1
+  apply ContinuousLinearMap.ext
+  intro v
+  simp [matVecDerivative, weightActionCLM, matrixActionCLM, Matrix.mulVec, dotProduct,
+    Finset.sum_add_distrib, add_comm]
+  rfl
 
 end
 end Qrnn

@@ -1,8 +1,8 @@
 # Proposed declaration outline
 
-These are mathematical targets and tentative public names, not Lean declarations.
-No theorem placeholders or proofs are included in source files. Reuse existing
-mathlib lemmas rather than duplicate them when their statements fit.
+This is the historical scaffold outline. Actual declarations and current completion
+status are in `PAPER_MAP.md`; differences in names reflect implementation choices.
+No theorem placeholders or proof holes are used in source files.
 
 | Proposed area/name | Intended statement and essential assumptions |
 | --- | --- |
@@ -30,7 +30,8 @@ mathlib lemmas rather than duplicate them when their statements fit.
 | `Training.backprop_chain_rule` | Correct output/hidden-layer adjoint recursion for a fully specified finite network |
 | `Training.gradientStep` | Parameter update by −η times gradient; componentwise agreement with source update |
 
-The BP recursion and explicit weight partials remain investigative targets. Their
+The normalized weight differential, input reverse recursion and connection gradient
+now have proofs; complete network weight-gradient assembly remains an investigative target. Their
 completion requires independent derivation and proof, not an assertion that they
 were printed in the paper. Optional threshold updates are also an extension.
 No convergence, global loss decrease, improved learning/generalization or PSNR

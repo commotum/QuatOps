@@ -24,6 +24,8 @@
 'QNN.quaternion_update_eq_partials' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.Network.input_hasFDerivAt' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.Network.input_gradient_chain' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QNN.Network.pullback_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QNN.Network.pullback_hasFDerivAt' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.neuron_eq_connection' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.connection_loss_gradient' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.connection_backprop' depends on axioms: [propext, Classical.choice, Quot.sound]

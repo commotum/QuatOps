@@ -27,6 +27,8 @@ import QNN
 #print axioms QNN.quaternion_update_eq_partials
 #print axioms QNN.Network.input_hasFDerivAt
 #print axioms QNN.Network.input_gradient_chain
+#print axioms QNN.Network.pullback_eq
+#print axioms QNN.Network.pullback_hasFDerivAt
 #print axioms QNN.neuron_eq_connection
 #print axioms QNN.connection_loss_gradient
 #print axioms QNN.connection_backprop

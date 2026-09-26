@@ -8,6 +8,7 @@ output activation (or a separate justified activation/loss cancellation).
 -/
 
 namespace Qrnn
+open scoped Matrix.Norms.Elementwise
 attribute [local instance] calculusAddCommGroup calculusModule
 noncomputable section
 
@@ -29,7 +30,7 @@ theorem realSquaredLoss_hasFDerivAt {ι : Type*} [Fintype ι] (y p : ι → ℝ)
   apply HasFDerivAt.fun_sum
   intro i _
   have hh := (hasFDerivAt_apply (𝕜 := ℝ) i p).sub_const (y i)
-  convert (hh.mul hh).const_mul (1 / 2 : ℝ) using 1
+  convert! (hh.mul hh).const_mul (1 / 2 : ℝ) using 1
   ext v
   simp
   ring
@@ -75,9 +76,9 @@ theorem outputLoss_hasFDerivAt {h o : ℕ} (W : QMatrix o h) (β : ℝ → ℝ)
     (hβ : ∀ i a, HasDerivAt β (dβ i a) (components (W.mulVec s i) a)) :
     HasFDerivAt (fun A : QMatrix o h => halfSquaredLoss y (vectorActivation β (A.mulVec s)))
       ((lossDerivative y (vectorActivation β (W.mulVec s))).comp
-        ((vectorSplitDerivative dβ).comp (weightActionCLM s))) W :=
-  (halfSquaredLoss_hasFDerivAt y (vectorActivation β (W.mulVec s))).comp W
-    (layerWeight_hasFDerivAt W β s dβ hβ)
+        ((vectorSplitDerivative dβ).comp (weightActionCLM s))) W := by
+  convert! (halfSquaredLoss_hasFDerivAt y (vectorActivation β (W.mulVec s))).comp W
+    (layerWeight_hasFDerivAt W β s dβ hβ) using 1
 
 /-- Correct output-weight gradient in four-component real coordinates. -/
 theorem output_gradient {h o : ℕ} (W : QMatrix o h) (β : ℝ → ℝ)

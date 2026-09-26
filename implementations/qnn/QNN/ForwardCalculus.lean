@@ -50,7 +50,7 @@ def pullback {m n : ℕ} : (N : Network m n) → (x : Fin m → Pure) →
 theorem pullback_eq {m n : ℕ} (N : Network m n) (x : Fin m → Pure)
     (δ : StrongDual ℝ (Fin n → Pure)) :
     N.pullback x δ = δ.comp (N.inputDerivative x) := by
-  induction N generalizing δ with
+  induction N with
   | single L => rfl
   | append N L ih =>
     rw [pullback, inputDerivative, ih]

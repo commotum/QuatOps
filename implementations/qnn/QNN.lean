@@ -7,3 +7,4 @@ import QNN.Activation
 import QNN.Training
 import QNN.ForwardCalculus
 import QNN.ParameterCalculus
+import QNN.LayerParameters

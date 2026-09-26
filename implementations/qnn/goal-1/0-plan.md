@@ -30,7 +30,7 @@ and experimental evidence distinct.
 
 ## Stages
 
-### 1. Establish audited quaternion geometry — in progress
+### 1. Establish audited quaternion geometry — complete for paper scope
 
 **Outcome:** Exact quaternion and 3D geometry foundations with documented source corrections.
 **Focus:** Mathlib quaternion representation; pure-vector equivalence and Euclidean
@@ -38,7 +38,7 @@ metric; conjugation, norm, unit conjugation, axis-angle and Rodrigues identities
 **Completion signal:** Relevant reusable declarations compile; equations (1)–(10)
 are mapped to proved statements with precise hypotheses and axiom reports.
 
-### 2. Specify the forward model and objective — unstarted
+### 2. Specify the forward model and objective — complete
 
 **Outcome:** An explicit finite layered model faithful to justified source definitions.
 **Focus:** Eq. (11) scaling/domain, pure thresholds, component sigmoid, layers,
@@ -46,7 +46,7 @@ single-output loss, and explicitly labeled multi-output/dataset extensions.
 **Completion signal:** Definitions and basic well-formedness/loss results compile;
 zero-weight policy, indexing, metrics, and departures from the paper are documented.
 
-### 3. Resolve derivatives and backpropagation — unstarted
+### 3. Resolve derivatives and backpropagation — in progress
 
 **Outcome:** Correct real derivatives and gradient updates, with a clear boundary
 between what the paper specifies and what has been independently reconstructed.
@@ -68,6 +68,15 @@ mapped to a declaration or explicit empirical/unsupported/unresolved status.
 
 ## Resumption state
 
-Implementation is authorized and stage 1 is in progress. Algebra and pure-space
-modules are under validation; later stages remain unstarted. Read the audit log
-before making model or calculus decisions.
+The prior scaffold turn was progress: it created and validated the pinned setup.
+This implementation turn establishes algebra/pure geometry, forward model/loss,
+and real calculus building blocks. Core results are mapped in `docs/PAPER_MAP.md`;
+actual main-result axiom output is in `docs/AXIOMS.txt`.
+
+Stage 3 remains unfinished. The finite network has a proved input Jacobian and
+recursive reverse pass; one connection has a proved parameter gradient. Next:
+assemble the reverse pass with connection-weight sensitivities to justify the
+weight gradient at every layer of the complete network, retaining the nonzero
+weight domain and explicit Euclidean metrics. Then validate interfaces and update
+final audits. No convergence/generalization theorem or PSNR reproduction is planned
+without separate justified assumptions/data. The original full objective remains active.

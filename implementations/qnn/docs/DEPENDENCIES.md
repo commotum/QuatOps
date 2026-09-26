@@ -22,22 +22,23 @@ privately into this folder's ignored `.lake/packages`; other projects were not e
 | `Mathlib.Analysis.Calculus.FDeriv.Comp` | Fréchet chain rule |
 | `Mathlib.Analysis.Calculus.Gradient.Basic` | Real inner-product gradient / derivative correspondence |
 
-All listed modules are imported in the minimal validation target. Source availability
-and successful imports do not imply the proposed geometry or BP lemmas already exist.
+The scaffold validated imports of these modules. The current library imports
+the infrastructure through its implementation modules; actual theorem coverage
+is recorded in `PAPER_MAP.md`, not inferred from dependency availability.
 Trigonometric calculus, norm differentiation, finite products, adjoints and orthogonal
 maps may need additional modules when substantive work starts.
 
-## Tentative representations
+## Chosen representations
 
-Reuse `Quaternion ℝ` rather than a new multiplication. Model pure quaternions as
-the real-part-zero real subspace; relate it by a real linear isometry to
+The implementation reuses `Quaternion ℝ`. Pure quaternions form
+the real-part-zero real subspace, with a proved real linear isometry to
 `EuclideanSpace ℝ (Fin 3)` with coordinate order i,j,k. A raw `Fin 3 → ℝ` can be
 convenient for coordinates but its default norm must not be confused with Euclidean
 norm. Use finite neuron index types and real Euclidean parameter spaces.
 
 Conjugation is `star`; a real denominator acts by scalar multiplication. Explicitly
-keep w·x·star(w) in that order. For unit w, aim first for a real linear isometry;
-orientation/axis-angle results justify the spatial-rotation interpretation.
+keep w·x·star(w) in that order. For unit w the implementation supplies a real linear isometry;
+oriented-volume and axis-angle theorems justify the spatial-rotation interpretation.
 
 Use `HasFDerivAt` over ℝ and gradients in an identified real inner-product parameter
 space. This matches the paper's four real coordinate updates, and does not assert
@@ -49,3 +50,15 @@ smoothness; state differentiability/domain hypotheses in training results.
 Normalization by the norm introduces a singularity at zero; first work on a
 nonzero-weight open domain. Keep loss aggregation and any regularization, threshold
 updates, or zero extensions explicitly separate from the printed model.
+
+Additional modules actually used: `Mathlib.Analysis.InnerProductSpace.Calculus`,
+`Mathlib.Analysis.InnerProductSpace.Adjoint`, `Mathlib.Analysis.Calculus.FDeriv.Star`,
+`Mathlib.Analysis.Calculus.FDeriv.Prod`, `Mathlib.Analysis.Calculus.Deriv.Inv`,
+`Mathlib.Analysis.SpecialFunctions.Sqrt` and trigonometric identities. A proved
+`StarModule ℝ H` instance fills the scalar-conjugation interface; it introduces
+no custom axiom. Pure-space completeness is obtained from finite dimensionality.
+
+`Network.pullback` uses strong duals of raw finite signal function spaces.
+`Network.euclideanForward` and `euclideanInputDerivative` use `PiLp 2` signal
+spaces for adjoints/gradients. The conversion is explicitly continuous-linear,
+not advertised as an isometry with the raw supremum norm.
