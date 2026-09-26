@@ -10,3 +10,4 @@ import QNN.ParameterCalculus
 import QNN.LayerParameters
 import QNN.NetworkParameters
 import QNN.Backpropagation
+import QNN.ParametricForward

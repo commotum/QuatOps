@@ -50,6 +50,13 @@ partial: `componentPartial_hasDerivAt` differentiates the scalar path
 E(w + t • parameterBasis i) at t = 0. This is real multivariable calculus,
 not quaternion analyticity or a left/right quaternion derivative.
 
+`Network.mapWeights_parametric_differentiableAt` additionally proves the full
+forward computation is differentiable when all weights and the input vary jointly
+in a supplied real normed parameter space. Coordinate weight maps must be
+differentiable, and their values nonzero at the point. The neuron-level theorem
+also permits a varying threshold. `objective_parametric_differentiableAt` proves
+the corresponding squared-error objective is differentiable.
+
 `Network.trainStep` simultaneously applies each original-network weight gradient.
 Its address transport `updatedIndex` lets a caller inspect the new value at the
 same architecture position. `trainStep_components` proves exactly

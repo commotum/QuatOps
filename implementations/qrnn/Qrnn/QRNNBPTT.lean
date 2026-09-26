@@ -42,6 +42,15 @@ def biasProjection {d h o : ℕ} : QRNNParameterSpace d h o →L[ℝ] QVector h 
   (ContinuousLinearMap.snd ℝ _ _).comp
     ((ContinuousLinearMap.snd ℝ _ _).comp (ContinuousLinearMap.snd ℝ _ _))
 
+@[simp] theorem recurrentProjection_apply {d h o : ℕ} (p : QRNNParameterSpace d h o) :
+    recurrentProjection p = (paramsOf p).recurrent := rfl
+@[simp] theorem inputProjection_apply {d h o : ℕ} (p : QRNNParameterSpace d h o) :
+    inputProjection p = (paramsOf p).input := rfl
+@[simp] theorem outputProjection_apply {d h o : ℕ} (p : QRNNParameterSpace d h o) :
+    outputProjection p = (paramsOf p).output := rfl
+@[simp] theorem biasProjection_apply {d h o : ℕ} (p : QRNNParameterSpace d h o) :
+    biasProjection p = (paramsOf p).bias := rfl
+
 /-- Partial derivative in the shared parameters before adding state dependence. -/
 def qrnnParameterDerivative {d h o : ℕ} (x : QVector d) (s : QVector h)
     (df : Fin h → Fin 4 → ℝ) : QRNNParameterSpace d h o →L[ℝ] QVector h :=
@@ -49,6 +58,19 @@ def qrnnParameterDerivative {d h o : ℕ} (x : QVector d) (s : QVector h)
     ((weightActionCLM s).comp recurrentProjection +
       (weightActionCLM x).comp inputProjection + biasProjection)
 
+@[simp] theorem qrnnParameterDerivative_apply {d h o : ℕ} (x : QVector d) (s : QVector h)
+    (df : Fin h → Fin 4 → ℝ) (dp : QRNNParameterSpace d h o) :
+    qrnnParameterDerivative x s df dp = vectorSplitDerivative df
+      ((paramsOf dp).recurrent.mulVec s + (paramsOf dp).input.mulVec x + (paramsOf dp).bias) := by
+  simp only [qrnnParameterDerivative, ContinuousLinearMap.comp_apply, add_apply,
+    weightActionCLM_apply, recurrentProjection_apply, inputProjection_apply, biasProjection_apply]
+
+@[simp] theorem qrnnStateDerivative_apply {d h o : ℕ} (p : QRNNParams d h o)
+    (df : Fin h → Fin 4 → ℝ) (ds : QVector h) :
+    qrnnStateDerivative p df ds = vectorSplitDerivative df (p.recurrent.mulVec ds) := by
+  simp only [qrnnStateDerivative, ContinuousLinearMap.comp_apply, matrixActionCLM_apply]
+
+set_option maxHeartbeats 2000000 in
 /-- The actual joint real derivative of a QRNN step. -/
 theorem qrnnStep_joint_hasFDerivAt {d h o : ℕ} (p : QRNNParameterSpace d h o) (f : ℝ → ℝ)
     (x : QVector d) (s : QVector h) (df : Fin h → Fin 4 → ℝ)
@@ -77,14 +99,12 @@ theorem qrnnStep_joint_hasFDerivAt {d h o : ℕ} (p : QRNNParameterSpace d h o) 
   convert! (vectorActivation_hasFDerivAt f (hiddenPreact (paramsOf p) x s) df hf).comp (p, s) hz using 1
   apply DFunLike.ext
   rintro ⟨dp, ds⟩
-  change vectorSplitDerivative df
-      ((recurrentProjection dp).mulVec s + (inputProjection dp).mulVec x + biasProjection dp) +
-      vectorSplitDerivative df ((paramsOf p).recurrent.mulVec ds) =
-    vectorSplitDerivative df
-      (((recurrentProjection dp).mulVec s + (paramsOf p).recurrent.mulVec ds) +
-        ((inputProjection dp).mulVec x + (paramsOf p).input.mulVec 0) + biasProjection dp)
-  simp only [Matrix.mulVec_zero, add_zero, map_add]
-  simp only [add_assoc, add_comm, add_left_comm]
+  simp only [jointStepDerivative_apply, qrnnParameterDerivative_apply, qrnnStateDerivative_apply,
+    ContinuousLinearMap.comp_apply, add_apply, matVecDerivative_apply,
+    fst, snd, ContinuousLinearMap.coe_fst', ContinuousLinearMap.coe_snd', zero_apply,
+    recurrentProjection_apply, inputProjection_apply, biasProjection_apply,
+    Matrix.mulVec_zero, add_zero]
+  simp only [map_add, add_assoc, add_comm, add_left_comm]
 
 
 /-- The generic unroll is the actual QRNN recurrence for packed parameters. -/

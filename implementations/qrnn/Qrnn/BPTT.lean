@@ -25,6 +25,9 @@ def unroll (step : ℕ → P → H → H) (initial : H) : ℕ → P → H
 def jointStepDerivative (A : P →L[ℝ] H) (B : H →L[ℝ] H) : (P × H) →L[ℝ] H :=
   A.comp (ContinuousLinearMap.fst ℝ P H) + B.comp (ContinuousLinearMap.snd ℝ P H)
 
+@[simp] theorem jointStepDerivative_apply (A : P →L[ℝ] H) (B : H →L[ℝ] H)
+    (v : P × H) : jointStepDerivative A B v = A v.1 + B v.2 := rfl
+
 /-- Forward sensitivity to the parameter, with zero initial-state derivative. -/
 def unrollDerivative (A : ℕ → P →L[ℝ] H) (B : ℕ → H →L[ℝ] H) : ℕ → P →L[ℝ] H
   | 0 => 0

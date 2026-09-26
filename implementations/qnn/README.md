@@ -49,8 +49,11 @@ The main public learning interface is `Network.objective`,
 weight parameter; `Network.trainStep_components` proves the simultaneous update
 at all layers for an admissible original network. The source loss is `loss`;
 `signalLoss_eq_outputLoss` verifies the explicitly chosen multi-output extension.
-The learning theorem is coordinatewise; no flattened whole-parameter Fréchet
-chart is asserted or required by the displayed component updates.
+`Network.mapWeights_parametric_differentiableAt` and
+`objective_parametric_differentiableAt` also prove differentiability under
+simultaneous changes of weights and inputs in any supplied real normed parameter
+space, provided its coordinate weight maps are differentiable and nonzero at the
+point. The library does not impose one particular flattened parameter layout.
 
 Material source corrections include the repeated norm component and the claimed
 matched parameter counts. Under dense connectivity the quoted architectures have

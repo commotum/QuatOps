@@ -46,3 +46,8 @@
 'QNN.Network.WeightIndex.reindex_value' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.Network.trainStep' depends on axioms: [propext, Classical.choice, Quot.sound]
 'QNN.Network.trainStep_components' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QNN.weightAction_parametric_differentiableAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QNN.neuron_parametric_differentiableAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QNN.Network.mapWeights_parametric_differentiableAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QNN.Network.objective_parametric_differentiableAt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'QNN.Examples.hidden_update' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -73,8 +73,8 @@ forward model, loss, derivative building blocks and connection gradient. The cur
 turn assembled those into a proved network-wide reverse pass and simultaneous
 componentwise weight update for every addressed hidden/output connection.
 
-Stage 3 is complete for the paper's stated real coordinate updates. No flattened
-joint-parameter chart, threshold-learning convention, batching convention,
+Stage 3 is complete for the paper's stated real coordinate updates. Joint real parameterizations of weights/inputs are also proved differentiable.
+No threshold-learning convention, batching convention,
 convergence or empirical-superiority theorem is claimed. The multi-output sum is
 an explicit extension; zero handling and nonzero derivative assumptions are logged.
 

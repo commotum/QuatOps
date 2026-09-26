@@ -1,4 +1,5 @@
 import QNN
+import Examples.Autoencoder
 
 /-! Reproducible axiom audit of the current main definitions and results. -/
 #print axioms QNN.hamilton_rules
@@ -49,3 +50,8 @@ import QNN
 #print axioms QNN.Network.WeightIndex.reindex_value
 #print axioms QNN.Network.trainStep
 #print axioms QNN.Network.trainStep_components
+#print axioms QNN.weightAction_parametric_differentiableAt
+#print axioms QNN.neuron_parametric_differentiableAt
+#print axioms QNN.Network.mapWeights_parametric_differentiableAt
+#print axioms QNN.Network.objective_parametric_differentiableAt
+#print axioms QNN.Examples.hidden_update

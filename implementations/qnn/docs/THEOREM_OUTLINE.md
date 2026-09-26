@@ -34,9 +34,10 @@ The normalized weight differential, input reverse recursion and network-wide
 weight gradients/updates now have proofs; see the actual names in `PAPER_MAP.md`
 and the derivation in `DERIVATION.md`. These were independently reconstructed,
 not recovered from printed BP equations. The training theorem proves all real
-coordinate updates via gradients of the actual selected-weight network; it does
-not assert a separate flattened whole-parameter Fréchet chart or global smoothness
-at zero weights. Optional threshold updates are an extension and remain outside
+coordinate updates via gradients of the actual selected-weight network; it also supports joint real parameterizations through
+`Network.mapWeights_parametric_differentiableAt` and
+`Network.objective_parametric_differentiableAt`, requiring differentiable coordinate
+weight maps and nonzero values at the point. No smoothness at zero is asserted. Optional threshold updates are an extension and remain outside
 the source-specified weight-training rule.
 
 No convergence, global loss decrease, improved learning/generalization or PSNR

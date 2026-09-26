@@ -73,3 +73,11 @@ position before/after the simultaneous update. Thresholds are kept fixed.
 `Examples.Autoencoder` is a separate example library root checked by the default
 Lake build, together with `QNN.AxiomAudit`. Project warnings are errors. There is
 no executable approximation layer or experimental-data dependency.
+
+`Network.mapWeights_parametric_differentiableAt` allows weights and inputs to vary
+jointly in any real normed parameter space. It proves differentiability of the
+actual parameterized network from differentiability of each coordinate weight
+map, input differentiability and nonzero weights at the point. The corresponding
+objective theorem covers the squared-output-error loss. This interface permits
+many real parameter layouts without identifying a raw function-space norm with
+the Euclidean gradient metric.
