@@ -22,6 +22,7 @@ import TypeEmbeddings.Text.Decoder
 import TypeEmbeddings.Text.Spectral
 import TypeEmbeddings.Text.Distribution
 import TypeEmbeddings.Text.Resolve
+import TypeEmbeddings.Text.Model
 
 /-! Public mathematical API. Internal leaves import specific prerequisites.
 Diagnostics are checked separately and are not public dependencies. -/

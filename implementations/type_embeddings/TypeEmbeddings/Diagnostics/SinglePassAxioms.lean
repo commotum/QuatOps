@@ -1,6 +1,5 @@
 import TypeEmbeddings.Text.Spectral
-import TypeEmbeddings.Text.Distribution
-import TypeEmbeddings.Text.Resolve
+import TypeEmbeddings.Text.Model
 import TypeEmbeddings.Diagnostics.SinglePassLimitations
 
 /-! Full public theorem audit for the additional single-pass text modules. -/
@@ -49,6 +48,9 @@ import TypeEmbeddings.Diagnostics.SinglePassLimitations
 #print axioms TypeEmbeddings.Text.groupedGram_apply
 #print axioms TypeEmbeddings.Text.groupedAdjoint_pairing
 #print axioms TypeEmbeddings.Text.groupedEncoder_inner
+#print axioms TypeEmbeddings.Text.TiedTextModel.context_length
+#print axioms TypeEmbeddings.Text.TiedTextModel.tied_score
+#print axioms TypeEmbeddings.Text.TiedTextModel.indexed_correct
 #print axioms TypeEmbeddings.Text.compactGreedy_eq_expanded
 #print axioms TypeEmbeddings.Text.textCandidate_correct
 #print axioms TypeEmbeddings.Text.greedy_mem
